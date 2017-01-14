@@ -51,7 +51,8 @@ public class EventosServiceJPA implements EventosService {
 
 	@Override
 	public List<EventoItem> getEventos() throws ServiceException {
-		return eventosDAO.getAll();
+		UsuarioItem usuario = ServiceFactory.getUsuariosService().getLogueado();
+		return eventosDAO.getAll(usuario);
 	}
 
 	@Override

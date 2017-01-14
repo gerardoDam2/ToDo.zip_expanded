@@ -1,6 +1,6 @@
 package dad.todo.services.jpa.dao;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -105,12 +105,13 @@ public class EventosDAO {
 		
 	}
 
-	public List<EventoItem> getAll() throws ServiceException {
+	public List<EventoItem> getAll(UsuarioItem usuario) throws ServiceException {
 		
 		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
 		List<EventoItem> ListaItems=null;
 		try {
-			 Query query = em.createQuery("SELECT e FROM Evento e");
+			 Query query = em.createQuery("FROM Evento  where usuario_username= :username");
+			 query.setParameter("username", usuario.getUsername());
 			   List<Evento> entityList = (List<Evento>)query.getResultList();
 			   
 			   ListaItems = entityList.stream().map(evento->evento.toItem()).collect(Collectors.toList());
