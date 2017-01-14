@@ -51,8 +51,7 @@ public class EventosServiceJPA implements EventosService {
 
 	@Override
 	public List<EventoItem> getEventos() throws ServiceException {
-		// TODO Auto-generated method stub
-		return null;
+		return eventosDAO.getAll();
 	}
 
 	@Override

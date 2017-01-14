@@ -67,6 +67,9 @@ public class Main {
 //		EventoItem evento = ServiceFactory.getEventosService().getEvento(3L);
 //		System.out.println(evento.getTitulo());
 		
+		//TODO GET ALL
+//		ServiceFactory.getEventosService().getEventos().forEach(s->	System.out.println(s.getId()));
+		
 		JPAUtil.closeEntityManagerFactory();
 	}
 
