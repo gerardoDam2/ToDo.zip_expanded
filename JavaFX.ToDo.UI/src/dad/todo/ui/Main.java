@@ -46,7 +46,22 @@ public class Main {
 //		ServiceFactory.getEventosService().crearEvento(evento);
 		
 		//TODO BORRAR EVENTO
-		ServiceFactory.getEventosService().eliminarEvento(8L);
+//		ServiceFactory.getEventosService().eliminarEvento(8L);
+		
+		//TODO UPDATE EVENTO
+//		LugarItem lugar= new LugarItem();
+//		lugar.setDescripcion("la cuesta update2");
+//		lugar.setLatitud(20.0);
+//		lugar.setLongitud(30.0);
+//		EventoItem evento = new EventoItem();
+//		evento.setDescripcion("evento update2");
+//		evento.setDuracion(20L);
+//		evento.setFecha(new Date());
+//		evento.setLugar(lugar);
+//		evento.setRealizado(false);
+//		evento.setTitulo("prueba");
+//		evento.setId(9L);
+//		ServiceFactory.getEventosService().actualizarEvento(evento);
 		
 		JPAUtil.closeEntityManagerFactory();
 	}
