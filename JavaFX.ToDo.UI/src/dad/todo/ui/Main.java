@@ -68,8 +68,10 @@ public class Main {
 //		System.out.println(evento.getTitulo());
 		
 		//TODO GET ALL
-		ServiceFactory.getEventosService().getEventos().forEach(s->	System.out.println(s.getId()));
+//		ServiceFactory.getEventosService().getEventos().forEach(s->	System.out.println(s.getId()));
 		
+		//TODO GET BY FECHA
+//		ServiceFactory.getEventosService().buscarEventosPorFecha(new Date()).forEach(s->System.out.println(s.getId()));
 		JPAUtil.closeEntityManagerFactory();
 	}
 

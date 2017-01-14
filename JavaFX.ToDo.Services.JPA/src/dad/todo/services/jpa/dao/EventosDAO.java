@@ -1,12 +1,15 @@
 package dad.todo.services.jpa.dao;
 
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 
 import dad.todo.services.ServiceException;
@@ -122,6 +125,35 @@ public class EventosDAO {
 		}	
 		return ListaItems;
 	}
+
+	public List<EventoItem> getByFecha(UsuarioItem usuario, Date fecha) throws ServiceException {
+		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
+		List<EventoItem> ListaItems=null;
+		try {
+			 Query query = em.createQuery("FROM Evento  where fecha BETWEEN :start AND :end  AND usuario_username= :username");
+			 Calendar calendar=Calendar.getInstance();
+			 calendar.setTime(fecha);
+			 calendar.set(Calendar.HOUR_OF_DAY, 0);
+			 calendar.set(Calendar.MINUTE, 0);
+			 calendar.set(Calendar.SECOND, 0);
+			 Date start = calendar.getTime();
+			 calendar.set(Calendar.HOUR_OF_DAY, 23);
+			 calendar.set(Calendar.MINUTE, 59);
+			 calendar.set(Calendar.SECOND, 59);
+			 Date end=calendar.getTime();
+			 query.setParameter("start", start);
+			 query.setParameter("end", end);
+			 query.setParameter("username", usuario.getUsername());
+			   List<Evento> entityList = (List<Evento>)query.getResultList();
+			   ListaItems = entityList.stream().map(evento->evento.toItem()).collect(Collectors.toList());
+		} catch (Exception e) {
+			throw new ServiceException("no se encontro el evento",e);
+		}finally {
+			em.close();
+		}	
+		return ListaItems;
+	}
+	
 	
 	
 

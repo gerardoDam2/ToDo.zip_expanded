@@ -57,8 +57,8 @@ public class EventosServiceJPA implements EventosService {
 
 	@Override
 	public List<EventoItem> buscarEventosPorFecha(Date fecha) throws ServiceException {
-		// TODO Auto-generated method stub
-		return null;
+		UsuarioItem usuario = ServiceFactory.getUsuariosService().getLogueado();
+		return eventosDAO.getByFecha(usuario,fecha);
 	}
 
 }
