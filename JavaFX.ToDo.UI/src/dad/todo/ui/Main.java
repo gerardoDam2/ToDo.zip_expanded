@@ -63,6 +63,10 @@ public class Main {
 //		evento.setId(9L);
 //		ServiceFactory.getEventosService().actualizarEvento(evento);
 		
+		//TODO GET EVENTO BY ID
+//		EventoItem evento = ServiceFactory.getEventosService().getEvento(3L);
+//		System.out.println(evento.getTitulo());
+		
 		JPAUtil.closeEntityManagerFactory();
 	}
 

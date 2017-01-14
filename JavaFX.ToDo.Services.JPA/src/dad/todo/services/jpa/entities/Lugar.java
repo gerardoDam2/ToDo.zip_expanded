@@ -82,8 +82,11 @@ public class Lugar implements Serializable {
 		this.evento = evento;
 	}
 	public  LugarItem toItem() {
-		//TODO
-		return null;
+		LugarItem item = new LugarItem();
+		item.setDescripcion(descripcion);
+		item.setLatitud(latitud);
+		item.setLongitud(longitud);
+		return item;
 	}
 
 }

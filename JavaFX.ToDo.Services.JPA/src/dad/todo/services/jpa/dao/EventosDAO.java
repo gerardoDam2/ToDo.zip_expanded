@@ -3,6 +3,7 @@ package dad.todo.services.jpa.dao;
 import java.util.function.Predicate;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import dad.todo.services.ServiceException;
 import dad.todo.services.items.EventoItem;
@@ -80,5 +81,26 @@ public class EventosDAO {
 		}	
 		
 	}
+
+	public EventoItem findById(UsuarioItem usuario, Long id) throws ServiceException {
+		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
+		EventoItem eventoItem=null;
+		try {
+				 TypedQuery<Evento> query = em.createQuery(
+					        "SELECT e FROM Evento e WHERE e.id = :id AND usuario_username = :username ", Evento.class);
+				 			query.setParameter("id", id);
+				 			query.setParameter("username", usuario.getUsername());
+				 Evento eventoEntity = query.getSingleResult();
+				 eventoItem=eventoEntity.toItem();
+		} catch (Exception e) {
+			throw new ServiceException("no se encontro el evento",e);
+		}finally {
+			em.close();
+		}	
+		return eventoItem;
+		
+	}
+	
+	
 
 }

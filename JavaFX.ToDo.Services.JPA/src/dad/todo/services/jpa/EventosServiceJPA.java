@@ -45,8 +45,8 @@ public class EventosServiceJPA implements EventosService {
 
 	@Override
 	public EventoItem getEvento(Long id) throws ServiceException {
-		// TODO Auto-generated method stub
-		return null;
+		UsuarioItem usuario = ServiceFactory.getUsuariosService().getLogueado();
+		return eventosDAO.findById(usuario,id);
 	}
 
 	@Override

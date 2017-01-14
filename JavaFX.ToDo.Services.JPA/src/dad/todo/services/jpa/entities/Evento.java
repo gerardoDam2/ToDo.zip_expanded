@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.PreRemove;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -108,8 +107,15 @@ public class Evento {
 	}
 	
 	public EventoItem toItem() {
-		// TODO Auto-generated method stub
-		return null;
+		EventoItem evento= new EventoItem();
+		evento.setId(id);
+		evento.setDescripcion(descripcion);
+		evento.setDuracion(duracion);
+		evento.setFecha(fecha);
+		evento.setLugar(getLugar().toItem());
+		evento.setRealizado(realizado);
+		evento.setTitulo(titulo);
+		return evento;
 	}
 	
 	public static Evento fromItem(EventoItem item) {
