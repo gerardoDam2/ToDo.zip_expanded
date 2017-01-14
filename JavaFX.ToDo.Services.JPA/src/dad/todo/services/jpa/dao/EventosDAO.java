@@ -1,5 +1,7 @@
 package dad.todo.services.jpa.dao;
 
+import java.util.function.Predicate;
+
 import javax.persistence.EntityManager;
 
 import dad.todo.services.ServiceException;
@@ -27,6 +29,24 @@ public class EventosDAO {
 			em.close();
 		}	
 			
+	}
+
+	public void deleteById(UsuarioItem usuario, Long id) throws ServiceException {
+
+		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
+		try {
+			em.getTransaction().begin();
+				Usuario usuarioEntity = em.find(Usuario.class, usuario.getUsername());
+		        Predicate<Evento> eventoPredicate = p-> p.getId()==id;
+		        usuarioEntity.getEventos().removeIf(eventoPredicate);
+				em.persist(usuarioEntity);
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			throw new ServiceException("error al borrar evento",e);
+		}finally {
+			em.close();
+		}	
+		
 	}
 
 }

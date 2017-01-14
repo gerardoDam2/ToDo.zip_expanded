@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.PreRemove;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -37,8 +38,9 @@ public class Evento {
 	@PrimaryKeyJoinColumn	
 	private Lugar lugar;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.MERGE)
 	private Usuario usuario;
+	
 
 	
 	public Usuario getUsuario() {

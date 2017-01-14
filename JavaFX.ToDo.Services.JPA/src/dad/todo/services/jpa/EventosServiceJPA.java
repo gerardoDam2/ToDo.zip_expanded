@@ -33,7 +33,8 @@ public class EventosServiceJPA implements EventosService {
 
 	@Override
 	public void eliminarEvento(Long id) throws ServiceException {
-		// TODO Auto-generated method stub
+		UsuarioItem usuario = ServiceFactory.getUsuariosService().getLogueado();
+		eventosDAO.deleteById(usuario,id);
 		
 	}
 

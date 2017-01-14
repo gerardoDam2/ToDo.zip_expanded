@@ -30,21 +30,23 @@ public class Main {
 		
 		//TODO Baja
 //		ServiceFactory.getUsuariosService().baja();
-//		System.out.println("deslogueado: "+ServiceFactory.getUsuariosService().getLogueado()==null);
-		//
-		//TODO CREAR EVENTO
-		LugarItem lugar= new LugarItem();
-		lugar.setDescripcion("la cuesta");
-		lugar.setLatitud(20.0);
-		lugar.setLongitud(30.0);
-		EventoItem evento = new EventoItem();
-		evento.setDescripcion("evento test");
-		evento.setDuracion(20L);
-		evento.setFecha(new Date());
-		evento.setLugar(lugar);
-		evento.setRealizado(false);
-		evento.setTitulo("prueba");
-		ServiceFactory.getEventosService().crearEvento(evento);
+		
+//		TODO CREAR EVENTO
+//		LugarItem lugar= new LugarItem();
+//		lugar.setDescripcion("la cuesta");
+//		lugar.setLatitud(20.0);
+//		lugar.setLongitud(30.0);
+//		EventoItem evento = new EventoItem();
+//		evento.setDescripcion("evento test");
+//		evento.setDuracion(20L);
+//		evento.setFecha(new Date());
+//		evento.setLugar(lugar);
+//		evento.setRealizado(false);
+//		evento.setTitulo("prueba");
+//		ServiceFactory.getEventosService().crearEvento(evento);
+		
+		//TODO BORRAR EVENTO
+		ServiceFactory.getEventosService().eliminarEvento(8L);
 		
 		JPAUtil.closeEntityManagerFactory();
 	}

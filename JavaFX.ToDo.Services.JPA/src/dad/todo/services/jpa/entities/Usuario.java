@@ -29,7 +29,7 @@ public class Usuario {
 	@PrimaryKeyJoinColumn
 	private Perfil perfil;
 	
-	@OneToMany(cascade=CascadeType.ALL ,fetch=FetchType.EAGER,mappedBy="usuario")
+	@OneToMany(cascade=CascadeType.ALL ,fetch=FetchType.EAGER,mappedBy="usuario", orphanRemoval = true)
 	private List<Evento> eventos = new ArrayList<>();
 
 	public String getUsername() {
