@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 
 import dad.todo.services.ServiceException;
@@ -33,6 +32,7 @@ public class EventosDAO {
 				em.persist(usuarioEntiy);
 			em.getTransaction().commit();
 		} catch (Exception e) {
+			em.getTransaction().rollback();
 			throw new ServiceException("error al crear evento",e);
 		}finally {
 			em.close();
@@ -51,6 +51,7 @@ public class EventosDAO {
 				em.persist(usuarioEntity);
 			em.getTransaction().commit();
 		} catch (Exception e) {
+			em.getTransaction().rollback();
 			throw new ServiceException("error al borrar evento",e);
 		}finally {
 			em.close();
@@ -82,6 +83,7 @@ public class EventosDAO {
 				em.persist(usuarioEntiy);
 			em.getTransaction().commit();
 		} catch (Exception e) {
+			em.getTransaction().rollback();
 			throw new ServiceException("error al actualizar evento",e);
 		}finally {
 			em.close();
@@ -144,8 +146,8 @@ public class EventosDAO {
 			 query.setParameter("start", start);
 			 query.setParameter("end", end);
 			 query.setParameter("username", usuario.getUsername());
-			   List<Evento> entityList = (List<Evento>)query.getResultList();
-			   ListaItems = entityList.stream().map(evento->evento.toItem()).collect(Collectors.toList());
+			 List<Evento> entityList = (List<Evento>)query.getResultList();
+			 ListaItems = entityList.stream().map(evento->evento.toItem()).collect(Collectors.toList());
 		} catch (Exception e) {
 			throw new ServiceException("no se encontro el evento",e);
 		}finally {

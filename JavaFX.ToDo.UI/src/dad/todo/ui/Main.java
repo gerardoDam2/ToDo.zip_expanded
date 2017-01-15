@@ -71,7 +71,7 @@ public class Main {
 //		ServiceFactory.getEventosService().getEventos().forEach(s->	System.out.println(s.getId()));
 		
 		//TODO GET BY FECHA
-//		ServiceFactory.getEventosService().buscarEventosPorFecha(new Date()).forEach(s->System.out.println(s.getId()));
+	//	ServiceFactory.getEventosService().buscarEventosPorFecha(new Date()).forEach(s->System.out.println(s.getId()));
 		JPAUtil.closeEntityManagerFactory();
 	}
 

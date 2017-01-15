@@ -33,7 +33,7 @@ public class UsuarioDAO {
 		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
-			em.persist(usuario);
+				em.persist(usuario);
 			em.getTransaction().commit();
 		} catch (PersistenceException e) {
 			em.getTransaction().rollback();

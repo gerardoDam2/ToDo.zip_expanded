@@ -3,7 +3,6 @@ package dad.todo.services.jpa;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.EntityManager;
 
 import dad.todo.services.EventosService;
 import dad.todo.services.ServiceException;
@@ -12,7 +11,6 @@ import dad.todo.services.items.EventoItem;
 import dad.todo.services.items.UsuarioItem;
 import dad.todo.services.jpa.dao.EventosDAO;
 import dad.todo.services.jpa.entities.Evento;
-import dad.todo.services.jpa.utils.JPAUtil;
 
 public class EventosServiceJPA implements EventosService {
 	
@@ -57,6 +55,7 @@ public class EventosServiceJPA implements EventosService {
 
 	@Override
 	public List<EventoItem> buscarEventosPorFecha(Date fecha) throws ServiceException {
+		//TODO preguntar a fran el critério 
 		UsuarioItem usuario = ServiceFactory.getUsuariosService().getLogueado();
 		return eventosDAO.getByFecha(usuario,fecha);
 	}
