@@ -58,7 +58,7 @@ public class UsuariosServiceJPA implements UsuariosService {
 		Usuario user=usuarioDao.findByEmail(email);
 		if (user!=null) {
 			String newPass = UUID.randomUUID().toString();
-			usuarioDao.setPassword(user,newPass);
+			usuarioDao.setPassword(user,encryptPassword(newPass));
 			try {
 				EmailUtil.sendEmail(email, "ToDo recovery password ", newPass);
 			} catch (MessagingException e) {
