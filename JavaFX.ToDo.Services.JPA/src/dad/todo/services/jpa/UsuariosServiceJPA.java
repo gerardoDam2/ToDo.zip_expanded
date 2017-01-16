@@ -4,12 +4,16 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.UUID;
+
+import javax.mail.MessagingException;
 
 import dad.todo.services.ServiceException;
 import dad.todo.services.UsuariosService;
 import dad.todo.services.items.UsuarioItem;
 import dad.todo.services.jpa.dao.UsuarioDAO;
 import dad.todo.services.jpa.entities.Usuario;
+import dad.todo.services.jpa.utils.EmailUtil;
 
 public class UsuariosServiceJPA implements UsuariosService {
 	
@@ -51,8 +55,16 @@ public class UsuariosServiceJPA implements UsuariosService {
 
 	@Override
 	public void recuperarPassword(String email) throws ServiceException {
-		// TODO Auto-generated method stub
-		System.out.println("recuperar password : no implementado");
+		Usuario user=usuarioDao.findByEmail(email);
+		if (user!=null) {
+			String newPass = UUID.randomUUID().toString();
+			usuarioDao.setPassword(user,newPass);
+			try {
+				EmailUtil.sendEmail(email, "ToDo recovery password ", newPass);
+			} catch (MessagingException e) {
+				throw new ServiceException("error al enviar el correo",e);
+			}
+		}
 	}
 
 	@Override

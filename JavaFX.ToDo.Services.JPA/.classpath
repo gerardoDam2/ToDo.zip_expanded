@@ -19,5 +19,6 @@
 	<classpathentry kind="lib" path="lib/hibernate/jboss-logging-3.3.0.Final.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate/jsr250-api-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/mysql/mysql-connector-java-5.1.40-bin.jar"/>
+	<classpathentry kind="lib" path="lib/mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

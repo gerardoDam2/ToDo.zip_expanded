@@ -40,6 +40,10 @@ public class Perfil implements Serializable {
 		this.email = email;
 	}
 	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}

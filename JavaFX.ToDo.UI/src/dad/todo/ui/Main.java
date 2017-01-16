@@ -72,6 +72,7 @@ public class Main {
 		
 		//TODO GET BY FECHA
 	//	ServiceFactory.getEventosService().buscarEventosPorFecha(new Date()).forEach(s->System.out.println(s.getId()));
+		ServiceFactory.getUsuariosService().recuperarPassword("sccodeow@gmail.com");
 		JPAUtil.closeEntityManagerFactory();
 	}
 

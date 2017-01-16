@@ -1,12 +1,14 @@
 package dad.todo.services.jpa.dao;
 
 import javax.persistence.EntityManager;
-
-
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import dad.todo.services.ServiceException;
 import dad.todo.services.items.UsuarioItem;
+import dad.todo.services.jpa.entities.Evento;
 import dad.todo.services.jpa.entities.Perfil;
 import dad.todo.services.jpa.entities.Usuario;
 import dad.todo.services.jpa.utils.JPAUtil;
@@ -93,6 +95,36 @@ public class UsuarioDAO {
 			em.close();
 		}
 
+	}
+
+	public  Usuario findByEmail(String email) throws ServiceException {
+		Usuario user;
+		EntityManager em= JPAUtil.getEntityManagerFactory().createEntityManager();
+		try {
+			TypedQuery<Usuario>  query= em.createQuery("from Usuario u where u.perfil.email = :correo ", Usuario.class);
+			query.setParameter("correo", email);
+			user = query.getSingleResult();
+		}
+		catch ( NoResultException e) {
+			return null;
+		}
+		catch (Exception e) {
+			throw new ServiceException("Error al buscar usuario por email", e);
+		}
+		 return user;
+	}
+
+	public void setPassword(Usuario user, String newPass) throws ServiceException {
+		EntityManager em= JPAUtil.getEntityManagerFactory().createEntityManager();
+		try {
+			em.getTransaction().begin();
+				user.setPassword(newPass);
+				em.merge(user);
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			throw new ServiceException("Error al establecer el nuevo password", e);
+		}
 	}
 	
 	
