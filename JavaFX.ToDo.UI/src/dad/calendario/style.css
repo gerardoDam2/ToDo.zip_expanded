@@ -1,0 +1,77 @@
+
+
+.root {
+	-fx-font-size: 11pt ;
+	-fx-font-family: "Courier New";
+	-fx-background-color: white;
+} 
+
+.changeButton{
+	-fx-text-fill: #009688;
+	-fx-font-weight: bold;
+	-fx-font-size:40;
+	-fx-background-color: white;
+	-fx-opacity: 0.6;
+	-fx-padding: 0;
+}
+
+.changeButton:hover{
+			-fx-opacity: 1;
+
+	
+}
+
+.month{
+	-fx-font-size: 13pt;
+	-fx-font-weight: bold;
+	-fx-background-color: #009688;
+		-fx-text-fill: white;
+}
+
+.year{
+	-fx-font-family: "Arial";
+	-fx-font-weight: bold;
+	-fx-font-size:22pt;
+	-fx-text-fill: #009688;
+}
+
+.weekday{
+	-fx-font-weight: bold;
+}
+
+.day{
+	-fx-font-style: italic ;
+	-fx-border-color: white;
+	-fx-border-width: 2;	
+	
+	
+}
+
+.day:hover {
+	-fx-border-color: #009688;
+	-fx-background-color: #009688;
+	-fx-text-fill: white;
+}
+
+.emptyday{
+	-fx-border-color: white;
+	-fx-border-width: 2;	
+}
+
+componenteMes{
+
+}
+
+.today{
+		-fx-border-color:#004D40;
+	-fx-background-color: #009688;
+	-fx-text-fill: white;
+}
+
+.sunday{
+	-fx-text-fill: red;
+}
+
+.dayWithEvent{
+			-fx-background-color:green;
+}

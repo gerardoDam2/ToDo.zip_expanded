@@ -1,0 +1,11 @@
+.root {
+	    -fx-background-color: white;
+}
+
+.green-hamburger > StackPane {
+    -fx-background-color: white;
+}
+
+.menuBar {
+ -fx-background-color:	 #009688;
+}

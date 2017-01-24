@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dad.todo.ui.MenuController">
+   <center>
+      <VBox maxHeight="1.7976931348623157E308" prefWidth="229.0" BorderPane.alignment="CENTER">
+         <children>
+            <StackPane maxWidth="400.0" prefHeight="150.0" prefWidth="400.0">
+               <children>
+                  <ImageView pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/back.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icon-avatar-default.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+            <VBox alignment="CENTER" maxHeight="1.7976931348623157E308">
+               <children>
+                  <JFXButton alignment="CENTER" buttonType="RAISED" maxWidth="1.7976931348623157E308" ripplerFill="#009688" text="cambiar password" textAlignment="CENTER">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton alignment="CENTER" buttonType="RAISED" maxWidth="1.7976931348623157E308" ripplerFill="#009688" text="cambiar password" textAlignment="CENTER">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton alignment="CENTER" buttonType="RAISED" maxWidth="1.7976931348623157E308" ripplerFill="#009688" text="cambiar password" textAlignment="CENTER">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton alignment="CENTER" buttonType="RAISED" maxWidth="1.7976931348623157E308" ripplerFill="#009688" text="cambiar password" textAlignment="CENTER">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton alignment="CENTER" buttonType="RAISED" maxWidth="1.7976931348623157E308" ripplerFill="#009688" text="cambiar password" textAlignment="CENTER">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton alignment="CENTER" buttonType="RAISED" maxWidth="1.7976931348623157E308" ripplerFill="#009688" text="cambiar password" textAlignment="CENTER">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton alignment="CENTER" buttonType="RAISED" maxWidth="1.7976931348623157E308" ripplerFill="#009688" text="cambiar password" textAlignment="CENTER">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton alignment="CENTER" buttonType="RAISED" maxWidth="1.7976931348623157E308" ripplerFill="#009688" text="cambiar password" textAlignment="CENTER">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton alignment="CENTER" buttonType="RAISED" maxWidth="1.7976931348623157E308" ripplerFill="#009688" text="cambiar password" textAlignment="CENTER">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton alignment="CENTER" buttonType="RAISED" maxWidth="1.7976931348623157E308" ripplerFill="#009688" text="cambiar password" textAlignment="CENTER">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton alignment="CENTER" buttonType="RAISED" maxWidth="1.7976931348623157E308" ripplerFill="#009688" text="cambiar password" textAlignment="CENTER">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
