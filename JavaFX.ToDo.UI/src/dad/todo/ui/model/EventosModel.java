@@ -3,6 +3,7 @@ package dad.todo.ui.model;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import dad.todo.services.items.EventoItem;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
@@ -100,6 +101,10 @@ public class EventosModel {
 		this.lugarProperty().set(lugar);
 	}
 	
+	//TODO
+	public static EventosModel fromItem(EventoItem item){
+		return null;
+	}
 	
 	
 }

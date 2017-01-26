@@ -31,9 +31,9 @@
                       <RowConstraints vgrow="NEVER" />
                     </rowConstraints>
                      <children>
-                        <JFXTextField promptText="Username" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
-                        <JFXPasswordField promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <JFXButton alignment="BASELINE_CENTER" buttonType="RAISED" ripplerFill="#ffeb3b" style="-fx-background-color: #009688;" text="Login" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                        <JFXTextField fx:id="usernameTextField" promptText="Username" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
+                        <JFXPasswordField fx:id="passwordTextField" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <JFXButton fx:id="loginButton" alignment="BASELINE_CENTER" buttonType="RAISED" onAction="#onLoginButtonAction" ripplerFill="#ffeb3b" style="-fx-background-color: #009688;" text="Login" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
                         <ImageView pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                            <image>
                               <Image url="@../images/key%20(1).png" />
@@ -44,7 +44,7 @@
                               <Image url="@../images/account.png" />
                            </image>
                         </ImageView>
-                        <Hyperlink alignment="BASELINE_CENTER" text="¿Olvidó su contraseña?" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                        <Hyperlink fx:id="recuperarPassLink" alignment="BASELINE_CENTER" onAction="#onRecuperarPassAction" text="¿Olvidó su contraseña?" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                </children>
@@ -69,12 +69,12 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <JFXTextField promptText="Username" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
-                        <JFXTextField promptText="Nombre" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <JFXTextField promptText="E-mail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <JFXTextField promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <JFXTextField promptText="Confirmar password" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <JFXButton buttonType="RAISED" ripplerFill="#ffeb3b" style="-fx-background-color: #009688;" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                        <JFXTextField fx:id="usernameRegisterTextField" promptText="Username" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
+                        <JFXTextField fx:id="nombreRegisterTextField" promptText="Nombre" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <JFXTextField fx:id="emailRegisterTextField" promptText="E-mail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <JFXTextField fx:id="passwordRegister1TextField" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <JFXTextField fx:id="passwordRegister2TextField" promptText="Confirmar password" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <JFXButton fx:id="registerButton" buttonType="RAISED" onAction="#onRegisterButtonAction" ripplerFill="#ffeb3b" style="-fx-background-color: #009688;" text="Registrar" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
                         <ImageView pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
                            <image>
                               <Image url="@../images/account.png" />

@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 
 import dad.todo.ui.eventos.EventosController;
+import dad.todo.ui.model.UsuarioModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -36,6 +37,8 @@ public class ToDoController implements Initializable {
 
 	private Stage stage;
 
+	private UsuarioModel usuario;
+
 	@FXML
 	void onOpcionesMousePressed(MouseEvent event) {
 
@@ -48,7 +51,8 @@ public class ToDoController implements Initializable {
 			drawer.open();
 	}
 
-	public ToDoController() {
+	public ToDoController(UsuarioModel usuario) {
+		this.usuario=usuario;
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("ToDoView.fxml"));
 			loader.setController(this);
@@ -97,6 +101,7 @@ public class ToDoController implements Initializable {
 	}
 	
 	public void show() {
+		usuario.updateInfo();
 		stage.show();
 	}
 }

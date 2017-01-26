@@ -7,6 +7,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import dad.calendario.CalendarioController;
+import dad.todo.services.jpa.utils.JPAUtil;
+import dad.todo.ui.login.LoginController;
+import dad.todo.ui.model.UsuarioModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,29 +25,38 @@ import javafx.stage.Stage;
  * @author Gerardo
  *
  */
-public class App extends Application implements Initializable {
+public class App extends Application  {
 
 	private BorderPane panel;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
-//		Scene scene = new Scene(new CalendarioController());
+		JPAUtil.initEntityManagerFactory("todo");
+		UsuarioModel usuario = new UsuarioModel();
 		
-		new ToDoController().show();
-
-//		primaryStage.setScene(scene);
-//		primaryStage.show();
+		ToDoController toDo = new ToDoController(usuario);
+		LoginController login= new LoginController(toDo);
+		
+		Scene loginScene= new Scene(login.getView());
+		primaryStage.setScene(loginScene);
+		
+		primaryStage.show();
+		
 
 	}
 
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	
 
-	}
 
 	public static void main(String[] args) {
 		launch(args);
+	
+	}
+	
+	@Override
+	public void stop() throws Exception {
+		JPAUtil.closeEntityManagerFactory();
+		super.stop();
 	}
 
 }
