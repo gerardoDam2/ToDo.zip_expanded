@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<JFXTabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <tabs>
+      <Tab text="Iniciar Sesión">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <GridPane layoutX="50.0" layoutY="100.0" vgap="10.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="NEVER" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints vgrow="NEVER" />
+                      <RowConstraints vgrow="NEVER" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                      <RowConstraints vgrow="NEVER" />
+                    </rowConstraints>
+                     <children>
+                        <JFXTextField promptText="Username" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
+                        <JFXPasswordField promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <JFXButton alignment="BASELINE_CENTER" buttonType="RAISED" ripplerFill="#ffeb3b" style="-fx-background-color: #009688;" text="Login" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                        <ImageView pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                           <image>
+                              <Image url="@../images/key%20(1).png" />
+                           </image>
+                        </ImageView>
+                        <ImageView pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
+                           <image>
+                              <Image url="@../images/account.png" />
+                           </image>
+                        </ImageView>
+                        <Hyperlink alignment="BASELINE_CENTER" text="¿Olvidó su contraseña?" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+      <Tab text="Registrarse">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <GridPane vgap="10.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="80.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="NEVER" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <JFXTextField promptText="Username" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
+                        <JFXTextField promptText="Nombre" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <JFXTextField promptText="E-mail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <JFXTextField promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <JFXTextField promptText="Confirmar password" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <JFXButton buttonType="RAISED" ripplerFill="#ffeb3b" style="-fx-background-color: #009688;" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                        <ImageView pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
+                           <image>
+                              <Image url="@../images/account.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+                           <image>
+                              <Image url="@../images/ic_email_black_24dp_1x.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
+                           <image>
+                              <Image url="@../images/key%20(1).png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </GridPane>
+               </children></AnchorPane>
+        </content>
+      </Tab>
+   </tabs>
+</JFXTabPane>

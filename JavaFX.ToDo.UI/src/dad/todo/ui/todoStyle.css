@@ -9,3 +9,8 @@
 .menuBar {
  -fx-background-color:	 #009688;
 }
+
+.contenedor{
+	 -fx-background-color: white;
+
+}

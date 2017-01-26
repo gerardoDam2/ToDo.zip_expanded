@@ -63,7 +63,6 @@ public class CalendarioController extends BorderPane  implements Initializable{
 
 	public CalendarioController() {
 		
-		setOnMouseMoved(e->{System.out.println(e.getSceneX());});
 		
 		
 		year = new SimpleIntegerProperty(this, "year", LocalDate.now().getYear());

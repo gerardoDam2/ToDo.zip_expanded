@@ -10,7 +10,7 @@
 	-fx-text-fill: #009688;
 	-fx-font-weight: bold;
 	-fx-font-size:40;
-	-fx-background-color: white;
+	-fx-background-color: transparent;
 	-fx-opacity: 0.6;
 	-fx-padding: 0;
 }
@@ -40,11 +40,10 @@
 }
 
 .day{
+	-fx-font-size: 15;
 	-fx-font-style: italic ;
-	-fx-border-color: white;
+	-fx-border-color: transparent;
 	-fx-border-width: 2;	
-	
-	
 }
 
 .day:hover {
@@ -54,7 +53,7 @@
 }
 
 .emptyday{
-	-fx-border-color: white;
+	-fx-border-color: transparent;
 	-fx-border-width: 2;	
 }
 

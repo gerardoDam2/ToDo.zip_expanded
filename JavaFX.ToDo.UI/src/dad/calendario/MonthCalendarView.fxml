@@ -8,9 +8,8 @@
 
 <?import java.util.ArrayList?>
 <!-- <?import java.util.ArrayList?> -->
-<!-- <?import java.util.ArrayList?> -->
 
-<GridPane fx:id="view" hgap="2.0" vgap="2.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="view" hgap="2.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="2.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
 	<columnConstraints>
 		<ColumnConstraints hgrow="ALWAYS" />
 		<ColumnConstraints hgrow="ALWAYS" />
