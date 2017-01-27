@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXListView;
+
 import dad.calendario.CalendarioController;
+import dad.todo.ui.model.EventosModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,7 +21,9 @@ public class EventosController implements Initializable {
 	@FXML
 	private BorderPane calendarContainer;
 	private SplitPane view;
-	
+    @FXML
+    private JFXListView<EventosModel> eventosListView;
+    
 	public EventosController() {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("EventosView.fxml"));
@@ -35,7 +40,15 @@ public class EventosController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 
 		calendarContainer.setCenter(new CalendarioController());
-	
+		EventosModel e1 = new EventosModel();
+		e1.setTitulo("dsadasdasdadsa");
+		
+		EventosModel e2 = new EventosModel();
+		e2.setTitulo("asdddasdasdsadasdagfdgfdgdfgfdgfdgdfdsadasdasdadsaasdasdaiduhsdfguihiufashiudhaiughdbaisuhdiuashdasdhidhashiudahsiahsda");
+		
+		eventosListView.getItems().add(e1);
+		eventosListView.getItems().add(e2);
+		
 	}
 
 	public SplitPane getView() {

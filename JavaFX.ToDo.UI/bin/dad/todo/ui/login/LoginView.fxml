@@ -72,8 +72,6 @@
                         <JFXTextField fx:id="usernameRegisterTextField" promptText="Username" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
                         <JFXTextField fx:id="nombreRegisterTextField" promptText="Nombre" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <JFXTextField fx:id="emailRegisterTextField" promptText="E-mail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <JFXTextField fx:id="passwordRegister1TextField" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <JFXTextField fx:id="passwordRegister2TextField" promptText="Confirmar password" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <JFXButton fx:id="registerButton" buttonType="RAISED" onAction="#onRegisterButtonAction" ripplerFill="#ffeb3b" style="-fx-background-color: #009688;" text="Registrar" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
                         <ImageView pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
                            <image>
@@ -90,6 +88,8 @@
                               <Image url="@../images/key%20(1).png" />
                            </image>
                         </ImageView>
+                        <JFXPasswordField fx:id="passwordRegister1TextField" promptText="contraseña" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <JFXPasswordField fx:id="passwordRegister2TextField" promptText="confirmar contraseña" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
                </children></AnchorPane>

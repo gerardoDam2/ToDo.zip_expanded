@@ -7,6 +7,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import dad.calendario.CalendarioController;
+import dad.todo.services.ServiceFactory;
+import dad.todo.services.items.UsuarioItem;
 import dad.todo.services.jpa.utils.JPAUtil;
 import dad.todo.ui.login.LoginController;
 import dad.todo.ui.model.UsuarioModel;
@@ -27,7 +29,6 @@ import javafx.stage.Stage;
  */
 public class App extends Application  {
 
-	private BorderPane panel;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
