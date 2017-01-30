@@ -37,7 +37,6 @@ public class ToDoController implements Initializable {
 
 	private Stage stage;
 
-	private UsuarioModel usuario;
 
 	@FXML
 	void onOpcionesMousePressed(MouseEvent event) {
@@ -51,8 +50,7 @@ public class ToDoController implements Initializable {
 			drawer.open();
 	}
 
-	public ToDoController(UsuarioModel usuario) {
-		this.usuario=usuario;
+	public ToDoController() {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("ToDoView.fxml"));
 			loader.setController(this);
@@ -101,7 +99,6 @@ public class ToDoController implements Initializable {
 	}
 	
 	public void show() {
-		usuario.updateInfo();
 		stage.show();
 	}
 }

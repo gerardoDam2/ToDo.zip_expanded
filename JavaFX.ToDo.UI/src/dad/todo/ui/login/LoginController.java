@@ -72,7 +72,7 @@ public class LoginController {
 	@FXML
 	void onLoginButtonAction(ActionEvent event) {
 		//TODO CAMBIAR A FALSE AL TERMINAR PRUEBAS
-		boolean validate = true;
+		boolean validate = false;
 		try {
 			validate = ServiceFactory.getUsuariosService().login(usernameTextField.getText(),
 					passwordTextField.getText());

@@ -33,9 +33,8 @@ public class App extends Application  {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		JPAUtil.initEntityManagerFactory("todo");
-		UsuarioModel usuario = new UsuarioModel();
 		
-		ToDoController toDo = new ToDoController(usuario);
+		ToDoController toDo = new ToDoController();
 		LoginController login= new LoginController(toDo);
 		
 		Scene loginScene= new Scene(login.getView());

@@ -132,7 +132,7 @@ public class EventosDAO {
 		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
 		List<EventoItem> ListaItems=null;
 		try {
-			 Query query = em.createQuery("FROM Evento  where fecha BETWEEN :start AND :end  AND usuario_username= :username");
+			 TypedQuery<Evento> query = em.createQuery("SELECT e FROM Evento e  where e.fecha BETWEEN :start AND :end  AND e.usuario.username=:username",Evento.class);
 			 Calendar calendar=Calendar.getInstance();
 			 calendar.setTime(fecha);
 			 calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -148,6 +148,7 @@ public class EventosDAO {
 			 query.setParameter("username", usuario.getUsername());
 			 List<Evento> entityList = (List<Evento>)query.getResultList();
 			 ListaItems = entityList.stream().map(evento->evento.toItem()).collect(Collectors.toList());
+			 
 		} catch (Exception e) {
 			throw new ServiceException("no se encontro el evento",e);
 		}finally {
