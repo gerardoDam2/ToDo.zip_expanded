@@ -65,6 +65,8 @@ public class Usuario {
 	public void setEventos(List<Evento> eventos) {
 		this.eventos = eventos;
 	}
+	
+   
 
 	public static Usuario fromItem(UsuarioItem usuario) {
 		Usuario entity = new Usuario();

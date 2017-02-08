@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
+
+<fx:root maxWidth="1.7976931348623157E308" prefHeight="400.0" type="StackPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111">
+   <children>
+      <BorderPane fx:id="mapContainer" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: grey;" />
+      <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefWidth="200.0" style="-fx-background-color: #009688;" StackPane.alignment="CENTER">
+         <StackPane.margin>
+            <Insets bottom="360.0" />
+         </StackPane.margin>
+         <children>
+            <TextField fx:id="lugarSearchTextField" alignment="CENTER" onAction="#onSearchKeyPressed" prefHeight="25.0" prefWidth="286.0">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #009688;">
+         <StackPane.margin>
+            <Insets top="380.0" />
+         </StackPane.margin>
+      </HBox>
+   </children>
+</fx:root>

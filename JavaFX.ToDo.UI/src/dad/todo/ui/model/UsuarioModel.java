@@ -19,6 +19,8 @@ import javafx.collections.ObservableList;
 
 public class UsuarioModel {
 	
+	
+	
 	private StringProperty username;
 	private StringProperty email;
 	private StringProperty nombre;
@@ -88,7 +90,8 @@ public class UsuarioModel {
 		
 		eventos.clear();
 		List<EventoItem> eventosItem = eServ.getEventos();
-		eventos.addAll(eventosItem.stream().map(EventosModel::fromItem).collect(Collectors.toList()));
+		//TODO
+//		eventos.addAll(eventosItem.stream().map(EventosModel::fromItem).collect(Collectors.toList()));
 		
 	} catch (ServiceException e) {
 		e.printStackTrace();

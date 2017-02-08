@@ -3,14 +3,15 @@ package dad.todo.ui.eventos;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXListView;
 
 import dad.calendario.CalendarioController;
 import dad.todo.services.ServiceException;
@@ -20,33 +21,31 @@ import dad.todo.ui.model.EventosModel;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.SplitPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.util.converter.LocalTimeStringConverter;
+import javafx.scene.layout.VBox;
 
 public class EventosController implements Initializable {
+	
+    @FXML
+    private VBox rightPanel;
 
-	@FXML
-	private TableView<EventosModel> eventosTable;
+    @FXML
+    private BorderPane eventsPane;
 
-	@FXML
-	private TableColumn<EventosModel, Boolean> estadoColumn;
 
-	@FXML
-	private TableColumn<EventosModel, String> tituloColumn;
+    @FXML
+    private JFXListView<EventosModel> eventosListView;
 
-	@FXML
-	private TableColumn<EventosModel, LocalTime> inicioColumn;
-
-	@FXML
-	private TableColumn<EventosModel, LocalTime> finColumn;
-
+	
 	@FXML
 	private JFXDatePicker fechaEventosDatePicker;
 
@@ -56,8 +55,10 @@ public class EventosController implements Initializable {
 
 	private ListProperty<EventosModel> eventos;
 
+	private CrearEditarEventosController editarCrearController;
+
 	public EventosController() {
-		eventos= new SimpleListProperty<>(this,"eventos",FXCollections.observableArrayList());
+		eventos = new SimpleListProperty<>(this, "eventos", FXCollections.observableArrayList());
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("EventosView.fxml"));
 			loader.setController(this);
@@ -72,36 +73,69 @@ public class EventosController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 
 		calendarContainer.setCenter(new CalendarioController());
-		estadoColumn.setCellFactory(c -> new CheckBoxTableCell<>());
-		
-		estadoColumn.setCellValueFactory(v->v.getValue().terminadaProperty());
-		tituloColumn.setCellValueFactory(v->v.getValue().tituloProperty());
-		inicioColumn.setCellValueFactory(v->v.getValue().horaInicioProperty());
-		finColumn.setCellValueFactory(v->v.getValue().horaFinProperty());
 
 		fechaEventosDatePicker.valueProperty().addListener((obs, oldValue, newValue) -> onFechaChange(newValue));
 
+		eventosListView.itemsProperty().bind(eventos);
 		
-		eventosTable.itemsProperty().bind(eventos);
+		
+		BorderPane borderpane = new BorderPane();
+		ImageView imagev = new ImageView(new Image(getClass().getResource("sinEventos.gif").toExternalForm()));
+		borderpane.setBottom(imagev);
+		borderpane.setAlignment(imagev, Pos.CENTER);
+		eventosListView.setPlaceholder(borderpane);
+		
+		editarCrearController = new CrearEditarEventosController(this);
 
 	}
 
-	private void onFechaChange(LocalDate newValue) {
+	private void editarEvento(EventosModel evento) {
+		editarCrearController.initEdit(evento);
+		changeViewToEditEvent();
 		
-				Date fecha = Date.from(newValue.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	}
+
+	private void onFechaChange(LocalDate newValue) {
+
+		Date fecha = Date.from(newValue.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
 		eventos.clear();
 		try {
-		List<EventoItem> eventosItem = ServiceFactory.getEventosService().buscarEventosPorFecha(fecha);
-		eventosTable.getItems().clear();
-		eventos.addAll(eventosItem.stream().map(EventosModel::fromItem).collect(Collectors.toList()));
+			List<EventoItem> eventosItem = ServiceFactory.getEventosService().buscarEventosPorFecha(fecha);
+			eventos.clear();
+			eventos.addAll(eventosItem.stream().map(e-> EventosModel.fromItem(e,this)).collect(Collectors.toList()));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
 
 	}
 
+	@FXML
+	private Button addEventoButton;
+
+	@FXML
+	void onAddEventoButtonAction(ActionEvent event) {
+		editarCrearController.initCreateEvent(fechaEventosDatePicker.getValue());
+		changeViewToEditEvent();
+	}
+
 	public SplitPane getView() {
 		return view;
+	}
+
+	public void changeViewToEventsList() {
+		onFechaChange(fechaEventosDatePicker.getValue());
+		rightPanel.getChildren().remove(0);
+		rightPanel.getChildren().add(eventsPane);
+	}
+	
+	public void onEditEventAction(EventosModel evento){
+		editarCrearController.initEdit(evento);
+		changeViewToEditEvent();
+	}
+	
+	public void changeViewToEditEvent() {
+		rightPanel.getChildren().remove(0);
+		rightPanel.getChildren().add(editarCrearController.getView());
 	}
 }

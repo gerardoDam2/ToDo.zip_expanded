@@ -59,6 +59,7 @@ public class EventosDAO {
 		
 	}
 
+	//TODO Esto es una mierda.
 	public void updateEvento(UsuarioItem usuario, Evento evento)throws ServiceException {
 		
 		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
