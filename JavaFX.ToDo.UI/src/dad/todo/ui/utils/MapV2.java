@@ -37,6 +37,8 @@ public class MapV2 extends StackPane implements Initializable {
 
 	private Geocoding ObjGeocod;
 
+	private String direccionActual;
+
 	public MapV2() {
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("MapV2View.fxml"));
@@ -53,7 +55,17 @@ public class MapV2 extends StackPane implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		mapa = new GoogleMapsComponent();
+		mapa = new GoogleMapsComponent() {
+			
+			@Override
+			public void onMarcaChange(String string) {
+				// TODO Auto-generated method stub
+				lugarSearchTextField.setText(string);
+				mapa.renombrarMarca(string);
+				
+				
+			}
+		};
 		mapContainer.setCenter(mapa);
 
 		lugarSearchTextField.textProperty().addListener((obs, oValue, nValue) -> onLugarSearch(nValue));
@@ -75,7 +87,8 @@ public class MapV2 extends StackPane implements Initializable {
 			
 				System.out.println(ll);
 				 mapa.prueba(ll);
-				 mapa.renombrarMarca(ObjGeocod.getAddressFound());
+				 direccionActual = ObjGeocod.getAddressFound();
+				 mapa.renombrarMarca(direccionActual);
 			} catch (UnsupportedEncodingException | MalformedURLException e) {
 				e.printStackTrace();
 			}

@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 
-
-<fx:root maxWidth="1.7976931348623157E308" prefHeight="400.0" type="StackPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111">
+<fx:root maxWidth="1.7976931348623157E308" prefHeight="400.0" type="StackPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <BorderPane fx:id="mapContainer" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: grey;" />
       <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefWidth="200.0" style="-fx-background-color: #009688;" StackPane.alignment="CENTER">
@@ -15,9 +14,9 @@
             <Insets bottom="360.0" />
          </StackPane.margin>
          <children>
-            <TextField fx:id="lugarSearchTextField" alignment="CENTER" onAction="#onSearchKeyPressed" prefHeight="25.0" prefWidth="286.0">
+            <TextField fx:id="lugarSearchTextField" maxWidth="1.7976931348623157E308" onAction="#onSearchKeyPressed" HBox.hgrow="ALWAYS">
                <HBox.margin>
-                  <Insets left="10.0" />
+                  <Insets left="10.0" right="10.0" />
                </HBox.margin>
             </TextField>
          </children>

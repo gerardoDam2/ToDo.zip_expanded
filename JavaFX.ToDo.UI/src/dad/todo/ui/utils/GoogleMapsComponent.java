@@ -24,7 +24,7 @@ import com.lynden.gmapsfx.javascript.object.MarkerOptions;
 
 import netscape.javascript.JSObject;
 //TODO LIMPIAR ESTA MIERDA DE CODIGO
-public class GoogleMapsComponent extends GoogleMapView implements MapComponentInitializedListener {
+public abstract class GoogleMapsComponent extends GoogleMapView implements MapComponentInitializedListener {
 
 	private GoogleMap map;
 	private double latitud = 0;
@@ -42,6 +42,7 @@ public class GoogleMapsComponent extends GoogleMapView implements MapComponentIn
 	public void mapInitialized() {
 	    //Set the initial properties of the map.
 	    MapOptions mapOptions = new MapOptions();
+	    
 
 	    mapOptions.center(new LatLong(latitud, longitud))
 	            .mapType(MapTypeIdEnum.ROADMAP)
@@ -75,6 +76,10 @@ public class GoogleMapsComponent extends GoogleMapView implements MapComponentIn
 		    	System.out.println(getAdress()+ " | "+ latitud+" | "+longitud);
 		    	
 		    	marca.setPosition(ll);
+		    	onMarcaChange(getAdress());
+		    	map.setZoom(map.getZoom()+1);
+		    	map.setZoom(map.getZoom()-1);
+		    	
 
 	    	}
 	    });
@@ -82,6 +87,8 @@ public class GoogleMapsComponent extends GoogleMapView implements MapComponentIn
 	    map.addMarker(marca);
 	}
 	
+	public abstract void onMarcaChange(String string);
+
 	public void prueba (LatLong latLong ){
 		marca.setPosition(latLong);
     	int currentZoom = map.getZoom();
@@ -90,6 +97,7 @@ public class GoogleMapsComponent extends GoogleMapView implements MapComponentIn
     	map.setCenter(latLong);
     	map.setZoom(18);
 	}
+	
 	public void setEditable(boolean editable) {
 		this.editable = editable;
 	}
