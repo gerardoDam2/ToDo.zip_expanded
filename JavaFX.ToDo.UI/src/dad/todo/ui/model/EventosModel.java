@@ -245,7 +245,7 @@ public class EventosModel extends GridPane implements Initializable {
 	void onEliminarButtonAction(ActionEvent event) {
 		try {
 			ServiceFactory.getEventosService().eliminarEvento(this.getEventoID());
-			eventosController.changeViewToEventsList();
+			eventosController.changeViewToEventsList(null);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}

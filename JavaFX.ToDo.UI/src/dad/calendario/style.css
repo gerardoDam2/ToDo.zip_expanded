@@ -74,3 +74,12 @@ componenteMes{
 .dayWithEvent{
 			-fx-background-color:green;
 }
+
+
+.specialDay{
+	-fx-background-color: red;
+	-fx-font-size: 15;
+	-fx-font-style: italic ;
+	-fx-border-color: transparent;
+	-fx-border-width: 2;	
+}

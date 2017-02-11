@@ -22,6 +22,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 public class MonthCalendar implements Initializable{
@@ -41,12 +42,14 @@ public class MonthCalendar implements Initializable{
 
 	@FXML
 	private List<Label> daysLabel;
+	
 	private Thread hilo;
 	private Node view;
 
+	private SimpleObjectProperty<LocalDate> diaPulsadoEvent;
 
 	public MonthCalendar()  {
-
+		diaPulsadoEvent = new SimpleObjectProperty<>(this,"diaPulsadoEvent",LocalDate.now());
 
 		today = new SimpleObjectProperty<>(this, "today", LocalDate.now());
 		today.addListener((obs, oldValue, newValue) -> onModelChanged());
@@ -84,7 +87,19 @@ public class MonthCalendar implements Initializable{
 		for (Label label : daysLabel) {
 			label.setText("" + i++);
 		}
+		
+		
+		
 	}
+	
+	   @FXML
+	    void onDayLabelCliked(MouseEvent event) {
+	    	Label labelCliked = (Label)event.getSource();
+	    	try {
+				diaPulsadoEvent.set(LocalDate.of(getYear(), getMonth(), Integer.valueOf(labelCliked.getText())));
+			} catch (NumberFormatException e) {
+			}
+	    }
 
 	private void onModelChanged() {
 	
@@ -92,7 +107,7 @@ public class MonthCalendar implements Initializable{
 		int last = DateUtils.lastDay(year.get(), month.get());
 		for (int i = 0; i < first; i++) {
 			daysLabel.get(i).setText("");
-			daysLabel.get(i).getStyleClass().clear();
+			daysLabel.get(i).getStyleClass().remove("today");
 			daysLabel.get(i).getStyleClass().add("emptyday");
 			
 		}
@@ -111,7 +126,7 @@ public class MonthCalendar implements Initializable{
 
 		for (int i = first + last; i < daysLabel.size(); i++) {
 			daysLabel.get(i).setText("");
-			daysLabel.get(i).getStyleClass().clear();
+			daysLabel.get(i).getStyleClass().remove("today");
 			daysLabel.get(i).getStyleClass().add("emptyday");
 
 		}
@@ -180,6 +195,40 @@ public class MonthCalendar implements Initializable{
 	
 	public final void setToday(final LocalDate today) {
 		this.todayProperty().set(today);
+	}
+	
+ 
+
+
+
+	public SimpleObjectProperty<LocalDate> diaPulsadoEventProperty() {
+		return this.diaPulsadoEvent;
+	}
+	
+
+
+
+	public LocalDate getDiaPulsadoEvent() {
+		return this.diaPulsadoEventProperty().get();
+	}
+	
+
+
+
+	public void setDiaPulsadoEvent(final LocalDate diaPulsadoEvent) {
+		this.diaPulsadoEventProperty().set(diaPulsadoEvent);
+	}
+	//TODO BORRAR
+	public Label getLabelByDayOfMoth(int dayParam){
+		String dia = dayParam+"";	
+		Label returnedLabel = null;
+		for (Label dayL : daysLabel) {
+			if (dayL.getText().equals(dia)) {
+				returnedLabel=dayL;
+			}
+		}
+		
+		return returnedLabel;
 	}
 	
 	

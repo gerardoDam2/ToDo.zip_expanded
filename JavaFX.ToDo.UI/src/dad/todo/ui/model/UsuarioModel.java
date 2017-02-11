@@ -24,13 +24,13 @@ public class UsuarioModel {
 	private StringProperty username;
 	private StringProperty email;
 	private StringProperty nombre;
-	private ListProperty<EventosModel> eventos;
+
 	
 	public UsuarioModel() {
 		username = new SimpleStringProperty(this,"username");
 		email = new SimpleStringProperty(this,"email");
 		nombre= new SimpleStringProperty(this,"nombre");
-		eventos= new SimpleListProperty<>(this,"eventos",FXCollections.observableArrayList());
+		updateInfo();
 	}
 	
 	public StringProperty usernameProperty() {
@@ -69,30 +69,16 @@ public class UsuarioModel {
 		this.nombreProperty().set(nombre);
 	}
 	
-	public ListProperty<EventosModel> eventosProperty() {
-		return this.eventos;
-	}
 	
-	public ObservableList<EventosModel> getEventos() {
-	return this.eventosProperty().get();
-	}
 
 	public void updateInfo() {
-		
 		UsuariosService uServ = ServiceFactory.getUsuariosService();
-		EventosService eServ = ServiceFactory.getEventosService();
 		
 	try {
 		UsuarioItem user = uServ.getLogueado();
 		username.set(user.getUsername());
 		nombre.set(user.getNombre());
 		email.set(user.getEmail());
-		
-		eventos.clear();
-		List<EventoItem> eventosItem = eServ.getEventos();
-		//TODO
-//		eventos.addAll(eventosItem.stream().map(EventosModel::fromItem).collect(Collectors.toList()));
-		
 	} catch (ServiceException e) {
 		e.printStackTrace();
 	}

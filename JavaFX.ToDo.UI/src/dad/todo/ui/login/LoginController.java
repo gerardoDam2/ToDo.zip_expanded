@@ -1,6 +1,7 @@
 package dad.todo.ui.login;
 
 import java.io.IOException;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -55,10 +56,9 @@ public class LoginController {
 	@FXML
 	private JFXButton registerButton;
 
-	private ToDoController toDo;
 
-	public LoginController(ToDoController toDo) {
-		this.toDo = toDo;
+
+	public LoginController() {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
 			loader.setController(this);
@@ -82,7 +82,7 @@ public class LoginController {
 
 		if (validate) {
 			((Stage) view.getScene().getWindow()).close();
-			toDo.show();
+			new ToDoController().show();
 		} else {
 			//TODO
 			System.err.println("LoginController: credenciales incorrectas ");

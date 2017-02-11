@@ -10,6 +10,7 @@ import dad.calendario.CalendarioController;
 import dad.todo.services.ServiceFactory;
 import dad.todo.services.items.UsuarioItem;
 import dad.todo.services.jpa.utils.JPAUtil;
+import dad.todo.ui.gestor_propiedades.GestorDePropiedades;
 import dad.todo.ui.login.LoginController;
 import dad.todo.ui.model.UsuarioModel;
 import javafx.application.Application;
@@ -30,18 +31,19 @@ import javafx.stage.Stage;
 public class App extends Application  {
 
 
+	private ToDoController todoController;
+	private GestorDePropiedades propiedades;
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		JPAUtil.initEntityManagerFactory("todo");
-		
-		ToDoController toDo = new ToDoController();
-		LoginController login= new LoginController(toDo);
-		
+		propiedades= new GestorDePropiedades();
+		LoginController login= new LoginController();
 		Scene loginScene= new Scene(login.getView());
 		primaryStage.setScene(loginScene);
-		
 		primaryStage.show();
-		
+
+	
 
 	}
 
@@ -56,6 +58,7 @@ public class App extends Application  {
 	@Override
 	public void stop() throws Exception {
 		JPAUtil.closeEntityManagerFactory();
+		propiedades.guardarPropiedades();
 		super.stop();
 	}
 

@@ -130,7 +130,7 @@ public class CrearEditarEventosController implements Initializable {
 	void onCancelarAction(ActionEvent event) {
 		clearForm();
 		editMode = false;
-		eventosController.changeViewToEventsList();
+		eventosController.changeViewToEventsList(fechaDatePicker.getValue());
 	}
 
 	// TODO
@@ -138,8 +138,8 @@ public class CrearEditarEventosController implements Initializable {
 		fechaDatePicker.setValue(null);
 		tituloTextField.clear();
 		descripcionTextArea.clear();
-		horaInicioDatePicker.setTime(null);
-		horaFinDatePicker.setTime(null);
+		horaInicioDatePicker.setTime(LocalTime.now());
+		horaFinDatePicker.setTime(LocalTime.now().plusHours(1));
 		realizadaCheckBox.setSelected(false);
 	}
 

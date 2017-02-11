@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
-
 
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXListView;
@@ -17,6 +17,7 @@ import dad.calendario.CalendarioController;
 import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
 import dad.todo.services.items.EventoItem;
+import dad.todo.ui.ToDoController;
 import dad.todo.ui.model.EventosModel;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -34,18 +35,16 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 public class EventosController implements Initializable {
-	
-    @FXML
-    private VBox rightPanel;
 
-    @FXML
-    private BorderPane eventsPane;
+	@FXML
+	private VBox rightPanel;
 
+	@FXML
+	private BorderPane eventsPane;
 
-    @FXML
-    private JFXListView<EventosModel> eventosListView;
+	@FXML
+	private JFXListView<EventosModel> eventosListView;
 
-	
 	@FXML
 	private JFXDatePicker fechaEventosDatePicker;
 
@@ -57,7 +56,22 @@ public class EventosController implements Initializable {
 
 	private CrearEditarEventosController editarCrearController;
 
+	private CalendarioController calendarioController;
+
+	private ListProperty<LocalDate> diasConEventos;
+
 	public EventosController() {
+
+		diasConEventos = new SimpleListProperty<>(this, "diasConEventos", FXCollections.observableArrayList());
+
+		try {
+			diasConEventos.addAll(ServiceFactory.getEventosService().getEventos().stream()
+					.map(EventosController::itemToLocalDate).collect(Collectors.toList()));
+		} catch (ServiceException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
 		eventos = new SimpleListProperty<>(this, "eventos", FXCollections.observableArrayList());
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("EventosView.fxml"));
@@ -72,19 +86,26 @@ public class EventosController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		calendarContainer.setCenter(new CalendarioController());
+		calendarioController = new CalendarioController();
+		calendarContainer.setCenter(calendarioController);
+		calendarioController.selectedDayProperty()
+				.addListener((obs, oldV, newV) -> fechaEventosDatePicker.setValue(newV));
 
+		calendarioController.specialDaysProperty().bind(diasConEventos);
 		fechaEventosDatePicker.valueProperty().addListener((obs, oldValue, newValue) -> onFechaChange(newValue));
+		fechaEventosDatePicker.setValue(LocalDate.now());
 
 		eventosListView.itemsProperty().bind(eventos);
-		
-		
+
+		eventos.sizeProperty().addListener(e -> {
+			updateDiasConEventosList();
+		});
 		BorderPane borderpane = new BorderPane();
 		ImageView imagev = new ImageView(new Image(getClass().getResource("sinEventos.gif").toExternalForm()));
 		borderpane.setBottom(imagev);
 		borderpane.setAlignment(imagev, Pos.CENTER);
 		eventosListView.setPlaceholder(borderpane);
-		
+
 		editarCrearController = new CrearEditarEventosController(this);
 
 	}
@@ -92,7 +113,7 @@ public class EventosController implements Initializable {
 	private void editarEvento(EventosModel evento) {
 		editarCrearController.initEdit(evento);
 		changeViewToEditEvent();
-		
+
 	}
 
 	private void onFechaChange(LocalDate newValue) {
@@ -103,7 +124,7 @@ public class EventosController implements Initializable {
 		try {
 			List<EventoItem> eventosItem = ServiceFactory.getEventosService().buscarEventosPorFecha(fecha);
 			eventos.clear();
-			eventos.addAll(eventosItem.stream().map(e-> EventosModel.fromItem(e,this)).collect(Collectors.toList()));
+			eventos.addAll(eventosItem.stream().map(e -> EventosModel.fromItem(e, this)).collect(Collectors.toList()));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
@@ -123,19 +144,45 @@ public class EventosController implements Initializable {
 		return view;
 	}
 
-	public void changeViewToEventsList() {
-		onFechaChange(fechaEventosDatePicker.getValue());
+	public void changeViewToEventsList(LocalDate f) {
+		if (f == null) {
+			onFechaChange(fechaEventosDatePicker.getValue());
+		} else {
+			onFechaChange(f);
+		}
+
 		rightPanel.getChildren().remove(0);
 		rightPanel.getChildren().add(eventsPane);
+		updateDiasConEventosList();
 	}
-	
-	public void onEditEventAction(EventosModel evento){
+
+	public void onEditEventAction(EventosModel evento) {
 		editarCrearController.initEdit(evento);
 		changeViewToEditEvent();
 	}
-	
+
 	public void changeViewToEditEvent() {
 		rightPanel.getChildren().remove(0);
 		rightPanel.getChildren().add(editarCrearController.getView());
+	}
+
+	private void updateDiasConEventosList() {
+		try {
+			diasConEventos.clear();
+			diasConEventos.addAll(ServiceFactory.getEventosService().getEventos().stream()
+					.map(EventosController::itemToLocalDate).collect(Collectors.toList()));
+		} catch (ServiceException e1) {
+			e1.printStackTrace();
+		}
+
+	}
+
+	private static LocalDate itemToLocalDate(EventoItem eventoItem) {
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(eventoItem.getFecha());
+		LocalDate fechaAux = LocalDate.of(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1,
+				calendar.get(Calendar.DAY_OF_MONTH));
+		return fechaAux;
 	}
 }

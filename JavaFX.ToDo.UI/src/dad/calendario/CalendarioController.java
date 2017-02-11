@@ -3,9 +3,10 @@ package dad.calendario;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
-
+import java.util.Set;
 
 import dad.calendario.MonthCalendar;
 import javafx.animation.FadeTransition;
@@ -16,11 +17,14 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -50,6 +54,8 @@ public class CalendarioController extends BorderPane  implements Initializable{
 	
 	private ListProperty<LocalDate> specialDays;
 	
+	private ReadOnlyObjectWrapper<LocalDate> selectedDay;
+	
 	@FXML
 	GridPane mesesPane;
 	@FXML
@@ -62,11 +68,13 @@ public class CalendarioController extends BorderPane  implements Initializable{
 	private List<MonthCalendar> mothList;
 
 	public CalendarioController() {
-		
+		selectedDay= new ReadOnlyObjectWrapper<>(this,"selectedDay",LocalDate.now());
 		
 		
 		year = new SimpleIntegerProperty(this, "year", LocalDate.now().getYear());
 		specialDays= new SimpleListProperty<>(this,"specialDays",FXCollections.observableArrayList());
+		specialDays.addListener((obs,oldV,newV)->onSpecialDaysChange(oldV,newV));
+		
 		today = new SimpleObjectProperty<>(this, "today", LocalDate.now());
 		CalendarService service =new CalendarService();
 		service.start();
@@ -89,6 +97,22 @@ public class CalendarioController extends BorderPane  implements Initializable{
 
 	}
 	
+	private void onSpecialDaysChange(ObservableList<LocalDate> oldV, ObservableList<LocalDate> newV) {
+		
+		mothList.forEach(mothC->{
+			mothC.getDaysLabel().forEach(r->r.getStyleClass().remove("specialDay"));
+		});
+			
+			
+		for (LocalDate labelDate : newV) {
+			MonthCalendar targetMes = mothList.get(labelDate.getMonthValue()-1);
+			Label dayLabel = targetMes.getLabelByDayOfMoth(labelDate.getDayOfMonth());
+			dayLabel.getStyleClass().add("specialDay");
+			System.out.println(labelDate);
+
+		}
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -97,9 +121,15 @@ public class CalendarioController extends BorderPane  implements Initializable{
 			mothList.get(i).yearProperty().bind(year);
 			mothList.get(i).todayProperty().bind(today);
 			mesesPane.add(mothList.get(i).getView(),  i % 3, i / 3);
+			mothList.get(i).diaPulsadoEventProperty().addListener((obs,oldV,newV)->onDayClickedAction(newV));
+
 		}
 		
 		
+	}
+
+	private void onDayClickedAction(LocalDate newV) {
+		selectedDay.set(newV);
 	}
 
 	public void incrementarYear() {
@@ -200,6 +230,28 @@ public class CalendarioController extends BorderPane  implements Initializable{
             };
         }
     }
+
+	public ListProperty<LocalDate> specialDaysProperty() {
+		return this.specialDays;
+	}
+	
+
+	public ObservableList<LocalDate> getSpecialDays() {
+	return this.specialDaysProperty().get();
+	}
+	
+
+	
+
+	public ReadOnlyObjectProperty<java.time.LocalDate> selectedDayProperty() {
+		return this.selectedDay.getReadOnlyProperty();
+	}
+	
+
+	public LocalDate getSelectedDay() {
+		return this.selectedDayProperty().get();
+	}
+	
 	
 
 
