@@ -49,12 +49,9 @@ public class MenuController implements Initializable {
 
 	@FXML
 	private ToggleGroup temaSelected;
-
+	
 	@FXML
-	private Text nombreText;
-
-	@FXML
-	private Text emailText;
+    private JFXButton nombreText;
 
 	@FXML
 	private RadioButton darkThemeRadioButton;
@@ -120,7 +117,6 @@ public class MenuController implements Initializable {
 	}
 
 	private void updatePerfilFields() {
-		emailText.setText(usuario.getEmail());
 		nombreText.setText(usuario.getNombre());
 	}
 

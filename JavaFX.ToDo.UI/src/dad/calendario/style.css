@@ -43,13 +43,14 @@
 	-fx-font-size: 15;
 	-fx-font-style: italic ;
 	-fx-border-color: transparent;
-	-fx-border-width: 2;	
+	-fx-border-width: 2;
 }
 
 .day:hover {
 	-fx-border-color: #009688;
-	-fx-background-color: #009688;
-	-fx-text-fill: white;
+	-fx-border-style: solid ;
+		-fx-border-radius: 20;
+	
 }
 
 .emptyday{
@@ -62,9 +63,9 @@ componenteMes{
 }
 
 .today{
-		-fx-border-color:#004D40;
-	-fx-background-color: #009688;
-	-fx-text-fill: white;
+	-fx-border-width: 2;
+	-fx-border-radius: 20;
+	-fx-font-weight: bold;
 }
 
 .sunday{
@@ -77,9 +78,7 @@ componenteMes{
 
 
 .specialDay{
-	-fx-background-color: red;
-	-fx-font-size: 15;
-	-fx-font-style: italic ;
-	-fx-border-color: transparent;
-	-fx-border-width: 2;	
+	-fx-background-color: #FF5722;	
+	-fx-text-fill: white;
+	-fx-background-radius: 20;	
 }

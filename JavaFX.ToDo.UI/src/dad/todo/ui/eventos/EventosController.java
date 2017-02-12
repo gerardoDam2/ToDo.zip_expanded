@@ -20,7 +20,9 @@ import dad.todo.services.items.EventoItem;
 import dad.todo.ui.ToDoController;
 import dad.todo.ui.model.EventosModel;
 import javafx.beans.property.ListProperty;
+import javafx.beans.property.SetProperty;
 import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleSetProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -58,11 +60,11 @@ public class EventosController implements Initializable {
 
 	private CalendarioController calendarioController;
 
-	private ListProperty<LocalDate> diasConEventos;
+	private SetProperty<LocalDate> diasConEventos;
 
 	public EventosController() {
 
-		diasConEventos = new SimpleListProperty<>(this, "diasConEventos", FXCollections.observableArrayList());
+		diasConEventos = new SimpleSetProperty<>(this, "diasConEventos", FXCollections.observableSet());
 
 		try {
 			diasConEventos.addAll(ServiceFactory.getEventosService().getEventos().stream()
