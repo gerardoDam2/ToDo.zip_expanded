@@ -132,7 +132,8 @@ public class EventosModel extends GridPane implements Initializable {
 		evento.setDescripcion(item.getDescripcion());
 
 		evento.setEventoID(item.getId());
-
+		
+		if(item.getLugar()!=null)
 		evento.setLugar(LugarModel.fromItem(item.getLugar()));
 
 		evento.setTerminada(item.getRealizado());

@@ -112,6 +112,7 @@ public class Evento {
 		evento.setDescripcion(descripcion);
 		evento.setDuracion(duracion);
 		evento.setFecha(fecha);
+		if(getLugar()!=null)
 		evento.setLugar(getLugar().toItem());
 		evento.setRealizado(realizado);
 		evento.setTitulo(titulo);
@@ -124,9 +125,11 @@ public class Evento {
 		evento.setDuracion(item.getDuracion());
 		evento.setFecha(item.getFecha());
 		evento.setId(item.getId());
+		if (item.getLugar()!=null) {
 		Lugar lugar= Lugar.fromItem(item.getLugar());
 		lugar.setEvento(evento);
 		evento.setLugar(lugar);
+		}
 		evento.setRealizado(item.getRealizado());
 		evento.setTitulo(item.getTitulo());
 		return evento;

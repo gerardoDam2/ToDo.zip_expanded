@@ -1,40 +1,62 @@
 package dad.todo.ui.eventos;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXPopup;
 
 import dad.calendario.CalendarioController;
 import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
 import dad.todo.services.items.EventoItem;
-import dad.todo.ui.ToDoController;
+
 import dad.todo.ui.model.EventosModel;
+import dad.todo.ui.report.detalleEvento;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SetProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleSetProperty;
 import javafx.collections.FXCollections;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Popup;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class EventosController implements Initializable {
 
@@ -61,6 +83,9 @@ public class EventosController implements Initializable {
 	private CalendarioController calendarioController;
 
 	private SetProperty<LocalDate> diasConEventos;
+
+	@FXML
+	private JFXPopup menuPopUp;
 
 	public EventosController() {
 
@@ -110,6 +135,79 @@ public class EventosController implements Initializable {
 
 		editarCrearController = new CrearEditarEventosController(this);
 
+		initPopUp();
+	}
+
+	private void initPopUp() {
+		JFXButton button1 = new JFXButton("Generar reporte detallado");
+		button1.setOnAction(e -> {
+			onReporteDetalladoAction();
+		});
+
+		JFXButton button2 = new JFXButton("Generar reporte general");
+		button2.setOnAction(e -> {
+			onReportGeneralAction();
+		});
+		JFXButton button3 = new JFXButton("task3");
+
+		button1.setPadding(new Insets(10));
+		button2.setPadding(new Insets(10));
+		button3.setPadding(new Insets(10));
+
+		VBox vBox = new VBox(button1, button2, button3);
+		menuPopUp.setContent(vBox);
+		menuPopUp.setSource(eventosListView);
+	}
+
+	private void onReportGeneralAction() {
+		Task<Void> jasperTask = new Task<Void>() {
+
+			@Override
+			protected Void call() throws Exception {
+				Map<String, Object> parametros = new HashMap<>();
+				String nombre = "";
+				nombre = ServiceFactory.getUsuariosService().getLogueado().getNombre();
+				parametros.put("nombreUsuario", nombre);
+				InputStream is = getClass().getResourceAsStream("../report/general.jasper");
+				JasperPrint jasperPrint = JasperFillManager.fillReport(is, parametros,
+						new JRBeanCollectionDataSource(detalleEvento.getTodosLosEventos()));
+				is.close();
+				JasperViewer.viewReport(jasperPrint, false);
+				return null;
+			}
+		};
+		new Thread(jasperTask).start();
+	}
+
+	private void onReporteDetalladoAction() {
+
+		detalleEvento eventoSelect = detalleEvento
+				.fromEventoModel(eventosListView.getSelectionModel().getSelectedItem());
+
+		Task<Void> jasperTask = new Task<Void>() {
+
+			@Override
+			protected Void call() throws Exception {
+				Map<String, Object> parametros = new HashMap<>();
+				String nombre = "";
+				nombre = ServiceFactory.getUsuariosService().getLogueado().getNombre();
+				parametros.put("nombreUsuario", nombre);
+				InputStream is = getClass().getResourceAsStream("../report/detalle.jasper");
+
+				List<detalleEvento> eventosReport = new ArrayList<>();
+				eventosReport.add(eventoSelect);
+
+				JasperPrint jasperPrint = JasperFillManager.fillReport(is, parametros,
+						new JRBeanCollectionDataSource(eventosReport));
+
+				is.close();
+				JasperViewer.viewReport(jasperPrint, false);
+
+				return null;
+			}
+		};
+
+		new Thread(jasperTask).start();
 	}
 
 	private void editarEvento(EventosModel evento) {
@@ -186,5 +284,12 @@ public class EventosController implements Initializable {
 		LocalDate fechaAux = LocalDate.of(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1,
 				calendar.get(Calendar.DAY_OF_MONTH));
 		return fechaAux;
+	}
+
+	@FXML
+	void onListViewClicked(MouseEvent event) {
+		if (event.getButton() == MouseButton.SECONDARY) {
+			menuPopUp.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, event.getX(), event.getY());
+		}
 	}
 }

@@ -48,8 +48,7 @@ import maps.java.Geocoding;
 
 public class CrearEditarEventosController implements Initializable {
 
-	@FXML
-	private JFXTextField direccionTextField;
+	
 
 	@FXML
 	private JFXTextField tituloTextField;
@@ -86,13 +85,13 @@ public class CrearEditarEventosController implements Initializable {
 
 	private EventosModel eventoEditado;
 
-	private Geocoding ObjGeocod;
 	
 	private ObservableSet<String> listaDirecciones;
 
 	private AutoCompletionBinding<String> bindeadormagico;
 
-	private GoogleMapsComponent mapa;
+	private MapV2 mapaDemigrante;
+
 	
 
 
@@ -123,7 +122,7 @@ public class CrearEditarEventosController implements Initializable {
 		horaFinDatePicker.setTime(evento.getHoraFin());
 		descripcionTextArea.setText(evento.getDescripcion());
 		realizadaCheckBox.setSelected(evento.isTerminada());
-
+		mapaDemigrante.setLugar(evento.getLugar().getDescripccion(),evento.getLugar().getLatitud(),evento.getLugar().getLongitud());
 	}
 
 	@FXML
@@ -141,6 +140,7 @@ public class CrearEditarEventosController implements Initializable {
 		horaInicioDatePicker.setTime(LocalTime.now());
 		horaFinDatePicker.setTime(LocalTime.now().plusHours(1));
 		realizadaCheckBox.setSelected(false);
+		mapaDemigrante.clear();
 	}
 
 	// TODO REFRESCAR LOS DATOS DESPUES DE ACTUALIZAR
@@ -154,11 +154,13 @@ public class CrearEditarEventosController implements Initializable {
 		eventoItem.setDuracion(duracion);
 		eventoItem.setFecha(TimeUtils.localDateToDate(fechaDatePicker.getValue(), horaInicioDatePicker.getTime()));
 		// TODO imp lugar
+		if(!mapaDemigrante.getDireccion().equals("sin dirección")){
 		LugarItem lugar = new LugarItem();
-		lugar.setDescripcion("todo");
-		lugar.setLatitud(666d);
-		lugar.setLongitud(666d);
+		lugar.setDescripcion(mapaDemigrante.getDireccion());
+		lugar.setLatitud(mapaDemigrante.getLatitud());
+		lugar.setLongitud(mapaDemigrante.getLongitud());
 		eventoItem.setLugar(lugar);
+		}
 		eventoItem.setRealizado(realizadaCheckBox.isSelected());
 		eventoItem.setTitulo(tituloTextField.getText());
 
@@ -193,41 +195,12 @@ public class CrearEditarEventosController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-	direccionTextField.textProperty().addListener((obs,oldValue,newValue)->onDireccionTextFieldChange(newValue));
-	bindeadormagico =TextFields.bindAutoCompletion(direccionTextField,listaDirecciones );
-//	mapa =new GoogleMapsComponent();
-	MapV2 mapa2 = new MapV2();
-	gridContainer.add(mapa2, 0, 6);
-	GridPane.setColumnSpan(mapa2, 2);
+	 mapaDemigrante = new MapV2();
+	gridContainer.add(mapaDemigrante, 0, 6);
+	GridPane.setColumnSpan(mapaDemigrante, 2);
 	
 	}
 
-	private void onDireccionTextFieldChange(String newValue) {
-		if (newValue.trim().length()!=0 && newValue.charAt(newValue.length()-1)==' ') {
-			
-			
-		
-		
-			try {
-				 ObjGeocod= new Geocoding();
-				 ObjGeocod.getCoordinates(newValue);
-			} catch (UnsupportedEncodingException | MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			listaDirecciones.add(ObjGeocod.getAddressFound());
-			System.out.println(listaDirecciones);
-			
-			if (bindeadormagico != null) {
-				bindeadormagico.dispose();
-			}
-			
-			 bindeadormagico =TextFields.bindAutoCompletion(tituloTextField,listaDirecciones );
-			 bindeadormagico.setHideOnEscape(false);
-			 
-		}
-		
-		
-	}
+
 
 }

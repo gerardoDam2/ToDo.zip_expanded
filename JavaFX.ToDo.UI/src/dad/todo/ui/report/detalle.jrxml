@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-02-12T18:40:27 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="detalle" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="48a44ffd-0814-430f-bd81-33f0e7dbc4ad">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="483"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="506"/>
+	<parameter name="nombreUsuario" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[descripcion]]></fieldDescription>
+	</field>
+	<field name="horaFin" class="java.time.LocalTime">
+		<fieldDescription><![CDATA[horaFin]]></fieldDescription>
+	</field>
+	<field name="fecha" class="java.time.LocalDate">
+		<fieldDescription><![CDATA[fecha]]></fieldDescription>
+	</field>
+	<field name="latitud" class="java.lang.Double">
+		<fieldDescription><![CDATA[latitud]]></fieldDescription>
+	</field>
+	<field name="longitud" class="java.lang.Double">
+		<fieldDescription><![CDATA[longitud]]></fieldDescription>
+	</field>
+	<field name="direccion" class="java.lang.String">
+		<fieldDescription><![CDATA[direccion]]></fieldDescription>
+	</field>
+	<field name="titulo" class="java.lang.String">
+		<fieldDescription><![CDATA[titulo]]></fieldDescription>
+	</field>
+	<field name="class" class="java.lang.Class">
+		<fieldDescription><![CDATA[class]]></fieldDescription>
+	</field>
+	<field name="horaInicio" class="java.time.LocalTime">
+		<fieldDescription><![CDATA[horaInicio]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="90" splitType="Stretch">
+			<rectangle>
+				<reportElement key="" x="-20" y="0" width="595" height="79" backcolor="#009688" uuid="7819d6c5-a3bd-41cb-8e73-e413adc5bdbb"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<image>
+				<reportElement x="0" y="14" width="50" height="50" uuid="d963e0ab-feec-45d7-a0b8-3a2c3a0b8e28"/>
+				<imageExpression><![CDATA["src/dad/todo/ui/images/jasperLogo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="50" y="20" width="88" height="39" forecolor="#FFFFFF" uuid="af648354-c264-4e97-961b-ff0212e6e85e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ToDO]]></text>
+			</staticText>
+			<textField pattern="MMMM d, yyyy">
+				<reportElement x="433" y="58" width="139" height="18" forecolor="#FFFFFF" uuid="e358a967-e7a5-4d6d-85a6-78ab7cc14911"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="20" y="4" width="160" height="15" uuid="a583e81f-eb68-4375-a958-15a36e967413"/>
+				<textFieldExpression><![CDATA["Usuario: "+$P{nombreUsuario}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="0" width="24" height="19" uuid="2e1ed780-027d-4821-8b73-2fe3a0bd7f3d"/>
+				<imageExpression><![CDATA["src/dad/todo/ui/images/account (1).png"]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="594" splitType="Stretch">
+			<componentElement>
+				<reportElement x="1" y="280" width="555" height="289" uuid="baa19ad2-c384-4c80-934b-186398c6fea0"/>
+				<c:map xmlns:c="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<c:latitudeExpression><![CDATA[28.45193]]></c:latitudeExpression>
+					<c:longitudeExpression><![CDATA[-16.284698]]></c:longitudeExpression>
+					<c:zoomExpression><![CDATA[12]]></c:zoomExpression>
+					<c:markerData>
+						<c:item>
+							<c:itemProperty name="latitude" value="28.4659702"/>
+							<c:itemProperty name="longitude" value="-16.305523"/>
+							<c:itemProperty name="address" value="perez minik la cuesta"/>
+						</c:item>
+					</c:markerData>
+				</c:map>
+			</componentElement>
+			<rectangle>
+				<reportElement x="-1" y="10" width="560" height="29" backcolor="#009688" uuid="85c6155c-76ea-49ea-9b6e-74eae56463ab"/>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="10" width="559" height="30" forecolor="#FFFFFF" uuid="b7dcd85a-3036-4a8c-8b1c-fe741afbbfa6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="50" width="390" height="19" uuid="be58eaf3-c2e9-424c-89f4-6e96ed28d6cb"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha}+" desde "+$F{horaInicio}+" hasta "+ $F{horaFin}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="90" width="103" height="20" uuid="6efe924e-16f0-437e-891d-8f5dca8846ff"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[Descripcion]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1" y="120" width="555" height="108" uuid="87bc2937-6f0b-43a4-8041-58d27b4d57db"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="245" width="556" height="19" uuid="1e576155-9546-4bae-a1c4-91a73c1888d8"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Dirección : "+$F{descripcion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="40" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-20" y="0" width="595" height="37" backcolor="#009688" uuid="cfb2b538-f2cb-49d3-b4a3-3dadba6ff98b"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="246" y="13" width="23" height="14" forecolor="#FFFFFF" uuid="7e71c034-966c-4902-91ab-328f358e3b5f"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="255" y="13" width="50" height="14" forecolor="#FFFFFF" uuid="0847de75-daf0-4e8a-baee-395eee6ff083"/>
+				<textFieldExpression><![CDATA[" de "+$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

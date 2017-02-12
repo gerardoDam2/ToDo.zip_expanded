@@ -60,37 +60,40 @@ public class EventosDAO {
 	}
 
 	//TODO Esto es una mierda.
-	public void updateEvento(UsuarioItem usuario, Evento evento)throws ServiceException {
-		
-		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
-		try {
-			em.getTransaction().begin();
-				Usuario usuarioEntiy = em.find(Usuario.class, usuario.getUsername());
-				usuarioEntiy.getEventos().stream()
-				.filter(eventoEntity-> eventoEntity.getId()==evento.getId())
-				.findAny()
-				.ifPresent(eventoEntity-> {
-					eventoEntity.setDescripcion(evento.getDescripcion());
-					eventoEntity.setDuracion(evento.getDuracion());
-					eventoEntity.setFecha(evento.getFecha());
-					eventoEntity.setId(evento.getId());
-					Lugar lugar=eventoEntity.getLugar();
-					lugar.setDescripcion(evento.getLugar().getDescripcion());
-					lugar.setLatitud(evento.getLugar().getLatitud());
-					lugar.setLongitud(evento.getLugar().getLongitud());
-					eventoEntity.setRealizado(evento.getRealizado());
-					eventoEntity.setTitulo(evento.getTitulo());
-				});
-				em.persist(usuarioEntiy);
-			em.getTransaction().commit();
-		} catch (Exception e) {
-			em.getTransaction().rollback();
-			throw new ServiceException("error al actualizar evento",e);
-		}finally {
-			em.close();
-		}	
-		
-	}
+//	public void updateEvento(UsuarioItem usuario, Evento evento)throws ServiceException {
+//		
+//		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
+//		try {
+//			em.getTransaction().begin();
+//				Usuario usuarioEntiy = em.find(Usuario.class, usuario.getUsername());
+//				usuarioEntiy.getEventos().stream()
+//				.filter(eventoEntity-> eventoEntity.getId()==evento.getId())
+//				.findAny()
+//				.ifPresent(eventoEntity-> {
+//					eventoEntity.setDescripcion(evento.getDescripcion());
+//					eventoEntity.setDuracion(evento.getDuracion());
+//					eventoEntity.setFecha(evento.getFecha());
+//					eventoEntity.setId(evento.getId());
+//					Lugar lugar=eventoEntity.getLugar();
+//					lugar.setDescripcion(evento.getLugar().getDescripcion());
+//					lugar.setLatitud(evento.getLugar().getLatitud());
+//					lugar.setLongitud(evento.getLugar().getLongitud());
+//					eventoEntity.setRealizado(evento.getRealizado());
+//					eventoEntity.setTitulo(evento.getTitulo());
+//				});
+//				em.persist(usuarioEntiy);
+//			em.getTransaction().commit();
+//		} catch (Exception e) {
+//			em.getTransaction().rollback();
+//			throw new ServiceException("error al actualizar evento",e);
+//		}finally {
+//			em.close();
+//		}	
+//		
+//	}
+	
+	
+	
 
 	public EventoItem findById(UsuarioItem usuario, Long id) throws ServiceException {
 		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();

@@ -27,6 +27,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -90,7 +92,7 @@ public class ToDoController implements Initializable {
 			stage.setWidth(Double.valueOf(GestorDePropiedades.getPropiedades().getProperty("stageWidth")));
 			stage.setHeight(Double.valueOf(GestorDePropiedades.getPropiedades().getProperty("stageHeight")));
 			
-		
+			stage.getIcons().add(new Image(getClass().getResourceAsStream("./images/TodoList-64.png")));
 
 			stage.setOnCloseRequest(close -> guardarConfig());
 

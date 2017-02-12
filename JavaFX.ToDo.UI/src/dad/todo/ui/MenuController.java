@@ -9,6 +9,7 @@ import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXRippler;
 
 import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
@@ -24,8 +25,11 @@ import javafx.scene.control.Control;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class MenuController implements Initializable {
@@ -60,6 +64,11 @@ public class MenuController implements Initializable {
 	private RadioButton lightThemeRadioButton;
 
 	private UsuarioModel usuario;
+	 @FXML
+	    private VBox boxtest;
+	
+    @FXML
+    private TitledPane perfilTitlePane;
 
 	public MenuController() {
 		usuario = new UsuarioModel();
@@ -86,7 +95,7 @@ public class MenuController implements Initializable {
         		Validator.createPredicateValidator(p->nuevaPassPassField.getText().equals(passActualPassField.getText()), "Las contraseñas deben ser iguales"));
         validationPassword.registerValidator(passActualPassField, false,Validator.createEmptyValidator("Debe introducir una contraseña"));
         cambiarPassButton.disableProperty().bind(validationPassword.invalidProperty());
-        
+
        
        
        
