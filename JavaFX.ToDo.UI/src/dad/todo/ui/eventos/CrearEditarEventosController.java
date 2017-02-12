@@ -122,7 +122,9 @@ public class CrearEditarEventosController implements Initializable {
 		horaFinDatePicker.setTime(evento.getHoraFin());
 		descripcionTextArea.setText(evento.getDescripcion());
 		realizadaCheckBox.setSelected(evento.isTerminada());
+		if (evento.getLugar()!=null) 
 		mapaDemigrante.setLugar(evento.getLugar().getDescripccion(),evento.getLugar().getLatitud(),evento.getLugar().getLongitud());
+		
 	}
 
 	@FXML
@@ -143,7 +145,7 @@ public class CrearEditarEventosController implements Initializable {
 		mapaDemigrante.clear();
 	}
 
-	// TODO REFRESCAR LOS DATOS DESPUES DE ACTUALIZAR
+	// TODO limpiar comprobacion de direccion para borrarla
 	@FXML
 	void onGuardarAction(ActionEvent event) {
 		
@@ -154,13 +156,17 @@ public class CrearEditarEventosController implements Initializable {
 		eventoItem.setDuracion(duracion);
 		eventoItem.setFecha(TimeUtils.localDateToDate(fechaDatePicker.getValue(), horaInicioDatePicker.getTime()));
 		// TODO imp lugar
-		if(!mapaDemigrante.getDireccion().equals("sin dirección")){
+		if(mapaDemigrante.getLugarSearchTextField().getText().trim().length()!=0){
 		LugarItem lugar = new LugarItem();
 		lugar.setDescripcion(mapaDemigrante.getDireccion());
 		lugar.setLatitud(mapaDemigrante.getLatitud());
 		lugar.setLongitud(mapaDemigrante.getLongitud());
 		eventoItem.setLugar(lugar);
+		}else {
+			eventoItem.setLugar(null);
+			System.out.println("seteando lugar a null");
 		}
+		
 		eventoItem.setRealizado(realizadaCheckBox.isSelected());
 		eventoItem.setTitulo(tituloTextField.getText());
 

@@ -152,6 +152,7 @@ public class MapV2 extends StackPane implements Initializable {
 		direccion.set("sin dirección");
 		latitud.set(0);
 		longitud.set(0);
+		lugarSearchTextField.textProperty().set(direccion.get());
 	}
 
 	public void setLugar(String descripccion, double latitud2, double longitud2) {
@@ -161,6 +162,11 @@ public class MapV2 extends StackPane implements Initializable {
 		latitud.set(ll.getLatitude());
 		longitud.set(ll.getLongitude());
 		mapa.renombrarMarca(direccion.get());
+		lugarSearchTextField.setText(direccion.get());
+	}
+	
+	public TextField getLugarSearchTextField() {
+		return lugarSearchTextField;
 	}
 
 }

@@ -71,11 +71,16 @@ public class Lugar implements Serializable {
 	}
 	
 	public static Lugar fromItem(LugarItem item) {
+		if (item!=null) {
+			
 		Lugar lugar = new Lugar();
 		lugar.setDescripcion(item.getDescripcion());
 		lugar.setLatitud(item.getLatitud());
 		lugar.setLongitud(item.getLongitud());
 		return lugar;
+		}else {
+			return null;
+		}
 	}
 	
 	public void setEvento(Evento evento) {

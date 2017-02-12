@@ -33,7 +33,7 @@ public class Evento {
 
 	private Boolean realizado;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER,orphanRemoval = true)
 	@PrimaryKeyJoinColumn	
 	private Lugar lugar;
 	
