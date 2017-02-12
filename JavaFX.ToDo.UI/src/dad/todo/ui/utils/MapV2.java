@@ -89,7 +89,10 @@ public class MapV2 extends StackPane implements Initializable {
 				
 			}
 		};
+		lugarSearchTextField.setText("sin dirección");
+
 		mapContainer.setCenter(mapa);
+//		mapa.prueba(new LatLong(0,0));
 	}
 
 	@FXML
@@ -152,7 +155,9 @@ public class MapV2 extends StackPane implements Initializable {
 		direccion.set("sin dirección");
 		latitud.set(0);
 		longitud.set(0);
+		mapa.prueba(new LatLong(0,0));
 		lugarSearchTextField.textProperty().set(direccion.get());
+		mapa.renombrarMarca(direccion.get());
 	}
 
 	public void setLugar(String descripccion, double latitud2, double longitud2) {

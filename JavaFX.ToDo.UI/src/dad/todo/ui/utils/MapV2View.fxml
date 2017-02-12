@@ -21,9 +21,9 @@
             </TextField>
          </children>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #009688;">
+      <HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #009688;" StackPane.alignment="BOTTOM_LEFT">
          <StackPane.margin>
-            <Insets top="380.0" />
+            <Insets />
          </StackPane.margin>
       </HBox>
    </children>

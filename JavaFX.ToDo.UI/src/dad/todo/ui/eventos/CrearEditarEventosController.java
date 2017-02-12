@@ -1,9 +1,6 @@
 package dad.todo.ui.eventos;
 
-import java.awt.geom.Point2D;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -11,7 +8,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 
 import org.controlsfx.control.textfield.AutoCompletionBinding;
-import org.controlsfx.control.textfield.TextFields;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
@@ -24,27 +20,17 @@ import dad.todo.services.ServiceFactory;
 import dad.todo.services.items.EventoItem;
 import dad.todo.services.items.LugarItem;
 import dad.todo.ui.model.EventosModel;
-import dad.todo.ui.utils.GoogleMapsComponent;
 import dad.todo.ui.utils.MapV2;
 import dad.todo.ui.utils.TimeUtils;
-import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
-import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleSetProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-import maps.java.Geocoding;
 
 public class CrearEditarEventosController implements Initializable {
 
@@ -156,7 +142,7 @@ public class CrearEditarEventosController implements Initializable {
 		eventoItem.setDuracion(duracion);
 		eventoItem.setFecha(TimeUtils.localDateToDate(fechaDatePicker.getValue(), horaInicioDatePicker.getTime()));
 		// TODO imp lugar
-		if(mapaDemigrante.getLugarSearchTextField().getText().trim().length()!=0){
+		if(mapaDemigrante.getLugarSearchTextField().getText().trim().length()!=0 && !mapaDemigrante.getDireccion().equals("sin dirección")){
 		LugarItem lugar = new LugarItem();
 		lugar.setDescripcion(mapaDemigrante.getDireccion());
 		lugar.setLatitud(mapaDemigrante.getLatitud());

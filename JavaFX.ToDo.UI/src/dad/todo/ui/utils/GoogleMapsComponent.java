@@ -61,7 +61,7 @@ public abstract class GoogleMapsComponent extends GoogleMapView implements MapCo
 
 	    markerOptions.position( new LatLong(latitud, longitud) )
 	                .visible(Boolean.TRUE)
-	                .title("My Marker");
+	                .title("Sin dirección");
 
 	     marca = new Marker( markerOptions );
 	    
