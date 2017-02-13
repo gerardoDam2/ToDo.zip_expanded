@@ -9,23 +9,20 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 
-public class MonthCalendar implements Initializable{
+public  class MonthCalendar implements Initializable {
 
 	private static final DateFormat FORMATTER = new SimpleDateFormat("MMMM");
 	private static final String[] WEEK_DAYS = { "L", "M", "X", "J", "V", "S", "D" };
@@ -43,7 +40,6 @@ public class MonthCalendar implements Initializable{
 	@FXML
 	private List<Label> daysLabel;
 	
-	private Thread hilo;
 	private Node view;
 
 	private SimpleObjectProperty<LocalDate> diaPulsadoEvent;
@@ -94,12 +90,28 @@ public class MonthCalendar implements Initializable{
 	
 	   @FXML
 	    void onDayLabelCliked(MouseEvent event) {
+		   if (event.getButton() == MouseButton.PRIMARY){
+			   System.out.println("Entrando en MothCalendar::onDayLabelClicked");
 	    	Label labelCliked = (Label)event.getSource();
 	    	try {
-				diaPulsadoEvent.set(LocalDate.of(getYear(), getMonth(), Integer.valueOf(labelCliked.getText())));
+				diaPulsadoEvent.set(null);
+	    		diaPulsadoEvent.set(LocalDate.of(getYear(), getMonth(), Integer.valueOf(labelCliked.getText())));
+	    		
+				
 			} catch (NumberFormatException e) {
+				
+				System.err.println("error al parsear MothCalendar::onDayLabelClicked ");
 			}
+		   }
+		   System.out.println("saliendo en MothCalendar::onDayLabelClicked");
 	    }
+
+	
+
+
+	
+
+
 
 	private void onModelChanged() {
 	
@@ -177,9 +189,6 @@ public class MonthCalendar implements Initializable{
 		return view;
 	}
 	
-	public void close(){
-		hilo.interrupt();
-	}
 
 	public List<Label> getDaysLabel() {
 		return daysLabel;
@@ -215,9 +224,7 @@ public class MonthCalendar implements Initializable{
 
 
 
-	public void setDiaPulsadoEvent(final LocalDate diaPulsadoEvent) {
-		this.diaPulsadoEventProperty().set(diaPulsadoEvent);
-	}
+
 	//TODO BORRAR
 	public Label getLabelByDayOfMoth(int dayParam){
 		String dia = dayParam+"";	
@@ -230,7 +237,9 @@ public class MonthCalendar implements Initializable{
 		
 		return returnedLabel;
 	}
-	
+
+
+
 	
 
 }

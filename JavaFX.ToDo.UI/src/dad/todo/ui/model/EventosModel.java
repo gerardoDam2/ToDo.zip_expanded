@@ -12,12 +12,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.ResourceBundle;
+
+import com.jfoenix.controls.JFXPopup;
 
 import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
@@ -274,7 +278,7 @@ public class EventosModel extends GridPane implements Initializable {
 		horaInicioLabel.textProperty().bind(horaInicioProperty().asString());
 		horaFinLabel.textProperty().bind(horaFinProperty().asString());
 		
-	
+		this.setStyle("-fx-background-color:green");
 		
 
 	}
@@ -302,5 +306,14 @@ public class EventosModel extends GridPane implements Initializable {
 	}	
 	
 	}
-
+	
+    @FXML
+    void onEventClicked(MouseEvent event) {
+    	if (event.getButton() == MouseButton.SECONDARY) {
+    		System.out.println("eventoClicked");
+    		eventosController.mostrarMenu(event,this);
+		}else {
+			eventosController.CerrarMenu();
+		}
+    }
 }

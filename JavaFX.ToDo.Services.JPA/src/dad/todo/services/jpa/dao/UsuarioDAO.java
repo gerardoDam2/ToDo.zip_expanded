@@ -26,8 +26,8 @@ public class UsuarioDAO {
 		} catch (PersistenceException e) {
 			throw new ServiceException("No se pudo recuperar el usuario", e);
 		} finally {
-			em.close();
 		}
+		em.close();
 		return usuario;
 	}
 
@@ -41,8 +41,8 @@ public class UsuarioDAO {
 			em.getTransaction().rollback();
 			throw new ServiceException("No se pudo dar de alta al usuario", e);
 		} finally {
-			em.close();
 		}		
+		em.close();
 	}
 
 	public void delete(Usuario logueado) throws ServiceException {
@@ -57,8 +57,8 @@ public class UsuarioDAO {
 			em.getTransaction().rollback();
 			throw new ServiceException("No se pudo eliminar el usuario", e);
 		}finally {
-			em.close();
 		}
+		em.close();
 	}
 
 	public void updatePassword(Usuario logueado, String newPassword) throws ServiceException {
@@ -73,8 +73,8 @@ public class UsuarioDAO {
 			em.getTransaction().rollback();
 			throw new ServiceException("Error al cambiar la contraseña", e);
 		}finally {
-			em.close();
 		}
+		em.close();
 
 	}
 
@@ -92,8 +92,8 @@ public class UsuarioDAO {
 			em.getTransaction().rollback();
 			throw new ServiceException("Error al actualizar perfil", e);
 		}finally {
-			em.close();
 		}
+		em.close();
 
 	}
 
@@ -111,6 +111,7 @@ public class UsuarioDAO {
 		catch (Exception e) {
 			throw new ServiceException("Error al buscar usuario por email", e);
 		}
+		em.close();
 		 return user;
 	}
 
@@ -125,6 +126,7 @@ public class UsuarioDAO {
 			em.getTransaction().rollback();
 			throw new ServiceException("Error al establecer el nuevo password", e);
 		}
+		em.close();
 	}
 	
 	

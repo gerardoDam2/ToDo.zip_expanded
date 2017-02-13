@@ -7,6 +7,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.concurrent.Semaphore;
+
+import javax.print.attribute.standard.DialogTypeSelection;
 
 import dad.calendario.MonthCalendar;
 import javafx.animation.FadeTransition;
@@ -57,7 +60,7 @@ public class CalendarioController extends BorderPane  implements Initializable{
 	
 	private SetProperty<LocalDate> specialDays;
 	
-	private ReadOnlyObjectWrapper<LocalDate> selectedDay;
+	private ObjectProperty<LocalDate> selectedDay;
 	
 	@FXML
 	GridPane mesesPane;
@@ -71,7 +74,7 @@ public class CalendarioController extends BorderPane  implements Initializable{
 	private List<MonthCalendar> mothList;
 
 	public CalendarioController() {
-		selectedDay= new ReadOnlyObjectWrapper<>(this,"selectedDay",LocalDate.now());
+		selectedDay= new SimpleObjectProperty<>(this,"selectedDay",LocalDate.now());
 		
 		
 		year = new SimpleIntegerProperty(this, "year", LocalDate.now().getYear());
@@ -93,7 +96,15 @@ public class CalendarioController extends BorderPane  implements Initializable{
 
 		anyoLabel.textProperty().bind(year.asString());
 		
-		
+		selectedDay.addListener((obs,oldV,newV)-> {
+			if (newV.getYear()>year.get())
+				while(newV.getYear()!=year.get())
+				incrementarYear();
+			else
+				while(newV.getYear()!=year.get())
+				decrementarYear();
+			
+		});
 
 		this.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
@@ -133,10 +144,14 @@ public class CalendarioController extends BorderPane  implements Initializable{
 	}
 
 	private void onDayClickedAction(LocalDate newV) {
-		selectedDay.set(newV);
+		if (newV!=null) {
+			selectedDay.set(newV);
+		}
 	}
 
-	public void incrementarYear() {
+	public synchronized void incrementarYear() {
+		
+		
 		
 		double x=300;
 		SnapshotParameters sp = new SnapshotParameters();
@@ -175,13 +190,12 @@ public class CalendarioController extends BorderPane  implements Initializable{
 		
 		ParallelTransition pr = new ParallelTransition(out,out2,in,in2);
 		pr.setOnFinished(e->getChildren().remove(oldYear));
-		
 		pr.play();
 		onSpecialDaysChange();
 	}
 
 	
-	public void decrementarYear() {
+	public synchronized void decrementarYear() {
 		double x=300;
 		SnapshotParameters sp = new SnapshotParameters();
 		sp.setFill(Color.TRANSPARENT);
@@ -241,14 +255,10 @@ public class CalendarioController extends BorderPane  implements Initializable{
 
 	
 
-	public ReadOnlyObjectProperty<java.time.LocalDate> selectedDayProperty() {
-		return this.selectedDay.getReadOnlyProperty();
-	}
+	
 	
 
-	public LocalDate getSelectedDay() {
-		return this.selectedDayProperty().get();
-	}
+
 
 	public SetProperty<LocalDate> specialDaysProperty() {
 		return this.specialDays;
@@ -258,6 +268,21 @@ public class CalendarioController extends BorderPane  implements Initializable{
 	public ObservableSet<LocalDate> getSpecialDays() {
 	return this.specialDaysProperty().get();
 	}
+
+	public ObjectProperty<LocalDate> selectedDayProperty() {
+		return this.selectedDay;
+	}
+	
+
+	public LocalDate getSelectedDay() {
+		return this.selectedDayProperty().get();
+	}
+	
+
+	public void setSelectedDay(final LocalDate selectedDay) {
+		this.selectedDayProperty().set(selectedDay);
+	}
+	
 	
 
 	

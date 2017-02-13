@@ -1,7 +1,5 @@
 package dad.todo.ui.eventos;
 
-import java.awt.Desktop;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -18,7 +16,6 @@ import java.util.stream.Collectors;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXPopup;
 
 import dad.calendario.CalendarioController;
@@ -28,6 +25,7 @@ import dad.todo.services.items.EventoItem;
 
 import dad.todo.ui.model.EventosModel;
 import dad.todo.ui.report.detalleEvento;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SetProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -38,21 +36,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Popup;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -66,8 +60,12 @@ public class EventosController implements Initializable {
 	@FXML
 	private BorderPane eventsPane;
 
+//	@FXML
+//	private JFXListView<EventosModel> eventosListView;
 	@FXML
-	private JFXListView<EventosModel> eventosListView;
+	private ListView<EventosModel> eventosListView;
+	
+	
 
 	@FXML
 	private JFXDatePicker fechaEventosDatePicker;
@@ -115,18 +113,15 @@ public class EventosController implements Initializable {
 
 		calendarioController = new CalendarioController();
 		calendarContainer.setCenter(calendarioController);
-		calendarioController.selectedDayProperty()
-				.addListener((obs, oldV, newV) -> fechaEventosDatePicker.setValue(newV));
 
 		calendarioController.specialDaysProperty().bind(diasConEventos);
 		fechaEventosDatePicker.valueProperty().addListener((obs, oldValue, newValue) -> onFechaChange(newValue));
 		fechaEventosDatePicker.setValue(LocalDate.now());
-
+		
+		Bindings.bindBidirectional(calendarioController.selectedDayProperty(), fechaEventosDatePicker.valueProperty());
 		eventosListView.itemsProperty().bind(eventos);
 
-		eventos.sizeProperty().addListener(e -> {
-			updateDiasConEventosList();
-		});
+	
 		BorderPane borderpane = new BorderPane();
 		ImageView imagev = new ImageView(new Image(getClass().getResource("sinEventos.gif").toExternalForm()));
 		borderpane.setBottom(imagev);
@@ -148,13 +143,14 @@ public class EventosController implements Initializable {
 		button2.setOnAction(e -> {
 			onReportGeneralAction();
 		});
-		JFXButton button3 = new JFXButton("task3");
 
 		button1.setPadding(new Insets(10));
 		button2.setPadding(new Insets(10));
-		button3.setPadding(new Insets(10));
+		
+		button1.getStyleClass().add("menuButton");
+		button2.getStyleClass().add("menuButton");
 
-		VBox vBox = new VBox(button1, button2, button3);
+		VBox vBox = new VBox(button1, button2);
 		menuPopUp.setContent(vBox);
 		menuPopUp.setSource(eventosListView);
 	}
@@ -223,7 +219,6 @@ public class EventosController implements Initializable {
 		eventos.clear();
 		try {
 			List<EventoItem> eventosItem = ServiceFactory.getEventosService().buscarEventosPorFecha(fecha);
-			eventos.clear();
 			eventos.addAll(eventosItem.stream().map(e -> EventosModel.fromItem(e, this)).collect(Collectors.toList()));
 		} catch (ServiceException e) {
 			e.printStackTrace();
@@ -278,7 +273,6 @@ public class EventosController implements Initializable {
 	}
 
 	private static LocalDate itemToLocalDate(EventoItem eventoItem) {
-
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(eventoItem.getFecha());
 		LocalDate fechaAux = LocalDate.of(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1,
@@ -286,10 +280,19 @@ public class EventosController implements Initializable {
 		return fechaAux;
 	}
 
-	@FXML
-	void onListViewClicked(MouseEvent event) {
-		if (event.getButton() == MouseButton.SECONDARY) {
-			menuPopUp.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, event.getX(), event.getY());
+
+
+	public void mostrarMenu(MouseEvent event, EventosModel eventosModel) {
+		if (menuPopUp.isVisible()) {
+			menuPopUp.close();
+		}
+		Bounds boundsInScene = eventosModel.localToScene(eventosModel.getBoundsInLocal());
+		menuPopUp.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, event.getX(), boundsInScene.getMinY()-20);
+	}
+	
+	public void CerrarMenu(){
+		if (menuPopUp.isVisible()) {
+			menuPopUp.close();
 		}
 	}
 }

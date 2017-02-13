@@ -35,8 +35,8 @@ public class EventosDAO {
 			em.getTransaction().rollback();
 			throw new ServiceException("error al crear evento",e);
 		}finally {
-			em.close();
 		}	
+		em.close();
 			
 	}
 
@@ -54,8 +54,8 @@ public class EventosDAO {
 			em.getTransaction().rollback();
 			throw new ServiceException("error al borrar evento",e);
 		}finally {
-			em.close();
 		}	
+		em.close();
 		
 	}
 
@@ -108,8 +108,8 @@ public class EventosDAO {
 		} catch (Exception e) {
 			throw new ServiceException("no se encontro el evento",e);
 		}finally {
-			em.close();
 		}	
+		em.close();
 		return eventoItem;
 		
 	}
@@ -127,8 +127,8 @@ public class EventosDAO {
 		} catch (Exception e) {
 			throw new ServiceException("no se encontro el evento",e);
 		}finally {
-			em.close();
 		}	
+		em.close();
 		return ListaItems;
 	}
 
@@ -156,8 +156,8 @@ public class EventosDAO {
 		} catch (Exception e) {
 			throw new ServiceException("no se encontro el evento",e);
 		}finally {
-			em.close();
 		}	
+		em.close();
 		return ListaItems;
 	}
 	
