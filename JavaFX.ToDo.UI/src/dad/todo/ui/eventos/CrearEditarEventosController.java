@@ -14,6 +14,7 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import com.sun.javafx.scene.control.behavior.DatePickerBehavior;
 
 import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
@@ -22,6 +23,8 @@ import dad.todo.services.items.LugarItem;
 import dad.todo.ui.model.EventosModel;
 import dad.todo.ui.utils.MapV2;
 import dad.todo.ui.utils.TimeUtils;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.property.SimpleSetProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
@@ -29,6 +32,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
@@ -92,6 +96,7 @@ public class CrearEditarEventosController implements Initializable {
 			e.printStackTrace();
 		}
 
+		
 	}
 
 	public BorderPane getView() {
@@ -190,6 +195,11 @@ public class CrearEditarEventosController implements Initializable {
 	 mapaDemigrante = new MapV2();
 	gridContainer.add(mapaDemigrante, 0, 6);
 	GridPane.setColumnSpan(mapaDemigrante, 2);
+	horaInicioDatePicker.setValue(LocalDate.now());
+	horaInicioDatePicker.setTime(LocalTime.now());
+	horaFinDatePicker.setValue(LocalDate.now());
+	horaFinDatePicker.setTime(LocalTime.now().plusHours(1));
+	
 	
 	}
 

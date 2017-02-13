@@ -17,8 +17,8 @@
       
             <children>
             <JFXTextField fx:id="tituloTextField" prefColumnCount="40" promptText="Título" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-            <JFXDatePicker fx:id="horaInicioDatePicker" promptText="Hora de inicio" showTime="true" GridPane.rowIndex="2" />
-            <JFXDatePicker fx:id="horaFinDatePicker" promptText="Hora de finalización" showTime="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <JFXDatePicker fx:id="horaInicioDatePicker" editable="false" promptText="Hora de inicio" showTime="true" GridPane.rowIndex="2" />
+            <JFXDatePicker fx:id="horaFinDatePicker" cache="true" editable="false" promptText="Hora de finalización" showTime="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <JFXTextArea fx:id="descripcionTextArea" promptText="Escribe una breve descripción del evento" GridPane.columnSpan="2" GridPane.rowIndex="3" />
             <JFXDatePicker fx:id="fechaDatePicker" promptText="Fecha" GridPane.columnSpan="2" />
             <JFXCheckBox fx:id="realizadaCheckBox" text="Realizada" GridPane.rowIndex="4" />
