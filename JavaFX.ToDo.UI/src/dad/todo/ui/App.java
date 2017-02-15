@@ -14,6 +14,7 @@ import dad.todo.ui.gestor_propiedades.GestorDePropiedades;
 import dad.todo.ui.login.LoginController;
 import dad.todo.ui.model.UsuarioModel;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
@@ -36,7 +37,14 @@ public class App extends Application  {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		
+		
+		
 		JPAUtil.initEntityManagerFactory("todo");
+		
+        Thread.setDefaultUncaughtExceptionHandler(App::showError);
+
+		
 		propiedades= new GestorDePropiedades();
 		LoginController login= new LoginController();
 		Scene loginScene= new Scene(login.getView());
@@ -47,7 +55,13 @@ public class App extends Application  {
 
 	}
 
-	
+	 private static void showError(Thread t, Throwable e) {
+	        if (Platform.isFxApplicationThread()) {
+	        	System.err.println(e.getLocalizedMessage());
+	        } else {
+	            System.err.println("error en hilo"+t);
+	        }
+	    }
 
 
 	public static void main(String[] args) {

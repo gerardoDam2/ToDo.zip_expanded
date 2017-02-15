@@ -5,6 +5,10 @@
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -13,15 +17,34 @@
 
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <GridPane fx:id="gridContainer" alignment="CENTER" hgap="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" vgap="10.0">
+      <GridPane fx:id="gridContainer" alignment="CENTER" hgap="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" vgap="10.0" BorderPane.alignment="CENTER">
       
             <children>
             <JFXTextField fx:id="tituloTextField" prefColumnCount="40" promptText="Título" GridPane.columnSpan="2" GridPane.rowIndex="1" />
             <JFXDatePicker fx:id="horaInicioDatePicker" editable="false" promptText="Hora de inicio" showTime="true" GridPane.rowIndex="2" />
-            <JFXDatePicker fx:id="horaFinDatePicker" cache="true" editable="false" promptText="Hora de finalización" showTime="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <HBox GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+               <children>
+                  <JFXDatePicker fx:id="horaFinDatePicker" cache="true" editable="false" promptText="Hora de finalización" showTime="true" styleClass="datePickerError" />
+                  <Label fx:id="errorLabel" prefHeight="31.0" prefWidth="28.0">
+                     <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Cancel-48.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+               </children>
+            </HBox>
             <JFXTextArea fx:id="descripcionTextArea" promptText="Escribe una breve descripción del evento" GridPane.columnSpan="2" GridPane.rowIndex="3" />
             <JFXDatePicker fx:id="fechaDatePicker" promptText="Fecha" GridPane.columnSpan="2" />
-            <JFXCheckBox fx:id="realizadaCheckBox" text="Realizada" GridPane.rowIndex="4" />
+            <JFXCheckBox fx:id="realizadaCheckBox" text="Realizada" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets top="10.0" />
+               </GridPane.margin></JFXCheckBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8">
                <children>
                   <JFXButton fx:id="guardarButton" onAction="#onGuardarAction" style="-fx-background-color: #009688;" text="Guardar" textFill="WHITE" />
@@ -30,7 +53,7 @@
             </HBox>
          </children>
          <columnConstraints>
-            <ColumnConstraints hgrow="ALWAYS" />
+            <ColumnConstraints hgrow="NEVER" />
             <ColumnConstraints hgrow="ALWAYS" />
          </columnConstraints>
          <rowConstraints>
@@ -44,6 +67,9 @@
             <RowConstraints minHeight="-Infinity" vgrow="ALWAYS" />
             <RowConstraints vgrow="ALWAYS" />
          </rowConstraints>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="100.0" />
+         </BorderPane.margin>
       </GridPane>
    </center>
 </BorderPane>

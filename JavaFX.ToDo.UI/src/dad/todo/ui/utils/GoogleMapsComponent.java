@@ -73,7 +73,7 @@ public abstract class GoogleMapsComponent extends GoogleMapView implements MapCo
 		    	latitud = ll.getLatitude();
 		    	longitud = ll.getLongitude();
 		    	
-		    	System.out.println(getAdress()+ " | "+ latitud+" | "+longitud);
+		    	
 		    	
 		    	marca.setPosition(ll);
 		    	onMarcaChange(getAdress());

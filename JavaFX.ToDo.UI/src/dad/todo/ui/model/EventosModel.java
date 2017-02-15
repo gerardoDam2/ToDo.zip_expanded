@@ -82,7 +82,8 @@ public class EventosModel extends GridPane implements Initializable {
 		horaFin = new SimpleObjectProperty<>(this, "horaFin");
 		lugar = new SimpleObjectProperty<>(this, "lugar");
 		terminada = new SimpleBooleanProperty(this, "terminada");
-
+		
+		
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("EventosModelView.fxml"));
 			loader.setRoot(this);
@@ -293,11 +294,13 @@ public class EventosModel extends GridPane implements Initializable {
 	eventoItem.setId(getEventoID());
 	eventoItem.setRealizado(newValue);
 	eventoItem.setTitulo(getTitulo());
+	if (getLugar()!=null) {
 	LugarItem lugarItem = new LugarItem();
 	lugarItem.setDescripcion(getLugar().getDescripccion());
 	lugarItem.setLatitud(getLugar().getLatitud());
 	lugarItem.setLongitud(getLugar().getLongitud());
 	eventoItem.setLugar(lugarItem);
+	}
 	
 	try {
 		ServiceFactory.getEventosService().actualizarEvento(eventoItem);

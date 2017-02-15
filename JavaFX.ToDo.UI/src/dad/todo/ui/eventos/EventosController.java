@@ -287,7 +287,9 @@ public class EventosController implements Initializable {
 			menuPopUp.close();
 		}
 		Bounds boundsInScene = eventosModel.localToScene(eventosModel.getBoundsInLocal());
-		menuPopUp.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, event.getX(), boundsInScene.getMinY()-20);
+		menuPopUp.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, event.getX(), boundsInScene.getMinY()-30);
+//		menuPopUp.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, event.getX(), boundsInScene.getMinY()-20);
+//		menuPopUp.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, event.getSceneX(), event.getSceneY());
 	}
 	
 	public void CerrarMenu(){
