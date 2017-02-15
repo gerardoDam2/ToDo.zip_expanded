@@ -69,6 +69,9 @@ public class MapV2 extends StackPane implements Initializable {
 
 			@Override
 			public void onMarcaChange(String dirParam) {
+				if (dirParam.trim().length()==0) {
+					return;
+				}
 				// TODO Auto-generated method stub
 				lugarSearchTextField.setText(dirParam);
 				mapa.renombrarMarca(dirParam);

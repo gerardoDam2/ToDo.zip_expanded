@@ -130,8 +130,6 @@ public abstract class GoogleMapsComponent extends GoogleMapView implements MapCo
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		return calle;
 	}

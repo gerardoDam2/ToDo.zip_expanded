@@ -8,18 +8,12 @@ import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 
 import org.controlsfx.control.textfield.AutoCompletionBinding;
-import org.controlsfx.validation.Severity;
-import org.controlsfx.validation.ValidationSupport;
-import org.controlsfx.validation.Validator;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.validation.RequiredFieldValidator;
-import com.sun.javafx.scene.control.behavior.DatePickerBehavior;
-import com.sun.javafx.scene.control.skin.DatePickerSkin;
 
 import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
@@ -28,9 +22,6 @@ import dad.todo.services.items.LugarItem;
 import dad.todo.ui.model.EventosModel;
 import dad.todo.ui.utils.MapV2;
 import dad.todo.ui.utils.TimeUtils;
-import dad.todo.ui.utils.ValidatorUtil;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.binding.When;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -41,17 +32,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.HorizontalDirection;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
 public class CrearEditarEventosController implements Initializable {
-	
+
 	@FXML
-    private Label errorLabel;
+	private Label fechaErrorLabel;
+
+	@FXML
+	private Label horaFinErrorLabel;
 
 	@FXML
 	private JFXTextField tituloTextField;
@@ -79,7 +71,7 @@ public class CrearEditarEventosController implements Initializable {
 
 	@FXML
 	private GridPane gridContainer;
-	
+
 	private BooleanProperty horaFinValidator;
 
 	private BorderPane view;
@@ -96,8 +88,11 @@ public class CrearEditarEventosController implements Initializable {
 
 	private MapV2 mapaDemigrante;
 
+	private BooleanProperty fechaValidator;
+
 	public CrearEditarEventosController(EventosController eventosController) {
-		this.horaFinValidator=new SimpleBooleanProperty(this,"horaFinValidator");
+		this.horaFinValidator = new SimpleBooleanProperty(this, "horaFinValidator");
+		this.fechaValidator = new SimpleBooleanProperty(this, "fechaValidator");
 		this.eventosController = eventosController;
 		listaDirecciones = new SimpleSetProperty<>(this, "listaDirecciones", FXCollections.observableSet());
 		try {
@@ -212,6 +207,7 @@ public class CrearEditarEventosController implements Initializable {
 		fechaDatePicker.setValue(localDate);
 		horaInicioDatePicker.setTime(LocalTime.now());
 		horaFinDatePicker.setTime(LocalTime.now().plusHours(1));
+
 	}
 
 	@Override
@@ -223,24 +219,26 @@ public class CrearEditarEventosController implements Initializable {
 		horaInicioDatePicker.setTime(LocalTime.now());
 		horaFinDatePicker.setValue(LocalDate.now());
 		horaFinDatePicker.setTime(LocalTime.now().plusHours(1));
-		errorLabel.visibleProperty().bind(horaFinValidator);
-		horaFinDatePicker.timeProperty().addListener(e->onDatePickersChange());
-		horaInicioDatePicker.timeProperty().addListener(e->onDatePickersChange());
-		errorLabel.setTooltip(new Tooltip("La hora de finalizacion no puede ser inferior a la hora de inicio"));
 		
+		//validar hora
+		horaFinErrorLabel.visibleProperty().bind(horaFinValidator);
+		horaFinDatePicker.timeProperty().addListener(e -> onDatePickersChange());
+		horaInicioDatePicker.timeProperty().addListener(e -> onDatePickersChange());
+		horaFinErrorLabel.setTooltip(new Tooltip("La hora de finalizacion no puede ser inferior a la hora de inicio"));
 
+		//validar fecha
+		fechaErrorLabel.setTooltip(new Tooltip("Debe introducir una fecha"));
+		fechaErrorLabel.visibleProperty().bind(fechaDatePicker.valueProperty().isNull());
 
 	}
 
 	private void onDatePickersChange() {
 		if (horaInicioDatePicker.getTime().isAfter(horaFinDatePicker.getTime())) {
 			horaFinValidator.set(true);
-		}else{
+		} else {
 			horaFinValidator.set(false);
-
 		}
-			
-		
+
 	}
 
 }
