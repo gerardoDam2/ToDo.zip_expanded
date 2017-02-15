@@ -1,30 +1,41 @@
 package dad.todo.ui.login;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import com.oracle.jrockit.jfr.Transition;
 
 import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
 import dad.todo.services.items.UsuarioItem;
 import dad.todo.ui.ToDoController;
+import javafx.animation.Animation.Status;
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import com.jfoenix.controls.JFXTabPane;
 
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 
-public class LoginController {
+public class LoginController implements Initializable {
 
 	private JFXTabPane view;
+	
+    @FXML
+    private Label loginErrorLabel;
 
 	@FXML
 	private JFXTextField usernameTextField;
@@ -56,13 +67,17 @@ public class LoginController {
 	@FXML
 	private JFXButton registerButton;
 
+	private FadeTransition tr;
 
 
-	public LoginController() {
+
+	public LoginController()  {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
 			loader.setController(this);
 			view = loader.load();
+		    view.getStylesheets().add(getClass().getResource("../todoStyle.css").toExternalForm());
+
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -71,7 +86,6 @@ public class LoginController {
 
 	@FXML
 	void onLoginButtonAction(ActionEvent event) {
-		//TODO CAMBIAR A FALSE AL TERMINAR PRUEBAS
 		boolean validate = false;
 		try {
 			validate = ServiceFactory.getUsuariosService().login(usernameTextField.getText(),
@@ -84,8 +98,11 @@ public class LoginController {
 			((Stage) view.getScene().getWindow()).close();
 			new ToDoController().show();
 		} else {
-			//TODO
 			System.err.println("LoginController: credenciales incorrectas ");
+				tr.playFromStart();
+		    
+		    
+			
 		}
 
 	}
@@ -144,5 +161,19 @@ public class LoginController {
 
 	public JFXTabPane getView() {
 		return view;
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		loginErrorLabel.setOpacity(0);
+		tr= new FadeTransition();
+	    tr.setDuration(Duration.seconds(1.5));
+	    tr.setFromValue(0);
+	    tr.setToValue(1);
+	    tr.setAutoReverse(true);
+	    tr.setCycleCount(2);
+	    tr.setNode(loginErrorLabel);
+	    //TODO 
+		
 	}
 }

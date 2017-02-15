@@ -5,6 +5,7 @@
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -29,6 +30,7 @@
                       <RowConstraints vgrow="NEVER" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
                       <RowConstraints vgrow="NEVER" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
                     </rowConstraints>
                      <children>
                         <JFXTextField fx:id="usernameTextField" promptText="Username" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
@@ -45,6 +47,7 @@
                            </image>
                         </ImageView>
                         <Hyperlink fx:id="recuperarPassLink" alignment="BASELINE_CENTER" onAction="#onRecuperarPassAction" text="¿Olvidó su contraseña?" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                        <Label fx:id="loginErrorLabel" styleClass="errorText" text="Credenciales incorrectas" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
                </children>

@@ -14,6 +14,8 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.RequiredFieldValidator;
+import com.jfoenix.validation.base.ValidatorBase;
 
 import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
@@ -34,6 +36,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
@@ -123,19 +127,6 @@ public class CrearEditarEventosController implements Initializable {
 			mapaDemigrante.setLugar(evento.getLugar().getDescripccion(), evento.getLugar().getLatitud(),
 					evento.getLugar().getLongitud());
 
-		// ValidationSupport validationEvento = new ValidationSupport();
-		// validationEvento.registerValidator(tituloTextField, false,
-		// Validator.createRegexValidator("formato incorrecto",
-		// ValidatorUtil.EMAIL_PATTERN, Severity.ERROR));
-		// validationEvento.registerValidator(horaInicioDatePicker, false,
-		// Validator.createRegexValidator("formato incorrecto",
-		// ValidatorUtil.EMAIL_PATTERN, Severity.ERROR));
-		// validationEvento.registerValidator(horaFinDatePicker, false,
-		// Validator.createRegexValidator("formato incorrecto",
-		// ValidatorUtil.EMAIL_PATTERN, Severity.ERROR));
-		// validationEvento.registerValidator(descripcionTextArea, false,
-		// Validator.createRegexValidator("formato incorrecto",
-		// ValidatorUtil.EMAIL_PATTERN, Severity.ERROR));
 
 	}
 
@@ -229,9 +220,39 @@ public class CrearEditarEventosController implements Initializable {
 		//validar fecha
 		fechaErrorLabel.setTooltip(new Tooltip("Debe introducir una fecha"));
 		fechaErrorLabel.visibleProperty().bind(fechaDatePicker.valueProperty().isNull());
-
+		
+		//titulo
+//		tituloTextField.setStyle("-fx-label-float:true;");
+//		tituloTextField.setPromptText("Password");
+//		RequiredFieldValidator tituloValidator = new RequiredFieldValidator();
+//		tituloValidator.setMessage("Password Can't be empty");
+//		tituloTextField.getValidators().add(tituloValidator);
+//		tituloTextField.focusedProperty().addListener((o,oldVal,newVal)->{
+//			if(!newVal) tituloTextField.validate();
+//		});
+		
+		RequiredFieldValidator tituloValidator = new RequiredFieldValidator();
+		tituloValidator.setMessage("Debe introducir un titulo");
+		tituloTextField.getValidators().add(tituloValidator);
+		tituloTextField.focusedProperty().addListener((o,oldVal,newVal)->{
+			if(!newVal) tituloTextField.validate();
+		});
+		
+		RequiredFieldValidator descripcionValidator = new RequiredFieldValidator();
+		descripcionValidator.setMessage("Debe introducir un descripción");
+		descripcionTextArea.getValidators().add(descripcionValidator);
+		descripcionTextArea.focusedProperty().addListener((o,oldVal,newVal)->{
+			if(!newVal) descripcionTextArea.validate();
+		});
+		tituloValidator.setIcon(new ImageView(new Image(getClass().getResourceAsStream("../images/Cancel-48.png"),24,24,false,false)));
+		descripcionValidator.setIcon(new ImageView(new Image(getClass().getResourceAsStream("../images/Cancel-48.png"),24,24,false,false)));
+		
+		
 	}
 
+	public boolean prueba (){
+		return tituloTextField.getText().equals("hola");
+	}
 	private void onDatePickersChange() {
 		if (horaInicioDatePicker.getTime().isAfter(horaFinDatePicker.getTime())) {
 			horaFinValidator.set(true);

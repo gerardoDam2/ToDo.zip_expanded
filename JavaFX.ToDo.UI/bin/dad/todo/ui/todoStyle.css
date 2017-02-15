@@ -24,3 +24,8 @@
 .datePickerError {
 
 	    }
+	    
+.errorText{
+	-fx-text-fill: #FF3D00;
+	
+}
