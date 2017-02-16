@@ -102,7 +102,7 @@ public class EventosController implements Initializable {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("EventosView.fxml"));
 			loader.setController(this);
 			view = loader.load();
-			view.getStylesheets().add(getClass().getResource("../todoStyle.css").toExternalForm());
+//			view.getStylesheets().add(getClass().getResource("../todoStyle.css").toExternalForm());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

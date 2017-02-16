@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
@@ -14,13 +15,13 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<JFXTabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<JFXTabPane cache="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <tabs>
-      <Tab text="Iniciar Sesión">
+      <Tab fx:id="iniciarSesionTab" closable="false" text="Iniciar Sesión">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="406.0">
                <children>
-                  <GridPane layoutX="50.0" layoutY="100.0" vgap="10.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0">
+                  <GridPane layoutX="50.0" layoutY="100.0" vgap="10.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="90.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="NEVER" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -30,7 +31,7 @@
                       <RowConstraints vgrow="NEVER" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
                       <RowConstraints vgrow="NEVER" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                        <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="NEVER" />
                     </rowConstraints>
                      <children>
                         <JFXTextField fx:id="usernameTextField" promptText="Username" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
@@ -47,35 +48,41 @@
                            </image>
                         </ImageView>
                         <Hyperlink fx:id="recuperarPassLink" alignment="BASELINE_CENTER" onAction="#onRecuperarPassAction" text="¿Olvidó su contraseña?" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                        <Label fx:id="loginErrorLabel" styleClass="errorText" text="Credenciales incorrectas" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                        <Label fx:id="loginErrorLabel" styleClass="errorText" text="Credenciales incorrectas" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding></Label>
                      </children>
                   </GridPane>
                </children>
             </AnchorPane>
         </content>
       </Tab>
-      <Tab text="Registrarse">
+      <Tab fx:id="registrarTab" closable="false" style="-fx-tab-max-width: 500;" text="Registrarse">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <GridPane vgap="10.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="80.0">
+                  <GridPane hgap="10.0" vgap="10.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="60.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="NEVER" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BASELINE" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BASELINE" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BASELINE" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BASELINE" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BASELINE" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="60.0" valignment="BASELINE" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <JFXTextField fx:id="usernameRegisterTextField" promptText="Username" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
                         <JFXTextField fx:id="nombreRegisterTextField" promptText="Nombre" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <JFXTextField fx:id="emailRegisterTextField" promptText="E-mail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <JFXButton fx:id="registerButton" buttonType="RAISED" onAction="#onRegisterButtonAction" ripplerFill="#ffeb3b" style="-fx-background-color: #009688;" text="Registrar" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                        <JFXButton fx:id="registerButton" buttonType="RAISED" onAction="#onRegisterButtonAction" ripplerFill="#ffeb3b" style="-fx-background-color: #009688;" text="Registrar" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin></JFXButton>
                         <ImageView pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
                            <image>
                               <Image url="@../images/account.png" />

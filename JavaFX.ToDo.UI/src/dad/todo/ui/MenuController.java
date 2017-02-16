@@ -97,9 +97,10 @@ public class MenuController implements Initializable {
         cambiarPassButton.disableProperty().bind(validationPassword.invalidProperty());
 
        
+        
        
-       
-       switch (GestorDePropiedades.getPropiedades().getProperty("style")) {
+       //TODO DASDASDASDSADASDSADADAS
+       switch ("light") {
 	case "light":
 		lightThemeRadioButton.setSelected(true);
 

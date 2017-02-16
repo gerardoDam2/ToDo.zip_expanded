@@ -4,6 +4,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.controlsfx.validation.Severity;
+import org.controlsfx.validation.ValidationSupport;
+import org.controlsfx.validation.Validator;
+import org.controlsfx.validation.decoration.ValidationDecoration;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -13,6 +18,8 @@ import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
 import dad.todo.services.items.UsuarioItem;
 import dad.todo.ui.ToDoController;
+import dad.todo.ui.gestor_propiedades.GestorDePropiedades;
+import dad.todo.ui.utils.ValidatorUtil;
 import javafx.animation.Animation.Status;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
@@ -20,6 +27,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -33,6 +41,12 @@ import javafx.fxml.Initializable;
 public class LoginController implements Initializable {
 
 	private JFXTabPane view;
+	
+    @FXML
+    private Tab iniciarSesionTab;
+
+    @FXML
+    private Tab registrarTab;
 	
     @FXML
     private Label loginErrorLabel;
@@ -76,9 +90,6 @@ public class LoginController implements Initializable {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
 			loader.setController(this);
 			view = loader.load();
-		    view.getStylesheets().add(getClass().getResource("../todoStyle.css").toExternalForm());
-
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -165,6 +176,7 @@ public class LoginController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		//Notificacion de error
 		loginErrorLabel.setOpacity(0);
 		tr= new FadeTransition();
 	    tr.setDuration(Duration.seconds(1.5));
@@ -173,7 +185,20 @@ public class LoginController implements Initializable {
 	    tr.setAutoReverse(true);
 	    tr.setCycleCount(2);
 	    tr.setNode(loginErrorLabel);
-	    //TODO 
-		
+	    
+	    ValidationSupport registrarUsuarioValidator = new ValidationSupport();
+
+	    
+        registrarUsuarioValidator.registerValidator(nombreRegisterTextField, false,Validator.createEmptyValidator("El campo no puede estar vacío"));
+        registrarUsuarioValidator.registerValidator(usernameRegisterTextField, false,Validator.createEmptyValidator("El campo no puede estar vacío"));
+        
+        registrarUsuarioValidator.registerValidator(emailRegisterTextField, false, Validator.createRegexValidator("formato incorrecto", ValidatorUtil.EMAIL_PATTERN, Severity.ERROR));
+
+        registrarUsuarioValidator.registerValidator(passwordRegister2TextField, false,
+        		Validator.createPredicateValidator(p->passwordRegister2TextField.getText().equals(passwordRegister1TextField.getText()), "Las contraseñas deben ser iguales"));
+        registrarUsuarioValidator.registerValidator(passwordRegister1TextField, false,Validator.createEmptyValidator("Debe introducir una contraseña"));
+        
+        
+        registerButton.disableProperty().bind(registrarUsuarioValidator.invalidProperty());
 	}
 }

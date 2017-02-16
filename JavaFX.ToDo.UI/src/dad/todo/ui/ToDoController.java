@@ -75,7 +75,7 @@ public class ToDoController implements Initializable {
 			
 			
 			styleSelected = new SimpleStringProperty(this, "styleSelected",
-					GestorDePropiedades.getPropiedades().getProperty("style"));
+					App.gestorDePropiedades.getPropiedades().getProperty("style"));
 			styleSelected.addListener((obs, oldV, newV) -> onStyleChange(newV));
 
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("ToDoView.fxml"));
@@ -83,19 +83,20 @@ public class ToDoController implements Initializable {
 			view = loader.load();
 
 			Scene scene = new Scene(view);
-			scene.getStylesheets().add(getClass().getResource("todoStyle.css").toExternalForm());
+//			scene.getStylesheets().add(getClass().getResource("todoStyle.css").toExternalForm());
 
 			stage = new Stage();
 
-			stage.setX(Double.valueOf(GestorDePropiedades.getPropiedades().getProperty("stageX")));
-			stage.setY(Double.valueOf(GestorDePropiedades.getPropiedades().getProperty("stageY")));
-			stage.setWidth(Double.valueOf(GestorDePropiedades.getPropiedades().getProperty("stageWidth")));
-			stage.setHeight(Double.valueOf(GestorDePropiedades.getPropiedades().getProperty("stageHeight")));
+			stage.setX(Double.valueOf(App.gestorDePropiedades.getPropiedades().getProperty("stageX")));
+			stage.setY(Double.valueOf(App.gestorDePropiedades.getPropiedades().getProperty("stageY")));
+			stage.setWidth(Double.valueOf(App.gestorDePropiedades.getPropiedades().getProperty("stageWidth")));
+			stage.setHeight(Double.valueOf(App.gestorDePropiedades.getPropiedades().getProperty("stageHeight")));
 			
 			stage.getIcons().add(new Image(getClass().getResourceAsStream("./images/TodoList-64.png")));
 
 			stage.setOnCloseRequest(close -> guardarConfig());
 
+			App.gestorDePropiedades.ocupatedelCssPorMi(scene.getRoot());
 			stage.setScene(scene);
 
 		} catch (IOException e) {
@@ -106,7 +107,7 @@ public class ToDoController implements Initializable {
 
 	private void onStyleChange(String newV) {
 
-		GestorDePropiedades.getPropiedades().put("style", newV);
+		App.gestorDePropiedades.getPropiedades().put("style", newV);
 
 		switch (newV) {
 		case "light":
@@ -121,10 +122,10 @@ public class ToDoController implements Initializable {
 	}
 
 	private void guardarConfig() {
-		GestorDePropiedades.getPropiedades().setProperty("stageX", stage.getX() + "");
-		GestorDePropiedades.getPropiedades().setProperty("stageY", stage.getY() + "");
-		GestorDePropiedades.getPropiedades().setProperty("stageWidth", stage.getWidth() + "");
-		GestorDePropiedades.getPropiedades().setProperty("stageHeight", stage.getHeight() + "");
+		App.gestorDePropiedades.getPropiedades().setProperty("stageX", stage.getX() + "");
+		App.gestorDePropiedades.getPropiedades().setProperty("stageY", stage.getY() + "");
+		App.gestorDePropiedades.getPropiedades().setProperty("stageWidth", stage.getWidth() + "");
+		App.gestorDePropiedades.getPropiedades().setProperty("stageHeight", stage.getHeight() + "");
 	}
 
 	@Override
