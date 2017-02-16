@@ -9,7 +9,10 @@ import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXColorPicker;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRippler;
+import com.jfoenix.controls.JFXTextField;
 
 import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
@@ -21,6 +24,7 @@ import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
@@ -30,9 +34,34 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 public class MenuController implements Initializable {
+	
+    @FXML
+    private JFXColorPicker base1Picker;
+
+    @FXML
+    private JFXColorPicker base2Picker;
+
+    @FXML
+    private JFXColorPicker text1Picker;
+
+    @FXML
+    private JFXComboBox<?> stylesComboBox;
+
+    @FXML
+    private JFXColorPicker texto2Picker;
+
+    @FXML
+    private JFXColorPicker fondoPicker;
+    
+    @FXML
+    private JFXTextField newStyleTextField;
+
+    @FXML
+    private Button addNewStyleButton;
 	@FXML
 	private TextField nombreUserTextField;
 
@@ -96,7 +125,12 @@ public class MenuController implements Initializable {
         validationPassword.registerValidator(passActualPassField, false,Validator.createEmptyValidator("Debe introducir una contraseña"));
         cambiarPassButton.disableProperty().bind(validationPassword.invalidProperty());
 
-       
+        base1Picker.valueProperty().bindBidirectional(App.gestorDePropiedades.currentStyleProperty().get().base1Property());
+        base2Picker.valueProperty().bindBidirectional(App.gestorDePropiedades.currentStyleProperty().get().base2Property());
+        text1Picker.valueProperty().bindBidirectional(App.gestorDePropiedades.currentStyleProperty().get().texto1Property());
+        texto2Picker.valueProperty().bindBidirectional(App.gestorDePropiedades.currentStyleProperty().get().texto2Property());
+        fondoPicker.valueProperty().bindBidirectional(App.gestorDePropiedades.currentStyleProperty().get().fondoProperty());
+        
         
        
        //TODO DASDASDASDSADASDSADADAS

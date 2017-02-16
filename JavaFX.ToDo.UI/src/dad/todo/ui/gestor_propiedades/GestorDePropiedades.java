@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -26,8 +27,10 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
+import javafx.concurrent.Task;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
+import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 
 public class GestorDePropiedades {
@@ -76,10 +79,19 @@ public class GestorDePropiedades {
 				}); // si no existe cargo los valores por defecto
 			}
 			
-		 cargarHojasDeEstilo();
-		 
-		
 			
+		 cargarHojasDeEstilo();
+		 hojasEstilo.stream().filter(p->p.getFileName().equals(propiedades.getProperty("style"))).forEach(p->currentStyle.set(p));
+		 System.out.println(hojasEstilo.size());
+		System.out.println("Tema actual------------------------" );
+		System.out.println(currentStyle.get());
+		
+//		try {
+//			guardarCss();
+//		} catch (URISyntaxException | IOException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}	
 	}
 	
 	private void onCurrentStyleChange() {
@@ -97,35 +109,39 @@ public class GestorDePropiedades {
 				if (file.getName().endsWith("css")) {
 					TodoStyleModel style = new TodoStyleModel();
 					style.setFileName(file.getName());
+					System.out.println(file.getName());
 					Scanner sc = new Scanner(file);
 					ArrayList<String> valores = new ArrayList<>();
 					sc.nextLine();
 					for (int i = 0; i < 6; i++) {
 						String cadena = sc.nextLine();
+						System.out.println(cadena);
 						cadena=cadena.substring(cadena.indexOf(":")+1,cadena.indexOf(";"));
+						System.out.println(cadena);
 						valores.add(cadena);
 					}
+					sc.close();
 					style.setNombre(valores.get(0));
-					style.setBase1(valores.get(1));
-					style.setBase2(valores.get(2));
-					style.setTexto1(valores.get(3));
-					style.setTexto2(valores.get(4));
-					style.setFondo(valores.get(5));
+					style.setBase1(Color.valueOf(valores.get(1)));
+					style.setBase2(Color.valueOf(valores.get(2)));
+					style.setTexto1(Color.valueOf(valores.get(3)));
+					style.setTexto2(Color.valueOf(valores.get(4)));
+					style.setFondo(Color.valueOf(valores.get(5)));
 					hojasEstilo.add(style);
 				}
 			}
-			hojasEstilo.stream().filter(p->p.getFileName().equals(propiedades.getProperty("style"))).forEach(p->currentStyle.set(p));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+		}
 
 	public  Properties getPropiedades() {
 		return propiedades;
 	}
 	
 	public void guardarPropiedades() {
+		
 		
 		try {
 			propiedades.put("style", currentStyle.get().getFileName());
@@ -138,6 +154,26 @@ public class GestorDePropiedades {
 
 	}
 
+	private void guardarCss() throws URISyntaxException, IOException {
+//		Task<Void> gurdarTask = new Task<Void>() {
+//			@Override
+//			protected Void call() throws Exception {
+//				return null;
+//			}
+//		};
+//		new Thread(gurdarTask).start();
+		TodoStyleModel cssObject = currentStyle.get();
+		Path pathBody = Paths.get(getClass().getResource("cssbody").toURI());
+		List<String> cssBody = Files.readAllLines(pathBody);
+		System.out.println("CSS BODY -----------");
+		cssBody.forEach(f-> {System.out.println(f);});
+		System.out.println("imprimiendo objeto css");
+		System.out.println(currentStyle.get().toString());
+		cssBody.add(0,currentStyle.get().toString());
+		Path pathDestino = Paths.get(getClass().getResource(currentStyle.get().getFileName()).toURI());
+		
+		Files.write(pathDestino,cssBody);
+	}
 	
 	
 
@@ -147,6 +183,21 @@ public class GestorDePropiedades {
 		System.out.println(currentStyle.get().getFileName());
 		p.getStylesheets().add(this.getClass().getResource(currentStyle.get().getFileName()).toExternalForm());
 	}
+
+	public ObjectProperty<TodoStyleModel> currentStyleProperty() {
+		return this.currentStyle;
+	}
+	
+
+	public TodoStyleModel getCurrentStyle() {
+		return this.currentStyleProperty().get();
+	}
+	
+
+	public void setCurrentStyle(final TodoStyleModel currentStyle) {
+		this.currentStyleProperty().set(currentStyle);
+	}
+	
 	
 	
 

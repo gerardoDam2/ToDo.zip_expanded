@@ -1,10 +1,10 @@
 *{
-	/*:Dark;*/
+	/*:Tema principal;*/
 	-fx-base1:#FF5722;
-	-fx-base2:#009688;
-	-fx-color-texto:black;
-	-fx-color-texto-headers:white;
-	-fx-color-fodo:white;
+	-fx-base2:#FF5722;
+	-fx-color-texto:#FFFFFF;
+	-fx-color-texto-headers:#000000;
+	-fx-color-fodo:#000000;
 }
 
 .root {
