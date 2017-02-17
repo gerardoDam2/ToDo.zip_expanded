@@ -121,17 +121,27 @@ public class TodoStyleModel {
 		this.fondoProperty().set(fondo);
 	}
 	
+	
 	@Override
 	public String toString() {
+		
 		String cssHeader ="*{\n"+
 			"/*:"+nombre.get()+";*/\n"+
-			"-fx-base1:"+base1.get()+";\n"+
-			"-fx-base2:"+base2.get()+";\n"+
-			"-fx-color-texto:"+texto1.get()+";\n"+
-			"-fx-color-texto-headers:"+texto2.get()+";\n"+
-			"-fx-color-fodo:"+base1.get()+";\n"+
+			"-fx-base1:"+toRGBCode(getBase1())+";\n"+
+			"-fx-base2:"+toRGBCode(getBase2())+";\n"+
+			"-fx-color-texto:"+toRGBCode(getTexto1())+";\n"+
+			"-fx-color-texto-headers:"+toRGBCode(getTexto2())+";\n"+
+			"-fx-color-fodo:"+toRGBCode(getFondo())+";\n"+
 			"}\n";
 		return cssHeader;
 	}
+	
+	    public  String toRGBCode( Color color )
+	    {
+	        return String.format( "#%02X%02X%02X",
+	            (int)( color.getRed() * 255 ),
+	            (int)( color.getGreen() * 255 ),
+	            (int)( color.getBlue() * 255 ) );
+	    }
 	
 }

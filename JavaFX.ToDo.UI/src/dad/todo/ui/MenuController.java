@@ -18,6 +18,7 @@ import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
 import dad.todo.services.items.UsuarioItem;
 import dad.todo.ui.gestor_propiedades.GestorDePropiedades;
+import dad.todo.ui.gestor_propiedades.TodoStyleModel;
 import dad.todo.ui.model.UsuarioModel;
 import dad.todo.ui.utils.ValidatorUtil;
 import javafx.beans.binding.Bindings;
@@ -49,7 +50,7 @@ public class MenuController implements Initializable {
     private JFXColorPicker text1Picker;
 
     @FXML
-    private JFXComboBox<?> stylesComboBox;
+    private JFXComboBox<TodoStyleModel> stylesComboBox;
 
     @FXML
     private JFXColorPicker texto2Picker;
@@ -131,7 +132,8 @@ public class MenuController implements Initializable {
         texto2Picker.valueProperty().bindBidirectional(App.gestorDePropiedades.currentStyleProperty().get().texto2Property());
         fondoPicker.valueProperty().bindBidirectional(App.gestorDePropiedades.currentStyleProperty().get().fondoProperty());
         
-        
+        stylesComboBox.itemsProperty().bindBidirectional(App.gestorDePropiedades.hojasEstiloProperty());
+        stylesComboBox.getSelectionModel().selectedItemProperty().addListener((obs,oldv,newV)->onSelectedStyleChange(newV));
        
        //TODO DASDASDASDSADASDSADADAS
        switch ("light") {
@@ -151,6 +153,10 @@ public class MenuController implements Initializable {
 	}
 	
 	
+
+	private void onSelectedStyleChange(TodoStyleModel newV) {
+		App.gestorDePropiedades.currentStyleProperty().set(newV);
+	}
 
 	private void onThemeChange(Toggle newV) {
 		if (newV==lightThemeRadioButton) {

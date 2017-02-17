@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -27,6 +28,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -86,12 +88,7 @@ public class GestorDePropiedades {
 		System.out.println("Tema actual------------------------" );
 		System.out.println(currentStyle.get());
 		
-//		try {
-//			guardarCss();
-//		} catch (URISyntaxException | IOException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}	
+		
 	}
 	
 	private void onCurrentStyleChange() {
@@ -109,15 +106,14 @@ public class GestorDePropiedades {
 				if (file.getName().endsWith("css")) {
 					TodoStyleModel style = new TodoStyleModel();
 					style.setFileName(file.getName());
-					System.out.println(file.getName());
-					Scanner sc = new Scanner(file);
+					System.out.println("archivo >"+file.getName());
+					Scanner sc = new Scanner(file,"UTF8");
 					ArrayList<String> valores = new ArrayList<>();
 					sc.nextLine();
 					for (int i = 0; i < 6; i++) {
 						String cadena = sc.nextLine();
-						System.out.println(cadena);
 						cadena=cadena.substring(cadena.indexOf(":")+1,cadena.indexOf(";"));
-						System.out.println(cadena);
+						System.out.println("cadena "+cadena);
 						valores.add(cadena);
 					}
 					sc.close();
@@ -127,6 +123,7 @@ public class GestorDePropiedades {
 					style.setTexto1(Color.valueOf(valores.get(3)));
 					style.setTexto2(Color.valueOf(valores.get(4)));
 					style.setFondo(Color.valueOf(valores.get(5)));
+					System.out.println("----"+style.getBase1().hashCode());
 					hojasEstilo.add(style);
 				}
 			}
@@ -142,12 +139,12 @@ public class GestorDePropiedades {
 	
 	public void guardarPropiedades() {
 		
-		
 		try {
+			guardarCss();
 			propiedades.put("style", currentStyle.get().getFileName());
 			output = new FileOutputStream(pathFile);
 			propiedades.store(output, "Borrar este fichero en caso de querer restaurar a la configuración por defecto");
-		} catch ( IOException e) {
+		} catch ( IOException | URISyntaxException e) {
 			e.printStackTrace();
 		}
 
@@ -172,7 +169,7 @@ public class GestorDePropiedades {
 		cssBody.add(0,currentStyle.get().toString());
 		Path pathDestino = Paths.get(getClass().getResource(currentStyle.get().getFileName()).toURI());
 		
-		Files.write(pathDestino,cssBody);
+		Files.write(pathDestino,cssBody,Charset.forName("UTF-8"));
 	}
 	
 	
@@ -197,6 +194,21 @@ public class GestorDePropiedades {
 	public void setCurrentStyle(final TodoStyleModel currentStyle) {
 		this.currentStyleProperty().set(currentStyle);
 	}
+
+	public ListProperty<TodoStyleModel> hojasEstiloProperty() {
+		return this.hojasEstilo;
+	}
+	
+
+	public ObservableList<TodoStyleModel> getHojasEstilo() {
+	return this.hojasEstiloProperty().get();
+	}
+	
+
+	public  void setHojasEstilo(ObservableList<TodoStyleModel> hojasEstilo) {
+	this.hojasEstiloProperty().set(hojasEstilo);
+	}
+	
 	
 	
 	
