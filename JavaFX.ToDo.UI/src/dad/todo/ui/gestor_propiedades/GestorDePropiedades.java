@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
@@ -48,9 +49,16 @@ public class GestorDePropiedades {
 	private  ArrayList<Parent>consumidoresDeStyle;
 	
 	private ListProperty<TodoStyleModel> hojasEstilo;
-	
+
+	//TODO TESTEANDO
+	private ObjectProperty<Color> base1;
+	private ObjectProperty<Color> base2;
+	private ObjectProperty<Color> texto1;
+	private ObjectProperty<Color> texto2;
+	private ObjectProperty<Color> fondo;
 	
 	public GestorDePropiedades() {
+		
 		consumidoresDeStyle=new ArrayList<>();
 		hojasEstilo= new SimpleListProperty<>(this,"hojasEstilo",FXCollections.observableArrayList());
 		currentStyle = new SimpleObjectProperty<>(this,"currentStyle");
@@ -84,18 +92,56 @@ public class GestorDePropiedades {
 			
 		 cargarHojasDeEstilo();
 		 hojasEstilo.stream().filter(p->p.getFileName().equals(propiedades.getProperty("style"))).forEach(p->currentStyle.set(p));
-		 System.out.println(hojasEstilo.size());
-		System.out.println("Tema actual------------------------" );
-		System.out.println(currentStyle.get());
-		
-		
+		 
+		 //TODO TESTEANDO
+		 
+		 base1=new SimpleObjectProperty<>(this,"base1",currentStyle.get().base1.get());
+		 base2=new SimpleObjectProperty<>(this,"base2",currentStyle.get().base2.get());
+		 texto1=new SimpleObjectProperty<>(this,"texto1",currentStyle.get().texto1.get());
+		 texto2=new SimpleObjectProperty<>(this,"texto2",currentStyle.get().texto2.get());
+		 fondo=new SimpleObjectProperty<>(this,"fondo",currentStyle.get().fondo.get());
+		 
+		 
+		 base1.addListener((a,b,c)->onAnyColorChange(c));
+		 base2.addListener((a,b,c)->onAnyColorChange(c));
+		 texto1.addListener((a,b,c)->onAnyColorChange(c));
+		 texto2.addListener((a,b,c)->onAnyColorChange(c));
+		 fondo.addListener((a,b,c)->onAnyColorChange(c));
+		 
 	}
 	
-	private void onCurrentStyleChange() {
-		consumidoresDeStyle.forEach(a->{
-			a.getStylesheets().clear();
-			a.getStylesheets().add(this.getClass().getResource(currentStyle.get().getFileName()).toExternalForm());
-		});
+	private void onAnyColorChange(Color c) {
+	
+		currentStyle.get().setBase1(base1.get());
+		currentStyle.get().setBase2(base2.get());
+		currentStyle.get().setTexto1(texto1.get());
+		currentStyle.get().setTexto2(texto2.get());
+		currentStyle.get().setFondo(fondo.get());
+		onCurrentStyleChange();
+	}
+
+	public void onCurrentStyleChange() {
+		try {
+			
+			base1.set(currentStyle.get().getBase1());
+			base2.set(currentStyle.get().getBase2());
+			texto1.set(currentStyle.get().getTexto1());
+			texto2.set(currentStyle.get().getTexto2());
+			fondo.set(currentStyle.get().getFondo());
+			
+			
+			consumidoresDeStyle.forEach(a->{
+				a.getStylesheets().clear();
+			});
+			guardarCss();
+			consumidoresDeStyle.forEach(a->{
+				a.getStylesheets().add(this.getClass().getResource(currentStyle.get().getFileName()).toExternalForm());
+			});
+		} catch (URISyntaxException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	private void cargarHojasDeEstilo() {
@@ -151,7 +197,7 @@ public class GestorDePropiedades {
 
 	}
 
-	private void guardarCss() throws URISyntaxException, IOException {
+	public void guardarCss() throws URISyntaxException, IOException {
 //		Task<Void> gurdarTask = new Task<Void>() {
 //			@Override
 //			protected Void call() throws Exception {
@@ -159,14 +205,11 @@ public class GestorDePropiedades {
 //			}
 //		};
 //		new Thread(gurdarTask).start();
+		System.out.println("guardando css");
 		TodoStyleModel cssObject = currentStyle.get();
 		Path pathBody = Paths.get(getClass().getResource("cssbody").toURI());
 		List<String> cssBody = Files.readAllLines(pathBody);
-		System.out.println("CSS BODY -----------");
-		cssBody.forEach(f-> {System.out.println(f);});
-		System.out.println("imprimiendo objeto css");
-		System.out.println(currentStyle.get().toString());
-		cssBody.add(0,currentStyle.get().toString());
+		cssBody.add(0,currentStyle.get().toCssHeader());
 		Path pathDestino = Paths.get(getClass().getResource(currentStyle.get().getFileName()).toURI());
 		
 		Files.write(pathDestino,cssBody,Charset.forName("UTF-8"));
@@ -208,6 +251,81 @@ public class GestorDePropiedades {
 	public  void setHojasEstilo(ObservableList<TodoStyleModel> hojasEstilo) {
 	this.hojasEstiloProperty().set(hojasEstilo);
 	}
+
+	public ObjectProperty<Color> base1Property() {
+		return this.base1;
+	}
+	
+
+	public Color getBase1() {
+		return this.base1Property().get();
+	}
+	
+
+	public void setBase1(final Color base1) {
+		this.base1Property().set(base1);
+	}
+	
+
+	public ObjectProperty<Color> base2Property() {
+		return this.base2;
+	}
+	
+
+	public Color getBase2() {
+		return this.base2Property().get();
+	}
+	
+
+	public void setBase2(final Color base2) {
+		this.base2Property().set(base2);
+	}
+	
+
+	public ObjectProperty<Color> texto1Property() {
+		return this.texto1;
+	}
+	
+
+	public Color getTexto1() {
+		return this.texto1Property().get();
+	}
+	
+
+	public void setTexto1(final Color texto1) {
+		this.texto1Property().set(texto1);
+	}
+	
+
+	public ObjectProperty<Color> texto2Property() {
+		return this.texto2;
+	}
+	
+
+	public Color getTexto2() {
+		return this.texto2Property().get();
+	}
+	
+
+	public void setTexto2(final Color texto2) {
+		this.texto2Property().set(texto2);
+	}
+	
+
+	public ObjectProperty<Color> fondoProperty() {
+		return this.fondo;
+	}
+	
+
+	public Color getFondo() {
+		return this.fondoProperty().get();
+	}
+	
+
+	public void setFondo(final Color fondo) {
+		this.fondoProperty().set(fondo);
+	}
+	
 	
 	
 	

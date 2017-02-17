@@ -1,5 +1,7 @@
 package dad.todo.ui;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -21,6 +23,7 @@ import dad.todo.ui.gestor_propiedades.GestorDePropiedades;
 import dad.todo.ui.gestor_propiedades.TodoStyleModel;
 import dad.todo.ui.model.UsuarioModel;
 import dad.todo.ui.utils.ValidatorUtil;
+import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -126,14 +129,22 @@ public class MenuController implements Initializable {
         validationPassword.registerValidator(passActualPassField, false,Validator.createEmptyValidator("Debe introducir una contraseña"));
         cambiarPassButton.disableProperty().bind(validationPassword.invalidProperty());
 
-        base1Picker.valueProperty().bindBidirectional(App.gestorDePropiedades.currentStyleProperty().get().base1Property());
-        base2Picker.valueProperty().bindBidirectional(App.gestorDePropiedades.currentStyleProperty().get().base2Property());
-        text1Picker.valueProperty().bindBidirectional(App.gestorDePropiedades.currentStyleProperty().get().texto1Property());
-        texto2Picker.valueProperty().bindBidirectional(App.gestorDePropiedades.currentStyleProperty().get().texto2Property());
-        fondoPicker.valueProperty().bindBidirectional(App.gestorDePropiedades.currentStyleProperty().get().fondoProperty());
+        base1Picker.valueProperty().bindBidirectional(App.gestorDePropiedades.base1Property());
+        base2Picker.valueProperty().bindBidirectional(App.gestorDePropiedades.base2Property());
+        text1Picker.valueProperty().bindBidirectional(App.gestorDePropiedades.texto1Property());
+        texto2Picker.valueProperty().bindBidirectional(App.gestorDePropiedades.texto2Property());
+        fondoPicker.valueProperty().bindBidirectional(App.gestorDePropiedades.fondoProperty());
         
         stylesComboBox.itemsProperty().bindBidirectional(App.gestorDePropiedades.hojasEstiloProperty());
+        stylesComboBox.getSelectionModel().select(App.gestorDePropiedades.currentStyleProperty().get());
         stylesComboBox.getSelectionModel().selectedItemProperty().addListener((obs,oldv,newV)->onSelectedStyleChange(newV));
+        
+//        base1Picker.valueProperty().addListener(b->onBase1change(b));
+//        base2Picker.valueProperty().addListener(b->onBase1change(b));
+//        text1Picker.valueProperty().addListener(b->onBase1change(b));
+//        texto2Picker.valueProperty().addListener(b->onBase1change(b));
+//        fondoPicker.valueProperty().addListener(b->onBase1change(b));
+        
        
        //TODO DASDASDASDSADASDSADADAS
        switch ("light") {
@@ -148,11 +159,19 @@ public class MenuController implements Initializable {
 		break;
 	}
        
-       temaSelected.selectedToggleProperty().addListener((obs,oldV,newV)->onThemeChange(newV));
 
 	}
 	
 	
+
+	private void onBase1change(Observable b) {
+			App.gestorDePropiedades.getCurrentStyle().setBase1(base1Picker.getValue());
+			App.gestorDePropiedades.getCurrentStyle().setBase2(base2Picker.getValue());
+			App.gestorDePropiedades.getCurrentStyle().setTexto1(text1Picker.getValue());
+			App.gestorDePropiedades.getCurrentStyle().setTexto2(texto2Picker.getValue());
+			App.gestorDePropiedades.getCurrentStyle().setFondo(fondoPicker.getValue());
+			App.gestorDePropiedades.onCurrentStyleChange();
+	}
 
 	private void onSelectedStyleChange(TodoStyleModel newV) {
 		App.gestorDePropiedades.currentStyleProperty().set(newV);

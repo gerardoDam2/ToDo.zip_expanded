@@ -4,7 +4,7 @@
 	-fx-base2:#FF5722;
 	-fx-color-texto:#FFFFFF;
 	-fx-color-texto-headers:#000000;
-	-fx-color-fodo:#000000;
+	-fx-color-fondo:#000000;
 }
 
 .root {
@@ -20,7 +20,7 @@
 	 -fx-background-color: -fx-color-fondo;
 }
 .menuButton {
-	-fx-background-color: -fx-color-fondo;
+	-fx-background-color:-fx-color-fondo;
 	-fx-border-color: black;
 	-fx-border-width: 1;
 }
@@ -34,10 +34,10 @@
 {
     -fx-tab-min-width:240px;
     -fx-tab-max-width:300px;
-    -fx-background-color: -fx-color-fondo ;
+    -fx-background-color:-fx-color-fondo;
 }
 .jfx-tab-pane .tab-selected-line {
-	        -fx-stroke: -fx-base2;
+	-fx-stroke: -fx-base2;
 }
 .jfx-decorator .jfx-decorator-buttons-container{
 	-fx-background-color:-fx-base1;

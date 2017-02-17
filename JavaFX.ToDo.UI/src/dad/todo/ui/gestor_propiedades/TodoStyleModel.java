@@ -23,6 +23,7 @@ public class TodoStyleModel {
 		texto1 = new SimpleObjectProperty<>(this, "texto1");
 		texto2 = new SimpleObjectProperty<>(this, "texto2");
 		fondo = new SimpleObjectProperty<>(this, "fondo");
+		
 	}
 
 	public StringProperty nombreProperty() {
@@ -57,7 +58,7 @@ public class TodoStyleModel {
 	}
 	
 
-	public void setBase1(final Color base1) {
+	public void setBase1( Color base1) {
 		this.base1Property().set(base1);
 	}
 	
@@ -125,16 +126,22 @@ public class TodoStyleModel {
 	@Override
 	public String toString() {
 		
-		String cssHeader ="*{\n"+
-			"/*:"+nombre.get()+";*/\n"+
-			"-fx-base1:"+toRGBCode(getBase1())+";\n"+
-			"-fx-base2:"+toRGBCode(getBase2())+";\n"+
-			"-fx-color-texto:"+toRGBCode(getTexto1())+";\n"+
-			"-fx-color-texto-headers:"+toRGBCode(getTexto2())+";\n"+
-			"-fx-color-fodo:"+toRGBCode(getFondo())+";\n"+
-			"}\n";
-		return cssHeader;
+		return getNombre();
+		
 	}
+	
+ public String 	toCssHeader(){
+	 String cssHeader ="*{\n"+
+				"/*:"+nombre.get()+";*/\n"+
+				"-fx-base1:"+toRGBCode(getBase1())+";\n"+
+				"-fx-base2:"+toRGBCode(getBase2())+";\n"+
+				"-fx-color-texto:"+toRGBCode(getTexto1())+";\n"+
+				"-fx-color-texto-headers:"+toRGBCode(getTexto2())+";\n"+
+				"-fx-color-fondo:"+toRGBCode(getFondo())+";\n"+
+				"}\n";
+			return cssHeader;
+	 
+ }
 	
 	    public  String toRGBCode( Color color )
 	    {
@@ -143,5 +150,7 @@ public class TodoStyleModel {
 	            (int)( color.getGreen() * 255 ),
 	            (int)( color.getBlue() * 255 ) );
 	    }
+	    
+	    
 	
 }
