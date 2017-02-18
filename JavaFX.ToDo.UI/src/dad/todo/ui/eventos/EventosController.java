@@ -85,6 +85,8 @@ public class EventosController implements Initializable {
 
 	@FXML
 	private JFXPopup menuPopUp;
+	
+	public boolean editMode=false;
 
 	public EventosController() {
 
@@ -228,7 +230,8 @@ public class EventosController implements Initializable {
 	private Button addEventoButton;
 
 	@FXML
-	void onAddEventoButtonAction(ActionEvent event) {
+	public void onAddEventoButtonAction(ActionEvent event) {
+		
 		editarCrearController.initCreateEvent(fechaEventosDatePicker.getValue());
 		changeViewToEditEvent();
 	}
@@ -238,6 +241,7 @@ public class EventosController implements Initializable {
 	}
 
 	public void changeViewToEventsList(LocalDate f) {
+		editMode=false;
 		if (f == null) {
 			onFechaChange(fechaEventosDatePicker.getValue());
 		} else {
@@ -250,11 +254,15 @@ public class EventosController implements Initializable {
 	}
 
 	public void onEditEventAction(EventosModel evento) {
+		if (!editMode) {
+			
 		editarCrearController.initEdit(evento);
 		changeViewToEditEvent();
+		}
 	}
 
 	public void changeViewToEditEvent() {
+		editMode=true;
 		rightPanel.getChildren().remove(0);
 		rightPanel.getChildren().add(editarCrearController.getView());
 	}
@@ -297,5 +305,16 @@ public class EventosController implements Initializable {
 	public void load() {
 		updateDiasConEventosList();
 		fechaEventosDatePicker.setValue(LocalDate.now());
+	}
+	
+	public ListView<EventosModel> getEventosListView() {
+		return eventosListView;
+	}
+
+	public void clear() {
+		editarCrearController.clearForm();
+		editMode=false;
+		rightPanel.getChildren().remove(0);
+		rightPanel.getChildren().add(eventsPane);
 	}
 }

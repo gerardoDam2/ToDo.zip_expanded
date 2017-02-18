@@ -248,7 +248,7 @@ public class EventosModel extends GridPane implements Initializable {
 	}
 
 	@FXML
-	void onEliminarButtonAction(ActionEvent event) {
+	public void onEliminarButtonAction(ActionEvent event) {
 		try {
 			ServiceFactory.getEventosService().eliminarEvento(this.getEventoID());
 			eventosController.changeViewToEventsList(null);

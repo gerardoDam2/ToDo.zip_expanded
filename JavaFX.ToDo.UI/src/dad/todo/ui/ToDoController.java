@@ -14,6 +14,7 @@ import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
 import dad.todo.ui.eventos.EventosController;
 import dad.todo.ui.gestor_propiedades.GestorDePropiedades;
+import dad.todo.ui.model.EventosModel;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -146,6 +147,7 @@ public class ToDoController implements Initializable {
 			drawer.close();
 			stage.close();
 			ServiceFactory.getUsuariosService().logout();
+			eventosController.clear();
 			App.login.show();
 		} catch (ServiceException e) {
 		}
@@ -239,7 +241,24 @@ public class ToDoController implements Initializable {
 	   @FXML
 	    void onAnyKeyPressed(KeyEvent event) {
 		   if (event.isControlDown() && event.getCode()!= KeyCode.CONTROL) {
-				System.out.println(event.getCode());
+				String key =event.getText();
+				
+				if (crearChar.get().equalsIgnoreCase(key)) {
+					eventosController.onAddEventoButtonAction(null);
+				}else if (editarChar.get().equalsIgnoreCase(key)) {
+					if (eventosController.getEventosListView().getSelectionModel().selectedItemProperty()!=null) {
+						eventosController.onEditEventAction(eventosController.getEventosListView().getSelectionModel().selectedItemProperty().get());
+					}
+				}else if (borrarChar.get().equalsIgnoreCase(key)) {
+				eventosController.getEventosListView().getSelectionModel().selectedItemProperty().get().onEliminarButtonAction(null);
+				if (eventosController.editMode) {
+					eventosController.changeViewToEventsList(null);
+				}
+
+				}else if (ubicacionChar.get().equalsIgnoreCase(key)) {
+					
+				}
+				
 			}
 	    }
 }

@@ -139,7 +139,7 @@ public class CrearEditarEventosController implements Initializable {
 	}
 
 	// TODO
-	private void clearForm() {
+	public void clearForm() {
 		fechaDatePicker.setValue(null);
 		tituloTextField.clear();
 		descripcionTextArea.clear();
