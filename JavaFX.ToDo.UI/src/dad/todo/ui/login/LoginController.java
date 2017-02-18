@@ -17,6 +17,7 @@ import com.oracle.jrockit.jfr.Transition;
 import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
 import dad.todo.services.items.UsuarioItem;
+import dad.todo.ui.App;
 import dad.todo.ui.ToDoController;
 import dad.todo.ui.gestor_propiedades.GestorDePropiedades;
 import dad.todo.ui.utils.ValidatorUtil;
@@ -106,7 +107,9 @@ public class LoginController implements Initializable {
 		}
 
 		if (validate) {
-			((Stage) view.getScene().getWindow()).close();
+			usernameTextField.clear();
+			passwordTextField.clear();
+			((Stage) view.getScene().getWindow()).hide();
 			new ToDoController().show();
 		} else {
 			System.err.println("LoginController: credenciales incorrectas ");
@@ -176,7 +179,6 @@ public class LoginController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		//Notificacion de error
 		loginErrorLabel.setOpacity(0);
 		tr= new FadeTransition();
 	    tr.setDuration(Duration.seconds(1.5));
@@ -200,5 +202,33 @@ public class LoginController implements Initializable {
         
         
         registerButton.disableProperty().bind(registrarUsuarioValidator.invalidProperty());
+        
+        chekAutoLogin();
+        
+	}
+
+	private void chekAutoLogin() {
+	String userLogin=	App.gestorDePropiedades.getPropiedades().getProperty("user","no user");
+	if (userLogin.equals("no user")) {
+		show();
+	}else{
+		String pass=App.gestorDePropiedades.getPropiedades().getProperty("pass");
+		
+		try {
+			boolean respuesta = ServiceFactory.getUsuariosService().login(userLogin, pass);
+			if (respuesta) {
+				((Stage) view.getScene().getWindow()).hide();
+				new ToDoController().show();
+				
+			}
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+	}
+		
+	}
+	
+	public void show() {
+		((Stage) view.getScene().getWindow()).show();
 	}
 }

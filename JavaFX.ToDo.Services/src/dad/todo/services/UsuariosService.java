@@ -14,5 +14,7 @@ public interface UsuariosService {
 	public UsuarioItem getLogueado() throws ServiceException;
 	public void cambiarPassword(String oldPassword, String newPassword) throws ServiceException;
 	public void actualizar(UsuarioItem usuario) throws ServiceException;
+	public void logout() throws ServiceException;
+
 	
 }

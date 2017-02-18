@@ -112,4 +112,9 @@ public class UsuariosServiceJPA implements UsuariosService {
 		}
 	}
 
+	@Override
+	public void logout() throws ServiceException {
+		logueado=null;
+	}
+
 }
