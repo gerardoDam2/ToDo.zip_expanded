@@ -73,7 +73,7 @@ public class EventosModel extends GridPane implements Initializable {
 	private EventosController eventosController;
 
 	public EventosModel(EventosController controller) {
-		this.eventosController=controller;
+		this.eventosController = controller;
 		eventoID = new SimpleLongProperty(this, "eventoID");
 		titulo = new SimpleStringProperty(this, "titulo");
 		fecha = new SimpleObjectProperty<>(this, "fecha");
@@ -82,8 +82,7 @@ public class EventosModel extends GridPane implements Initializable {
 		horaFin = new SimpleObjectProperty<>(this, "horaFin");
 		lugar = new SimpleObjectProperty<>(this, "lugar");
 		terminada = new SimpleBooleanProperty(this, "terminada");
-		
-		
+
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("EventosModelView.fxml"));
 			loader.setRoot(this);
@@ -95,7 +94,7 @@ public class EventosModel extends GridPane implements Initializable {
 	}
 
 	public EventosModel(EventosController controller, Boolean realizado) {
-		this.eventosController=controller;
+		this.eventosController = controller;
 		eventoID = new SimpleLongProperty(this, "eventoID");
 		titulo = new SimpleStringProperty(this, "titulo");
 		fecha = new SimpleObjectProperty<>(this, "fecha");
@@ -103,7 +102,7 @@ public class EventosModel extends GridPane implements Initializable {
 		horaInicio = new SimpleObjectProperty<>(this, "horaInicio");
 		horaFin = new SimpleObjectProperty<>(this, "horaFin");
 		lugar = new SimpleObjectProperty<>(this, "lugar");
-		terminada = new SimpleBooleanProperty(this, "terminada",realizado);
+		terminada = new SimpleBooleanProperty(this, "terminada", realizado);
 
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("EventosModelView.fxml"));
@@ -115,9 +114,9 @@ public class EventosModel extends GridPane implements Initializable {
 		}
 	}
 
-	public static EventosModel fromItem(EventoItem item,EventosController controller) {
+	public static EventosModel fromItem(EventoItem item, EventosController controller) {
 
-		EventosModel evento = new EventosModel(controller,item.getRealizado());
+		EventosModel evento = new EventosModel(controller, item.getRealizado());
 
 		evento.setTitulo(item.getTitulo());
 
@@ -137,9 +136,9 @@ public class EventosModel extends GridPane implements Initializable {
 		evento.setDescripcion(item.getDescripcion());
 
 		evento.setEventoID(item.getId());
-		
-		if(item.getLugar()!=null)
-		evento.setLugar(LugarModel.fromItem(item.getLugar()));
+
+		if (item.getLugar() != null)
+			evento.setLugar(LugarModel.fromItem(item.getLugar()));
 
 		evento.setTerminada(item.getRealizado());
 
@@ -256,70 +255,71 @@ public class EventosModel extends GridPane implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@FXML
 	public void onMapButtonAction(ActionEvent event) {
-		if (getLugar()!=null) {
-			
-		//TODO
-		System.out.println("mostrar mapa ");
-		try {
-			
-			Desktop.getDesktop().browse(new URI("http://maps.google.com/maps?q=loc:"+this.getLugar().getLatitud()+","+this.getLugar().getLongitud()));
-			
-		} catch (IOException | URISyntaxException e) {
-			e.printStackTrace();
-		}
+		if (getLugar() != null) {
+
+			// TODO
+			System.out.println("mostrar mapa ");
+			try {
+
+				Desktop.getDesktop().browse(new URI("http://maps.google.com/maps?q=loc:" + this.getLugar().getLatitud()
+						+ "," + this.getLugar().getLongitud()));
+
+			} catch (IOException | URISyntaxException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+
 		checkBoxTerminado.setSelected(isTerminada());
-		checkBoxTerminado.selectedProperty().addListener((obs,oldValue,newValue)->onTerminadaChange(newValue));
+		checkBoxTerminado.selectedProperty().addListener((obs, oldValue, newValue) -> onTerminadaChange(newValue));
 		labelTitulo.textProperty().bind(tituloProperty());
 		horaInicioLabel.textProperty().bind(horaInicioProperty().asString());
 		horaFinLabel.textProperty().bind(horaFinProperty().asString());
-		
+
 		this.setStyle("-fx-background-color:green");
-		eliminarButton.disableProperty().bind(lugarProperty().isNull());
+		mapButton.disableProperty().bind(lugarProperty().isNull());
 
 	}
 
 	private void onTerminadaChange(Boolean newValue) {
-		//TODO
-	EventoItem eventoItem = new EventoItem();
-	eventoItem.setDescripcion(getDescripcion());
-	long duracion = ChronoUnit.MINUTES.between(horaInicio.get(), horaFin.get());
-	eventoItem.setDuracion(duracion);
-	eventoItem.setFecha(TimeUtils.localDateToDate(getFecha(), getHoraInicio()));
-	eventoItem.setId(getEventoID());
-	eventoItem.setRealizado(newValue);
-	eventoItem.setTitulo(getTitulo());
-	if (getLugar()!=null) {
-	LugarItem lugarItem = new LugarItem();
-	lugarItem.setDescripcion(getLugar().getDescripccion());
-	lugarItem.setLatitud(getLugar().getLatitud());
-	lugarItem.setLongitud(getLugar().getLongitud());
-	eventoItem.setLugar(lugarItem);
+		// TODO
+		EventoItem eventoItem = new EventoItem();
+		eventoItem.setDescripcion(getDescripcion());
+		long duracion = ChronoUnit.MINUTES.between(horaInicio.get(), horaFin.get());
+		eventoItem.setDuracion(duracion);
+		eventoItem.setFecha(TimeUtils.localDateToDate(getFecha(), getHoraInicio()));
+		eventoItem.setId(getEventoID());
+		eventoItem.setRealizado(newValue);
+		eventoItem.setTitulo(getTitulo());
+		if (getLugar() != null) {
+			LugarItem lugarItem = new LugarItem();
+			lugarItem.setDescripcion(getLugar().getDescripccion());
+			lugarItem.setLatitud(getLugar().getLatitud());
+			lugarItem.setLongitud(getLugar().getLongitud());
+			eventoItem.setLugar(lugarItem);
+		}
+
+		try {
+			ServiceFactory.getEventosService().actualizarEvento(eventoItem);
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+
 	}
-	
-	try {
-		ServiceFactory.getEventosService().actualizarEvento(eventoItem);
-	} catch (ServiceException e) {
-		e.printStackTrace();
-	}	
-	
-	}
-	
-    @FXML
-    void onEventClicked(MouseEvent event) {
-    	if (event.getButton() == MouseButton.SECONDARY) {
-    		System.out.println("eventoClicked");
-    		eventosController.mostrarMenu(event,this);
-		}else {
+
+	@FXML
+	void onEventClicked(MouseEvent event) {
+		if (event.getButton() == MouseButton.SECONDARY) {
+			System.out.println("eventoClicked");
+			eventosController.mostrarMenu(event, this);
+		} else {
 			eventosController.CerrarMenu();
 		}
-    }
+	}
 }

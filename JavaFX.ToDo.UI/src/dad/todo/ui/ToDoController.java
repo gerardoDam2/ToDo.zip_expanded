@@ -13,8 +13,6 @@ import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
 import dad.todo.ui.eventos.EventosController;
-import dad.todo.ui.gestor_propiedades.GestorDePropiedades;
-import dad.todo.ui.model.EventosModel;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -32,6 +30,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -69,6 +68,8 @@ public class ToDoController implements Initializable {
 	private StringProperty editarChar;
 	private StringProperty borrarChar;
 	private StringProperty ubicacionChar;
+
+	private AudioClip wellcomeSound;
 
 	@FXML
 	void onOpcionesMousePressed(MouseEvent event) {
@@ -134,6 +135,8 @@ public class ToDoController implements Initializable {
 			borrarChar= new SimpleStringProperty(this,"borrarChar",App.gestorDePropiedades.getPropiedades().getProperty("borrar"));
 			ubicacionChar= new SimpleStringProperty(this,"ubicacionChar",App.gestorDePropiedades.getPropiedades().getProperty("ubicacion"));
 			
+			wellcomeSound = new AudioClip(getClass().getResource("./sonidos/intro.wav").toExternalForm());
+
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -215,7 +218,14 @@ public class ToDoController implements Initializable {
 		eventosController.load();
 		menuController.load();
 		stage.show();
-	
+		wellcomeSound.play();
+		
+		try {
+			notificator.show("Bienvenido "+ServiceFactory.getUsuariosService().getLogueado().getNombre(), 4000);
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
