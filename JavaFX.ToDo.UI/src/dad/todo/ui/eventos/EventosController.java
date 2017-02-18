@@ -92,20 +92,13 @@ public class EventosController implements Initializable {
 
 		diasConEventos = new SimpleSetProperty<>(this, "diasConEventos", FXCollections.observableSet());
 
-		// try {
-		// diasConEventos.addAll(ServiceFactory.getEventosService().getEventos().stream()
-		// .map(EventosController::itemToLocalDate).collect(Collectors.toList()));
-		// } catch (ServiceException e1) {
-		// // TODO Auto-generated catch block
-		// e1.printStackTrace();
-		// }
+		
 
 		eventos = new SimpleListProperty<>(this, "eventos", FXCollections.observableArrayList());
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("EventosView.fxml"));
 			loader.setController(this);
 			view = loader.load();
-			// view.getStylesheets().add(getClass().getResource("../todoStyle.css").toExternalForm());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -215,18 +208,30 @@ public class EventosController implements Initializable {
 	}
 
 	private void onFechaChange(LocalDate newValue) {
-
+		
+		List<EventoItem> eventosItem=new ArrayList<>();
 		if (editMode) {
 			editarCrearController.onCancelarAction(null);
 		}
-		try {
-			Date fecha = Date.from(newValue.atStartOfDay(ZoneId.systemDefault()).toInstant());
-			List<EventoItem> eventosItem = ServiceFactory.getEventosService().buscarEventosPorFecha(fecha);
-			eventos.setAll(eventosItem.stream().map(e -> EventosModel.fromItem(e, this)).collect(Collectors.toList()));
-		} catch (ServiceException e) {
-			e.printStackTrace();
-		}
+		Task<List<EventoItem>> eventoysByFechaTask = new Task<List<EventoItem>>() {
+			@Override
+			protected List<EventoItem> call() throws ServiceException  {
+					Date fecha = Date.from(newValue.atStartOfDay(ZoneId.systemDefault()).toInstant());
+					List<EventoItem> eventosItem = ServiceFactory.getEventosService().buscarEventosPorFecha(fecha);
+				return eventosItem;
+			}
+		};
+		
+		Thread hilo=new Thread(eventoysByFechaTask);
+		hilo.setName("eventosByFechaTask");
+		eventoysByFechaTask.setOnSucceeded(s->{
+			System.out.println("tidi biin");
+			eventos.setAll(eventoysByFechaTask.getValue().stream().map(e -> EventosModel.fromItem(e, this)).collect(Collectors.toList()));
 
+			System.out.println(eventos);
+		});
+
+		hilo.start();
 	}
 
 	@FXML
@@ -271,14 +276,25 @@ public class EventosController implements Initializable {
 	}
 
 	private void updateDiasConEventosList() {
-		try {
-			diasConEventos.clear();
-			diasConEventos.addAll(ServiceFactory.getEventosService().getEventos().stream()
-					.map(EventosController::itemToLocalDate).collect(Collectors.toList()));
-		} catch (ServiceException e1) {
-			e1.printStackTrace();
-		}
+//		try {
+//			
+//		} catch (ServiceException e1) {
+//			e1.printStackTrace();
+//		}
 
+		
+		Task <Void> updateDiasConEventosTask = new Task<Void>() {
+			@Override
+			protected Void call() throws Exception {
+				diasConEventos.clear();
+				diasConEventos.addAll(ServiceFactory.getEventosService().getEventos().stream()
+						.map(EventosController::itemToLocalDate).collect(Collectors.toList()));
+				return null;
+			}
+		};
+		Thread hilo=new Thread(updateDiasConEventosTask);
+		hilo.setName("getAllDatesWithEvents");
+		hilo.start();
 	}
 
 	private static LocalDate itemToLocalDate(EventoItem eventoItem) {
