@@ -258,7 +258,9 @@ public class EventosModel extends GridPane implements Initializable {
 	}
 	
 	@FXML
-	void onMapButtonAction(ActionEvent event) {
+	public void onMapButtonAction(ActionEvent event) {
+		if (getLugar()!=null) {
+			
 		//TODO
 		System.out.println("mostrar mapa ");
 		try {
@@ -267,6 +269,7 @@ public class EventosModel extends GridPane implements Initializable {
 			
 		} catch (IOException | URISyntaxException e) {
 			e.printStackTrace();
+		}
 		}
 	}
 
@@ -280,7 +283,7 @@ public class EventosModel extends GridPane implements Initializable {
 		horaFinLabel.textProperty().bind(horaFinProperty().asString());
 		
 		this.setStyle("-fx-background-color:green");
-		
+		eliminarButton.disableProperty().bind(lugarProperty().isNull());
 
 	}
 

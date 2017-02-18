@@ -246,7 +246,7 @@ public class ToDoController implements Initializable {
 				if (crearChar.get().equalsIgnoreCase(key)) {
 					eventosController.onAddEventoButtonAction(null);
 				}else if (editarChar.get().equalsIgnoreCase(key)) {
-					if (eventosController.getEventosListView().getSelectionModel().selectedItemProperty()!=null) {
+					if (eventosController.getEventosListView().getSelectionModel().selectedItemProperty().get()!=null) {
 						eventosController.onEditEventAction(eventosController.getEventosListView().getSelectionModel().selectedItemProperty().get());
 					}
 				}else if (borrarChar.get().equalsIgnoreCase(key)) {
@@ -256,7 +256,10 @@ public class ToDoController implements Initializable {
 				}
 
 				}else if (ubicacionChar.get().equalsIgnoreCase(key)) {
-					
+					if (eventosController.getEventosListView().getSelectionModel().selectedItemProperty().get()!=null) {
+						System.out.println("no hay evento para cargar el jodido mapa");
+						eventosController.getEventosListView().getSelectionModel().selectedItemProperty().get().onMapButtonAction(null);
+					}
 				}
 				
 			}

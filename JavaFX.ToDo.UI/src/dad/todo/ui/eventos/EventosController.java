@@ -216,6 +216,9 @@ public class EventosController implements Initializable {
 
 	private void onFechaChange(LocalDate newValue) {
 
+		if (editMode) {
+			editarCrearController.onCancelarAction(null);
+		}
 		try {
 			Date fecha = Date.from(newValue.atStartOfDay(ZoneId.systemDefault()).toInstant());
 			List<EventoItem> eventosItem = ServiceFactory.getEventosService().buscarEventosPorFecha(fecha);
