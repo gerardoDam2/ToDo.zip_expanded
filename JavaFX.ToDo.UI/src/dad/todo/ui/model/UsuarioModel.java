@@ -30,7 +30,6 @@ public class UsuarioModel {
 		username = new SimpleStringProperty(this,"username");
 		email = new SimpleStringProperty(this,"email");
 		nombre= new SimpleStringProperty(this,"nombre");
-		updateInfo();
 	}
 	
 	public StringProperty usernameProperty() {

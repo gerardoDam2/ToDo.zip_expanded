@@ -42,6 +42,7 @@ public class App extends Application  {
 
 
 	private ToDoController todoController;
+	static LoginController login;
 	public static GestorDePropiedades gestorDePropiedades;
 
 	@Override
@@ -52,7 +53,7 @@ public class App extends Application  {
         Thread.setDefaultUncaughtExceptionHandler(App::showError);
 		
 		gestorDePropiedades= new GestorDePropiedades();
-		LoginController login= new LoginController();
+		 login= new LoginController();
 		
 		JFXDecorator decorator = new JFXDecorator(primaryStage, login.getView());
 		decorator.setCustomMaximize(false);
@@ -67,7 +68,6 @@ public class App extends Application  {
 		
 //		ScenicView.show(scene);
 		primaryStage.setScene(scene);
-		primaryStage.show();
 
 	
 

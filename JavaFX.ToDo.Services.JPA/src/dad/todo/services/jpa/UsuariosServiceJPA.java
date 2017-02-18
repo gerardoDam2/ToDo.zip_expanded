@@ -97,7 +97,6 @@ public class UsuariosServiceJPA implements UsuariosService {
 
 	@Override
 	public void actualizar(UsuarioItem usuario) throws ServiceException {
-		//TODO comprobar que el usuario logueado y el item son iguales?
 		usuarioDao.updatePerfil(usuario);
 	}
 	

@@ -7,22 +7,19 @@ import java.util.ResourceBundle;
 import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
-import org.controlsfx.validation.decoration.ValidationDecoration;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import com.oracle.jrockit.jfr.Transition;
 
 import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
 import dad.todo.services.items.UsuarioItem;
 import dad.todo.ui.App;
 import dad.todo.ui.ToDoController;
-import dad.todo.ui.gestor_propiedades.GestorDePropiedades;
 import dad.todo.ui.utils.ValidatorUtil;
-import javafx.animation.Animation.Status;
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -84,6 +81,8 @@ public class LoginController implements Initializable {
 
 	private FadeTransition tr;
 
+	private ToDoController toDoController;
+
 
 
 	public LoginController()  {
@@ -91,6 +90,8 @@ public class LoginController implements Initializable {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
 			loader.setController(this);
 			view = loader.load();
+	        Platform.runLater(()->chekAutoLogin());
+	        toDoController= new ToDoController();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -101,7 +102,7 @@ public class LoginController implements Initializable {
 		boolean validate = false;
 		try {
 			validate = ServiceFactory.getUsuariosService().login(usernameTextField.getText(),
-					passwordTextField.getText());
+			passwordTextField.getText());
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
@@ -110,7 +111,7 @@ public class LoginController implements Initializable {
 			usernameTextField.clear();
 			passwordTextField.clear();
 			((Stage) view.getScene().getWindow()).hide();
-			new ToDoController().show();
+			loadTodoController();
 		} else {
 			System.err.println("LoginController: credenciales incorrectas ");
 				tr.playFromStart();
@@ -203,7 +204,7 @@ public class LoginController implements Initializable {
         
         registerButton.disableProperty().bind(registrarUsuarioValidator.invalidProperty());
         
-        chekAutoLogin();
+        
         
 	}
 
@@ -218,7 +219,7 @@ public class LoginController implements Initializable {
 			boolean respuesta = ServiceFactory.getUsuariosService().login(userLogin, pass);
 			if (respuesta) {
 				((Stage) view.getScene().getWindow()).hide();
-				new ToDoController().show();
+				loadTodoController();
 				
 			}
 		} catch (ServiceException e) {
@@ -230,5 +231,9 @@ public class LoginController implements Initializable {
 	
 	public void show() {
 		((Stage) view.getScene().getWindow()).show();
+	}
+	
+	public void loadTodoController(){
+		toDoController.show();
 	}
 }

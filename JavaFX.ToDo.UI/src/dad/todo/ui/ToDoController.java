@@ -2,41 +2,32 @@ package dad.todo.ui;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.BufferUnderflowException;
-import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
+import com.jfoenix.controls.JFXDecorator;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXSnackbar;
-import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 
 import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
-import dad.todo.services.items.EventoItem;
 import dad.todo.ui.eventos.EventosController;
-import dad.todo.ui.gestor_propiedades.GestorDePropiedades;
-import dad.todo.ui.model.UsuarioModel;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Screen;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
-import jdk.internal.util.xml.PropertiesDefaultHandler;
+import javafx.stage.StageStyle;
 
 public class ToDoController implements Initializable {
 	
@@ -63,6 +54,8 @@ public class ToDoController implements Initializable {
 	
 
 	private EventosController eventosController;
+
+	private MenuController menuController;
 
 	public static JFXSnackbar notificator;
 
@@ -91,11 +84,27 @@ public class ToDoController implements Initializable {
 			loader.setController(this);
 			view = loader.load();
 
-			Scene scene = new Scene(view);
-//			scene.getStylesheets().add(getClass().getResource("todoStyle.css").toExternalForm());
+			
 
 			stage = new Stage();
-
+			stage.initStyle(StageStyle.UNDECORATED);
+			JFXDecorator decorator = new JFXDecorator(stage, view);
+			decorator.setCustomMaximize(false);
+			Scene scene = new Scene(decorator);
+			
+			HBox d=(HBox)decorator.getChildren().get(0);
+			d.getChildren().remove(0);
+			d.getChildren().remove(0);
+			d.getChildren().remove(0);
+			Button LogoutButton = new Button();
+			LogoutButton.setOnAction(oa->desloguear());
+			LogoutButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("./images/logout-24.png"))));
+			LogoutButton.getStyleClass().add("windowbutton");
+			HBox leftContentUndecorator = new HBox(LogoutButton);
+			leftContentUndecorator.setLayoutX(0);
+			d.getChildren().add(0,leftContentUndecorator);
+			HBox.setHgrow(leftContentUndecorator, Priority.ALWAYS);
+			
 			stage.setX(Double.valueOf(App.gestorDePropiedades.getPropiedades().getProperty("stageX")));
 			stage.setY(Double.valueOf(App.gestorDePropiedades.getPropiedades().getProperty("stageY")));
 			stage.setWidth(Double.valueOf(App.gestorDePropiedades.getPropiedades().getProperty("stageWidth")));
@@ -112,6 +121,16 @@ public class ToDoController implements Initializable {
 			e.printStackTrace();
 		}
 
+	}
+
+	private void desloguear() {
+		try {
+			drawer.close();
+			stage.close();
+			ServiceFactory.getUsuariosService().logout();
+			App.login.show();
+		} catch (ServiceException e) {
+		}
 	}
 
 	private void onStyleChange(String newV) {
@@ -144,6 +163,7 @@ public class ToDoController implements Initializable {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("MenuView.fxml"));
 			BorderPane MenuView = loader.load();
+			menuController =(MenuController)loader.getController();
 			drawer.setSidePane(MenuView);
 			eventosController = new EventosController();
 			contenidoPane.setCenter(eventosController.getView());
@@ -165,6 +185,8 @@ public class ToDoController implements Initializable {
 	}
 
 	public void show() {
+		eventosController.load();
+		menuController.load();
 		stage.show();
 	}
 

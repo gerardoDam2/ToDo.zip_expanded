@@ -41,6 +41,7 @@ import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
@@ -214,14 +215,12 @@ public class EventosController implements Initializable {
 	}
 
 	private void onFechaChange(LocalDate newValue) {
-		System.out.println("intentando imprimir mensaje demigrante");
 		
-		Date fecha = Date.from(newValue.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-		eventos.clear();
 		try {
+			Date fecha = Date.from(newValue.atStartOfDay(ZoneId.systemDefault()).toInstant());
 			List<EventoItem> eventosItem = ServiceFactory.getEventosService().buscarEventosPorFecha(fecha);
-			eventos.addAll(eventosItem.stream().map(e -> EventosModel.fromItem(e, this)).collect(Collectors.toList()));
+			eventos.setAll(eventosItem.stream().map(e -> EventosModel.fromItem(e, this)).collect(Collectors.toList()));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
@@ -296,6 +295,17 @@ public class EventosController implements Initializable {
 	public void CerrarMenu(){
 		if (menuPopUp.isVisible()) {
 			menuPopUp.close();
+		}
+	}
+
+	public void load() {
+		updateDiasConEventosList();
+		try {
+			List<EventoItem> eventosItem;
+			eventosItem = ServiceFactory.getEventosService().buscarEventosPorFecha(new Date());
+			eventos.setAll(eventosItem.stream().map(e -> EventosModel.fromItem(e, this)).collect(Collectors.toList()));
+		} catch (ServiceException e1) {
+			e1.printStackTrace();
 		}
 	}
 }

@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="JavaFX.ToDo.UI" default="do-deploy" basedir="."  xmlns:fx="javafx:com.sun.javafx.tools.ant">
+	<target name="init-fx-tasks">
+		<path id="fxant">
+			<filelist>
+				<file name="${java.home}\..\lib\ant-javafx.jar"/>
+				<file name="${java.home}\lib\jfxrt.jar"/>
+			</filelist>
+		</path>
+	
+		<taskdef resource="com/sun/javafx/tools/ant/antlib.xml"
+			uri="javafx:com.sun.javafx.tools.ant"
+			classpathref="fxant"/>
+	</target>
+	<target name="setup-staging-area">
+		<delete dir="externalLibs" />
+		<delete dir="project" />
+		<delete dir="projectRefs" />
+	
+		<mkdir dir="externalLibs" />
+	
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.UI\src\librerias">
+				<filename name="iText-4.2.0.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.Services.JPA\lib\hibernate">
+				<filename name="jboss-interceptors-api_1.1_spec-1.0.0.Beta1.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.Services.JPA\lib\hibernate">
+				<filename name="jboss-logging-3.3.0.Final.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.Services.JPA\lib\hibernate">
+				<filename name="jsr250-api-1.0.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.UI\src\librerias">
+				<filename name="jaxen-1.1.6.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.UI\src\librerias">
+				<filename name="commons-digester-2.1.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.Services.JPA\lib\hibernate">
+				<filename name="antlr-2.7.7.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.Services.JPA\lib\hibernate">
+				<filename name="javassist-3.20.0-GA.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.Services.JPA\lib\hibernate">
+				<filename name="javax.inject-1.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.UI\src\librerias">
+				<filename name="controlsfx-8.20.9.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.Services.JPA\lib\hibernate">
+				<filename name="geronimo-jta_1.1_spec-1.1.1.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.Services.JPA\lib\hibernate">
+				<filename name="hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.Services.JPA\lib\hibernate">
+				<filename name="jandex-2.0.3.Final.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.UI\src\librerias">
+				<filename name="MapsJava.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.Services.JPA\lib\hibernate">
+				<filename name="el-api-2.2.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.Services.JPA\lib\mysql">
+				<filename name="mysql-connector-java-5.1.40-bin.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.Services.JPA\lib\hibernate">
+				<filename name="dom4j-1.6.1.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.Services.JPA\lib\hibernate">
+				<filename name="hibernate-core-5.2.5.Final.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.UI\src\librerias">
+				<filename name="commons-logging-1.2.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.Services.JPA\lib\hibernate">
+				<filename name="cdi-api-1.1.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.Services.JPA\lib\hibernate">
+				<filename name="classmate-1.3.0.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.UI\src\librerias">
+				<filename name="jasperreports-fonts-6.3.1.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.Services.JPA\lib\hibernate">
+				<filename name="hibernate-commons-annotations-5.0.1.Final.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.UI\src\librerias">
+				<filename name="json-20140107.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.UI\src\librerias">
+				<filename name="commons-beanutils-1.9.3.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.UI\src\librerias">
+				<filename name="jfoenix.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.UI\src\librerias">
+				<filename name="commons-collections-3.2.2.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.UI\src\librerias">
+				<filename name="scenicView.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.Services.JPA\lib">
+				<filename name="mail.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.UI\src\librerias">
+				<filename name="GMapsFX-2.0.8.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.UI\src\librerias">
+				<filename name="jasperreports-6.3.1.jar"/>
+			</fileset>
+		</copy>
+	
+		<mkdir dir="project" />
+		<copy todir="project">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded\JavaFX.ToDo.UI">
+				<include name="src/**" />
+			</fileset>
+		</copy>
+	
+		<mkdir dir="projectRefs" />
+		<copy todir="projectRefs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded">
+				<include name="JavaFX.ToDo.Services.JPA\src/**" />
+			</fileset>
+		</copy>
+		<copy todir="projectRefs">
+			<fileset dir="C:\Users\Gerardo\WSV2\dad\ToDo.zip_expanded">
+				<include name="JavaFX.ToDo.Services\src/**" />
+			</fileset>
+		</copy>
+	</target>
+	<target name='do-compile'>
+		<delete dir="build" />
+		<mkdir dir="build/src" />
+		<mkdir dir="build/libs" />
+		<mkdir dir="build/classes" />
+	
+		<!-- Copy project-libs references -->
+		<copy todir="build/libs">
+			<fileset dir="externalLibs">
+				<include name="iText-4.2.0.jar"/>
+				<include name="jasperreports-fonts-6.3.1.jar"/>
+				<include name="commons-digester-2.1.jar"/>
+				<include name="jboss-logging-3.3.0.Final.jar"/>
+				<include name="scenicView.jar"/>
+				<include name="commons-logging-1.2.jar"/>
+				<include name="javassist-3.20.0-GA.jar"/>
+				<include name="javax.inject-1.jar"/>
+				<include name="classmate-1.3.0.jar"/>
+				<include name="dom4j-1.6.1.jar"/>
+				<include name="hibernate-core-5.2.5.Final.jar"/>
+				<include name="jandex-2.0.3.Final.jar"/>
+				<include name="hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
+				<include name="geronimo-jta_1.1_spec-1.1.1.jar"/>
+				<include name="jaxen-1.1.6.jar"/>
+				<include name="GMapsFX-2.0.8.jar"/>
+				<include name="commons-beanutils-1.9.3.jar"/>
+				<include name="commons-collections-3.2.2.jar"/>
+				<include name="jsr250-api-1.0.jar"/>
+				<include name="mysql-connector-java-5.1.40-bin.jar"/>
+				<include name="controlsfx-8.20.9.jar"/>
+				<include name="cdi-api-1.1.jar"/>
+				<include name="el-api-2.2.jar"/>
+				<include name="MapsJava.jar"/>
+				<include name="mail.jar"/>
+				<include name="json-20140107.jar"/>
+				<include name="jasperreports-6.3.1.jar"/>
+				<include name="antlr-2.7.7.jar"/>
+				<include name="jboss-interceptors-api_1.1_spec-1.0.0.Beta1.jar"/>
+				<include name="jfoenix.jar"/>
+				<include name="hibernate-commons-annotations-5.0.1.Final.jar"/>
+			</fileset>
+		</copy>
+	
+		<!-- Copy project references -->
+		<copy todir="build/src">
+			<fileset dir="projectRefs/JavaFX.ToDo.Services.JPA/src">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+		<copy todir="build/src">
+			<fileset dir="projectRefs/JavaFX.ToDo.Services/src">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+	
+		<!-- Copy project sources itself -->
+		<copy todir="build/src">
+			<fileset dir="project/src">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+	
+		<javac includeantruntime="false" source="1.8" target="1.8" srcdir="build/src" destdir="build/classes" encoding="Cp1252">
+			<classpath>
+				<fileset dir="build/libs">
+					<include name="*"/>
+				</fileset>
+			</classpath>
+		</javac>
+	
+		<!-- Copy over none Java-Files -->
+		<copy todir="build/classes">
+		<fileset dir="project/src">
+			<exclude name="**/*.java"/>
+		</fileset>
+		</copy>
+	
+		<copy todir="build/classes">
+			<fileset dir="projectRefs/JavaFX.ToDo.Services.JPA/src">
+				<exclude name="**/*.java"/>
+			</fileset>
+		</copy>
+		<copy todir="build/classes">
+			<fileset dir="projectRefs/JavaFX.ToDo.Services/src">
+				<exclude name="**/*.java"/>
+			</fileset>
+		</copy>
+	
+	</target>
+	<target name="do-deploy" depends="setup-staging-area, do-compile, init-fx-tasks">
+		<delete file="dist"/>
+		<delete file="deploy" />
+	
+		<mkdir dir="dist" />
+		<mkdir dir="dist/libs" />
+	
+		<copy todir="dist/libs">
+			<fileset dir="externalLibs">
+				<include name="*" />
+			</fileset>
+		</copy>
+	
+	
+		<fx:resources id="appRes">
+			<fx:fileset dir="dist" includes="JavaFX.ToDo.UI.jar"/>
+			<fx:fileset dir="dist" includes="libs/*"/>
+		</fx:resources>
+	
+		<fx:application id="fxApplication"
+			name=""
+			mainClass=""
+		/>
+	
+		<mkdir dir="build/classes/META-INF" />
+	
+	
+	
+		<fx:jar destfile="dist/JavaFX.ToDo.UI.jar">
+			<fx:application refid="fxApplication"/>
+			<fileset dir="build/classes">
+			</fileset>
+			<fx:resources refid="appRes"/>
+	
+			<manifest>
+				<attribute name="Implementation-Vendor" value=""/>
+				<attribute name="Implementation-Title" value=""/>
+				<attribute name="Implementation-Version" value=""/>
+				<attribute name="JavaFX-Feature-Proxy" value="None"/>
+			</manifest>
+		</fx:jar>
+	
+	
+	
+	
+	</target>
+</project>

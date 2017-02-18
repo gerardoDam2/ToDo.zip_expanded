@@ -105,14 +105,11 @@ public class MenuController implements Initializable {
 
 	public MenuController() {
 		usuario = new UsuarioModel();
-		
-
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		updatePerfilFields();
 
 		Bindings.bindBidirectional(nombreUserTextField.textProperty(), usuario.nombreProperty());
 		Bindings.bindBidirectional(emailTextField.textProperty(), usuario.emailProperty());
@@ -174,6 +171,8 @@ public class MenuController implements Initializable {
 
 	private void updatePerfilFields() {
 		nombreText.setText(usuario.getNombre());
+		nombreUserTextField.setText(usuario.getNombre());
+		emailTextField.setText(usuario.getEmail());
 	}
 
 	@FXML
@@ -196,4 +195,8 @@ public class MenuController implements Initializable {
 	
 	}
 
+	public void load() {
+		usuario.updateInfo();
+		updatePerfilFields();
+	}
 }

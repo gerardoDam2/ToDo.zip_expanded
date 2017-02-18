@@ -78,3 +78,14 @@
 .jfx-snackbar-action {
 	-fx-text-fill: -fx-base2;	
 }
+
+
+.windowbutton{
+-fx-stroke: white;
+-fx-fill: white;
+-fx-background-color: transparent ;
+-fx-padding: 2 2 2 5;	
+}
+
+
+
