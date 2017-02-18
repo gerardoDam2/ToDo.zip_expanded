@@ -79,4 +79,24 @@
 -fx-padding: 0;	
 }
 
+.myDialog{
+    -fx-background-color: -fx-color-fondo;
+}
+.myDialog > *.button-bar > *.container{
+    -fx-background-color: -fx-color-fondo;
+}
+.myDialog > *.label.content{
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-color-texto;
+}
+.myDialog:header *.header-panel{
+    -fx-background-color: -fx-base2;
+}
+.myDialog:header *.header-panel *.label{
+    -fx-font-size: 18px;
+    -fx-font-style: italic;
+    -fx-text-fill: -fx-color-texto;
+    
+}
 

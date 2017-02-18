@@ -9,24 +9,34 @@ import java.time.LocalDate;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.stage.StageStyle;
 
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXPopup;
 
 import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
 import dad.todo.services.items.EventoItem;
 import dad.todo.services.items.LugarItem;
+import dad.todo.ui.App;
 import dad.todo.ui.eventos.EventosController;
 import dad.todo.ui.utils.TimeUtils;
 import javafx.beans.property.BooleanProperty;
@@ -249,8 +259,25 @@ public class EventosModel extends GridPane implements Initializable {
 	@FXML
 	public void onEliminarButtonAction(ActionEvent event) {
 		try {
-			ServiceFactory.getEventosService().eliminarEvento(this.getEventoID());
-			eventosController.changeViewToEventsList(null);
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.initStyle(StageStyle.UNDECORATED);
+			
+			alert.initOwner(this.getScene().getWindow());
+			alert.setTitle("Eliminar evento");
+			alert.setHeaderText("¿Esta seguro de borrar este evento?");
+			alert.setContentText("Una vez borrado el evento no podrá recuperarlo "
+					+ "\n en su lugar usted podría marcar este evento como finalizado.");
+			
+			alert.getDialogPane().getStylesheets().add(
+					   getClass().getResource("../gestor_propiedades/"+App.gestorDePropiedades.currentStyleProperty().getValue().getFileName()).toExternalForm());
+			alert.getDialogPane().getStyleClass().add("myDialog");
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+				ServiceFactory.getEventosService().eliminarEvento(this.getEventoID());
+				eventosController.changeViewToEventsList(null);
+			    // ... user chose OK
+			}
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
