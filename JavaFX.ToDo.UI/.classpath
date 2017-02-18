@@ -20,5 +20,6 @@
 	<classpathentry kind="lib" path="src/librerias/jaxen-1.1.6.jar"/>
 	<classpathentry kind="lib" path="src/librerias/scenicView.jar"/>
 	<classpathentry kind="lib" path="src/librerias/fontawesomefx-8.0.0.jar"/>
+	<classpathentry kind="lib" path="src/librerias/mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

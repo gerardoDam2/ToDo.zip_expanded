@@ -14,8 +14,10 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -23,6 +25,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
 import javafx.stage.StageStyle;
 
@@ -85,6 +88,7 @@ public class EventosModel extends GridPane implements Initializable {
 	@FXML
 	private CheckBox checkBoxTerminado;
 	private EventosController eventosController;
+	private ContextMenu popup;
 
 	public EventosModel(EventosController controller) {
 		this.eventosController = controller;
@@ -105,7 +109,13 @@ public class EventosModel extends GridPane implements Initializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		initPopUp();
 	}
+
+public EventosModel() {
+	super();
+}
+	
 
 	public EventosModel(EventosController controller, Boolean realizado) {
 		this.eventosController = controller;
@@ -126,11 +136,44 @@ public class EventosModel extends GridPane implements Initializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		initPopUp();
+
 	}
 
 	public static EventosModel fromItem(EventoItem item, EventosController controller) {
 
 		EventosModel evento = new EventosModel(controller, item.getRealizado());
+
+		evento.setTitulo(item.getTitulo());
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(item.getFecha());
+		LocalDate fechaAux = LocalDate.of(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1,
+				calendar.get(Calendar.DAY_OF_MONTH));
+		evento.setFecha(fechaAux);
+
+		LocalTime horaIniAux = LocalTime.of(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));
+		evento.setHoraInicio(horaIniAux);
+
+		calendar.add(Calendar.MINUTE, item.getDuracion().intValue());
+		LocalTime horaFinAux = LocalTime.of(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));
+		evento.setHoraFin(horaFinAux);
+
+		evento.setDescripcion(item.getDescripcion());
+
+		evento.setEventoID(item.getId());
+
+		if (item.getLugar() != null)
+			evento.setLugar(LugarModel.fromItem(item.getLugar()));
+
+		evento.setTerminada(item.getRealizado());
+
+		return evento;
+	}
+	
+	public static EventosModel fromItemForReport(EventoItem item) {
+
+		EventosModel evento = new EventosModel();
 
 		evento.setTitulo(item.getTitulo());
 
@@ -344,13 +387,16 @@ public class EventosModel extends GridPane implements Initializable {
 
 	}
 
+	private void initPopUp() {
+		
+	}
+	
 	@FXML
 	void onEventClicked(MouseEvent event) {
 		if (event.getButton() == MouseButton.SECONDARY) {
+//			popup.show(this.getScene().getWindow(),event.getSceneX(),event.getScreenY());
 			System.out.println("eventoClicked");
-			eventosController.mostrarMenu(event, this);
 		} else {
-			eventosController.CerrarMenu();
 		}
 	}
 }

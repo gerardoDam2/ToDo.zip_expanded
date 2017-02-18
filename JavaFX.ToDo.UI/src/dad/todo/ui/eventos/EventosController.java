@@ -1,10 +1,13 @@
 package dad.todo.ui.eventos;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -16,6 +19,7 @@ import java.util.stream.Collectors;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
 
@@ -23,15 +27,19 @@ import dad.calendario.CalendarioController;
 import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
 import dad.todo.services.items.EventoItem;
+import dad.todo.services.jpa.utils.EmailUtil;
 import dad.todo.ui.ToDoController;
 import dad.todo.ui.model.EventosModel;
 import dad.todo.ui.report.detalleEvento;
+import dad.todo.ui.utils.EmailAttachmentSender;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SetProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleSetProperty;
 import javafx.collections.FXCollections;
+import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,15 +49,20 @@ import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -57,14 +70,15 @@ import net.sf.jasperreports.view.JasperViewer;
 
 public class EventosController implements Initializable {
 
+    
 	@FXML
 	private VBox rightPanel;
 
 	@FXML
 	private BorderPane eventsPane;
 
-	// @FXML
-	// private JFXListView<EventosModel> eventosListView;
+//	 @FXML
+//	 private JFXListView<EventosModel> eventosListView;
 	@FXML
 	private ListView<EventosModel> eventosListView;
 
@@ -83,16 +97,13 @@ public class EventosController implements Initializable {
 
 	private SetProperty<LocalDate> diasConEventos;
 
-	@FXML
-	private JFXPopup menuPopUp;
 	
 	public boolean editMode=false;
+
 
 	public EventosController() {
 
 		diasConEventos = new SimpleSetProperty<>(this, "diasConEventos", FXCollections.observableSet());
-
-		
 
 		eventos = new SimpleListProperty<>(this, "eventos", FXCollections.observableArrayList());
 		try {
@@ -129,26 +140,55 @@ public class EventosController implements Initializable {
 	}
 
 	private void initPopUp() {
-		JFXButton button1 = new JFXButton("Generar reporte detallado");
+		
+		ContextMenu contextMenu = new ContextMenu();
+//		eventosListView.setContextMenu(contextMenu);
+		MenuItem button1 = new MenuItem("Generar reporte detallado");
 		button1.setOnAction(e -> {
 			onReporteDetalladoAction();
 		});
 
-		JFXButton button2 = new JFXButton("Generar reporte general");
+		MenuItem button2 = new MenuItem("Generar reporte general");
 		button2.setOnAction(e -> {
 			onReportGeneralAction();
 		});
 
-		button1.setPadding(new Insets(10));
-		button2.setPadding(new Insets(10));
+	
 
 		button1.getStyleClass().add("menuButton");
 		button2.getStyleClass().add("menuButton");
-
-		VBox vBox = new VBox(button1, button2);
-		menuPopUp.setContent(vBox);
-		menuPopUp.setSource(eventosListView);
+		
+		contextMenu.getItems().addAll(button1,button2);
+		
+		eventosListView.setOnContextMenuRequested(a-> {
+			
+		});
+		
+		eventosListView.setCellFactory(lv -> {  
+			  
+            ListCell<EventosModel> cell = new ListCell<EventosModel>() {  
+  
+                @Override  
+                protected void updateItem(EventosModel item, boolean empty) {  
+                    super.updateItem(item, empty);  
+                    setGraphic(null);
+                    setContextMenu(null);  
+                    if (!empty && item != null) {  
+                    	super.updateItem(item, empty);
+                    	setGraphic(item);
+                        setContextMenu(contextMenu);  
+                    }  
+                }  
+            };  
+            return cell;  
+        });  
+		
+		
 	}
+	
+
+
+
 
 	private void onReportGeneralAction() {
 		Task<Void> jasperTask = new Task<Void>() {
@@ -187,10 +227,12 @@ public class EventosController implements Initializable {
 
 				List<detalleEvento> eventosReport = new ArrayList<>();
 				eventosReport.add(eventoSelect);
-
+				
 				JasperPrint jasperPrint = JasperFillManager.fillReport(is, parametros,
 						new JRBeanCollectionDataSource(eventosReport));
-
+				
+//				JasperExportManager.exportReportToHtmlFile(jasperPrint,"./informe.html");
+				
 				is.close();
 				JasperViewer.viewReport(jasperPrint, false);
 
@@ -225,7 +267,6 @@ public class EventosController implements Initializable {
 		Thread hilo=new Thread(eventoysByFechaTask);
 		hilo.setName("eventosByFechaTask");
 		eventoysByFechaTask.setOnSucceeded(s->{
-			System.out.println("tidi biin");
 			eventos.setAll(eventoysByFechaTask.getValue().stream().map(e -> EventosModel.fromItem(e, this)).collect(Collectors.toList()));
 
 			System.out.println(eventos);
@@ -276,12 +317,6 @@ public class EventosController implements Initializable {
 	}
 
 	private void updateDiasConEventosList() {
-//		try {
-//			
-//		} catch (ServiceException e1) {
-//			e1.printStackTrace();
-//		}
-
 		
 		Task <Void> updateDiasConEventosTask = new Task<Void>() {
 			@Override
@@ -305,21 +340,21 @@ public class EventosController implements Initializable {
 		return fechaAux;
 	}
 
-	public void mostrarMenu(MouseEvent event, EventosModel eventosModel) {
-		if (menuPopUp.isVisible()) {
-			menuPopUp.close();
-		}
-		Bounds boundsInScene = eventosModel.localToScene(eventosModel.getBoundsInLocal());
-		menuPopUp.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, event.getX(),
-				boundsInScene.getMinY() - 30);
+//	public void mostrarMenu(MouseEvent event, EventosModel eventosModel) {
+//		if (menuPopUp.isVisible()) {
+//			menuPopUp.close();
+//		}
+//		Bounds boundsInScene = eventosModel.localToScene(eventosModel.getBoundsInLocal());
+//		menuPopUp.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, 400,
+//400);
+//
+//	}
 
-	}
-
-	public void CerrarMenu() {
-		if (menuPopUp.isVisible()) {
-			menuPopUp.close();
-		}
-	}
+//	public void CerrarMenu() {
+//		if (menuPopUp.isVisible()) {
+//			menuPopUp.close();
+//		}
+//	}
 
 	public void load() {
 		updateDiasConEventosList();
@@ -336,4 +371,8 @@ public class EventosController implements Initializable {
 		rightPanel.getChildren().remove(0);
 		rightPanel.getChildren().add(eventsPane);
 	}
+	
+	
+
+	
 }

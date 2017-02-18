@@ -205,6 +205,8 @@ public class CrearEditarEventosController implements Initializable {
 			};
 
 			new Thread(guardarTask).start();
+			onCancelarAction(null);
+
 		} else {
 			Task<Void> crearTask = new Task<Void>() {
 
@@ -224,10 +226,10 @@ public class CrearEditarEventosController implements Initializable {
 					return null;
 				}
 			};
+			crearTask.setOnSucceeded(f->onCancelarAction(null));
 			new Thread(crearTask).start();
 
 		}
-		onCancelarAction(null);
 	}
 
 	// TODO

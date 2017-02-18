@@ -92,7 +92,7 @@ public class EventosServiceJPA implements EventosService {
 	}
 
 	@Override
-	public List<EventoItem> buscarEventosPorFecha(Date fecha) throws ServiceException {
+	public   List<EventoItem> buscarEventosPorFecha(Date fecha) throws ServiceException {
 		//TODO preguntar a fran el critério 
 		UsuarioItem usuario = ServiceFactory.getUsuariosService().getLogueado();
 		return eventosDAO.getByFecha(usuario,fecha);

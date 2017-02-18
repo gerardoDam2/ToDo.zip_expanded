@@ -37,6 +37,57 @@ public class detalleEvento {
 		return detalle;
 	}
 	
+	public detalleEvento(){
+		
+	}
+	
+	public detalleEvento(EventoItem model){
+		setTitulo(model.getTitulo());
+		setDescripcion(model.getDescripcion());
+		setDireccion(model.getLugar().getDescripcion());
+		setLatitud(model.getLugar().getLatitud());
+		setLongitud(model.getLugar().getLongitud());
+		
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(model.getFecha());
+		LocalDate fechaAux = LocalDate.of(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1,
+				calendar.get(Calendar.DAY_OF_MONTH));
+		setFecha(fechaAux);
+
+		LocalTime horaIniAux = LocalTime.of(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));
+		setHoraInicio(horaIniAux);
+
+		calendar.add(Calendar.MINUTE, model.getDuracion().intValue());
+		LocalTime horaFinAux = LocalTime.of(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));
+		setHoraFin(horaFinAux);
+	}
+	
+	public static detalleEvento fromItem(EventoItem model){
+		detalleEvento detalle = new detalleEvento();
+		detalle.setTitulo(model.getTitulo());
+		detalle.setDescripcion(model.getDescripcion());
+		detalle.setDireccion(model.getLugar().getDescripcion());
+		detalle.setLatitud(model.getLugar().getLatitud());
+		detalle.setLongitud(model.getLugar().getLongitud());
+		
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(model.getFecha());
+		LocalDate fechaAux = LocalDate.of(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1,
+				calendar.get(Calendar.DAY_OF_MONTH));
+		detalle.setFecha(fechaAux);
+
+		LocalTime horaIniAux = LocalTime.of(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));
+		detalle.setHoraInicio(horaIniAux);
+
+		calendar.add(Calendar.MINUTE, model.getDuracion().intValue());
+		LocalTime horaFinAux = LocalTime.of(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));
+		detalle.setHoraFin(horaFinAux);
+		return detalle;
+	}
+	
+		
 	public static ArrayList<detalleEvento> getTodosLosEventos(){
 		
 		ArrayList<detalleEvento> listaEventos = new ArrayList<>();
