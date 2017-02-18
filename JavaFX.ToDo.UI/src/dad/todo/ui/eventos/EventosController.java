@@ -62,12 +62,10 @@ public class EventosController implements Initializable {
 	@FXML
 	private BorderPane eventsPane;
 
-//	@FXML
-//	private JFXListView<EventosModel> eventosListView;
+	// @FXML
+	// private JFXListView<EventosModel> eventosListView;
 	@FXML
 	private ListView<EventosModel> eventosListView;
-	
-	
 
 	@FXML
 	private JFXDatePicker fechaEventosDatePicker;
@@ -91,20 +89,20 @@ public class EventosController implements Initializable {
 
 		diasConEventos = new SimpleSetProperty<>(this, "diasConEventos", FXCollections.observableSet());
 
-		try {
-			diasConEventos.addAll(ServiceFactory.getEventosService().getEventos().stream()
-					.map(EventosController::itemToLocalDate).collect(Collectors.toList()));
-		} catch (ServiceException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		// try {
+		// diasConEventos.addAll(ServiceFactory.getEventosService().getEventos().stream()
+		// .map(EventosController::itemToLocalDate).collect(Collectors.toList()));
+		// } catch (ServiceException e1) {
+		// // TODO Auto-generated catch block
+		// e1.printStackTrace();
+		// }
 
 		eventos = new SimpleListProperty<>(this, "eventos", FXCollections.observableArrayList());
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("EventosView.fxml"));
 			loader.setController(this);
 			view = loader.load();
-//			view.getStylesheets().add(getClass().getResource("../todoStyle.css").toExternalForm());
+			// view.getStylesheets().add(getClass().getResource("../todoStyle.css").toExternalForm());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -118,12 +116,11 @@ public class EventosController implements Initializable {
 
 		calendarioController.specialDaysProperty().bind(diasConEventos);
 		fechaEventosDatePicker.valueProperty().addListener((obs, oldValue, newValue) -> onFechaChange(newValue));
-		fechaEventosDatePicker.setValue(LocalDate.now());
-		
+		// fechaEventosDatePicker.setValue(LocalDate.now());
+
 		Bindings.bindBidirectional(calendarioController.selectedDayProperty(), fechaEventosDatePicker.valueProperty());
 		eventosListView.itemsProperty().bind(eventos);
 
-	
 		BorderPane borderpane = new BorderPane();
 		ImageView imagev = new ImageView(new Image(getClass().getResource("sinEventos.gif").toExternalForm()));
 		borderpane.setBottom(imagev);
@@ -148,7 +145,7 @@ public class EventosController implements Initializable {
 
 		button1.setPadding(new Insets(10));
 		button2.setPadding(new Insets(10));
-		
+
 		button1.getStyleClass().add("menuButton");
 		button2.getStyleClass().add("menuButton");
 
@@ -215,7 +212,6 @@ public class EventosController implements Initializable {
 	}
 
 	private void onFechaChange(LocalDate newValue) {
-		
 
 		try {
 			Date fecha = Date.from(newValue.atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -281,18 +277,17 @@ public class EventosController implements Initializable {
 		return fechaAux;
 	}
 
-
-
 	public void mostrarMenu(MouseEvent event, EventosModel eventosModel) {
 		if (menuPopUp.isVisible()) {
 			menuPopUp.close();
 		}
 		Bounds boundsInScene = eventosModel.localToScene(eventosModel.getBoundsInLocal());
-		menuPopUp.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, event.getX(), boundsInScene.getMinY()-30);
+		menuPopUp.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, event.getX(),
+				boundsInScene.getMinY() - 30);
 
 	}
-	
-	public void CerrarMenu(){
+
+	public void CerrarMenu() {
 		if (menuPopUp.isVisible()) {
 			menuPopUp.close();
 		}
@@ -300,12 +295,5 @@ public class EventosController implements Initializable {
 
 	public void load() {
 		updateDiasConEventosList();
-		try {
-			List<EventoItem> eventosItem;
-			eventosItem = ServiceFactory.getEventosService().buscarEventosPorFecha(new Date());
-			eventos.setAll(eventosItem.stream().map(e -> EventosModel.fromItem(e, this)).collect(Collectors.toList()));
-		} catch (ServiceException e1) {
-			e1.printStackTrace();
-		}
-	}
+		fechaEventosDatePicker.setValue(LocalDate.now());
 }
