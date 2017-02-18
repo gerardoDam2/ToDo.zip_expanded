@@ -149,6 +149,12 @@ public class MenuController implements Initializable {
         stylesComboBox.getSelectionModel().selectedItemProperty().addListener((obs,oldv,newV)->onSelectedStyleChange(newV));
         
         
+        //
+        crearEventoKey.textProperty().addListener((a,b,c)->onCrearChartChange(c));
+        editarEventoKey.textProperty().addListener((a,b,c)->onEditarChartChange(c));
+        borrarEventoKey.textProperty().addListener((a,b,c)->onBorrarChartChange(c));
+        abrirUbicacionKey.textProperty().addListener((a,b,c)->onUbicacionChartChange(c));
+        
        
        //TODO DASDASDASDSADASDSADADAS
        switch ("light") {
@@ -169,6 +175,49 @@ public class MenuController implements Initializable {
 	
 
 
+
+	private void onBorrarChartChange(String c) {
+		// TODO Auto-generated method stub
+		String x=c.substring(c.length()-1);
+		if ((crearEventoKey.getText()+editarEventoKey.getText()+abrirUbicacionKey.getText()).contains(x)) {
+			abrirUbicacionKey.setText(" ");
+		}
+		 if (c.length() > 1) {
+             abrirUbicacionKey.setText(x);
+         }
+	}
+
+	private void onEditarChartChange(String c) {
+		// TODO Auto-generated method stub
+		String x=c.substring(c.length()-1);
+		if ((crearEventoKey.getText()+abrirUbicacionKey.getText()+borrarEventoKey.getText()).contains(x)) {
+			abrirUbicacionKey.setText(" ");
+		}
+		 if (c.length() > 1) {
+             abrirUbicacionKey.setText(x);
+         }
+	}
+
+	private void onCrearChartChange(String c) {
+		// TODO Auto-generated method stub
+		String x=c.substring(c.length()-1);
+		if ((abrirUbicacionKey.getText()+editarEventoKey.getText()+borrarEventoKey.getText()).contains(x)) {
+			abrirUbicacionKey.setText(" ");
+		}
+		 if (c.length() > 1) {
+             abrirUbicacionKey.setText(x);
+         }
+	}
+
+	private void onUbicacionChartChange(String c) {
+		String x=c.substring(c.length()-1);
+		if ((crearEventoKey.getText()+editarEventoKey.getText()+borrarEventoKey.getText()).contains(x)) {
+			abrirUbicacionKey.setText(" ");
+		}
+		 if (c.length() > 1) {
+             abrirUbicacionKey.setText(x);
+         }
+	}
 
 	private void onSelectedStyleChange(TodoStyleModel newV) {
 		App.gestorDePropiedades.currentStyleProperty().set(newV);

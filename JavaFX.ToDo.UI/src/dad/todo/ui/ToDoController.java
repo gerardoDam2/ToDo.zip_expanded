@@ -24,6 +24,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -138,6 +140,7 @@ public class ToDoController implements Initializable {
 
 	}
 
+
 	private void desloguear() {
 		try {
 			drawer.close();
@@ -169,6 +172,11 @@ public class ToDoController implements Initializable {
 		App.gestorDePropiedades.getPropiedades().setProperty("stageY", stage.getY() + "");
 		App.gestorDePropiedades.getPropiedades().setProperty("stageWidth", stage.getWidth() + "");
 		App.gestorDePropiedades.getPropiedades().setProperty("stageHeight", stage.getHeight() + "");
+		App.gestorDePropiedades.getPropiedades().setProperty("crear",crearChar.get() );
+		App.gestorDePropiedades.getPropiedades().setProperty("editar", editarChar.get());
+		App.gestorDePropiedades.getPropiedades().setProperty("borrar", borrarChar.get());
+		App.gestorDePropiedades.getPropiedades().setProperty("ubicacion", ubicacionChar.get());
+		
 	}
 
 	@Override
@@ -228,5 +236,10 @@ public class ToDoController implements Initializable {
 	}
 	
 
-
+	   @FXML
+	    void onAnyKeyPressed(KeyEvent event) {
+		   if (event.isControlDown() && event.getCode()!= KeyCode.CONTROL) {
+				System.out.println(event.getCode());
+			}
+	    }
 }
