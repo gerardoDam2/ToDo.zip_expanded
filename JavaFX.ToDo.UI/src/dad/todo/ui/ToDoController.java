@@ -71,6 +71,8 @@ public class ToDoController implements Initializable {
 
 	private AudioClip wellcomeSound;
 
+	public static AudioClip okSound;
+
 	@FXML
 	void onOpcionesMousePressed(MouseEvent event) {
 
@@ -136,6 +138,8 @@ public class ToDoController implements Initializable {
 			ubicacionChar= new SimpleStringProperty(this,"ubicacionChar",App.gestorDePropiedades.getPropiedades().getProperty("ubicacion"));
 			
 			wellcomeSound = new AudioClip(getClass().getResource("./sonidos/intro.wav").toExternalForm());
+			okSound = new AudioClip(getClass().getResource("./sonidos/ok.wav").toExternalForm());
+
 
 
 		} catch (IOException e) {

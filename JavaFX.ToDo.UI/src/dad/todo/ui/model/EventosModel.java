@@ -16,11 +16,14 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.AudioClip;
 import javafx.stage.StageStyle;
 
 import java.time.LocalTime;
@@ -37,6 +40,7 @@ import dad.todo.services.ServiceFactory;
 import dad.todo.services.items.EventoItem;
 import dad.todo.services.items.LugarItem;
 import dad.todo.ui.App;
+import dad.todo.ui.ToDoController;
 import dad.todo.ui.eventos.EventosController;
 import dad.todo.ui.utils.TimeUtils;
 import javafx.beans.property.BooleanProperty;
@@ -261,7 +265,7 @@ public class EventosModel extends GridPane implements Initializable {
 		try {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.initStyle(StageStyle.UNDECORATED);
-			
+			alert.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("../images/Cancel-48.png"))));
 			alert.initOwner(this.getScene().getWindow());
 			alert.setTitle("Eliminar evento");
 			alert.setHeaderText("¿Esta seguro de borrar este evento?");
@@ -271,7 +275,7 @@ public class EventosModel extends GridPane implements Initializable {
 			alert.getDialogPane().getStylesheets().add(
 					   getClass().getResource("../gestor_propiedades/"+App.gestorDePropiedades.currentStyleProperty().getValue().getFileName()).toExternalForm());
 			alert.getDialogPane().getStyleClass().add("myDialog");
-
+			ToDoController.okSound.play();
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == ButtonType.OK){
 				ServiceFactory.getEventosService().eliminarEvento(this.getEventoID());
