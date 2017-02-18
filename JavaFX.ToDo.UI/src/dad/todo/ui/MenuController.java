@@ -164,26 +164,13 @@ public class MenuController implements Initializable {
 	
 	
 
-	private void onBase1change(Observable b) {
-			App.gestorDePropiedades.getCurrentStyle().setBase1(base1Picker.getValue());
-			App.gestorDePropiedades.getCurrentStyle().setBase2(base2Picker.getValue());
-			App.gestorDePropiedades.getCurrentStyle().setTexto1(text1Picker.getValue());
-			App.gestorDePropiedades.getCurrentStyle().setTexto2(texto2Picker.getValue());
-			App.gestorDePropiedades.getCurrentStyle().setFondo(fondoPicker.getValue());
-			App.gestorDePropiedades.onCurrentStyleChange();
-	}
+
 
 	private void onSelectedStyleChange(TodoStyleModel newV) {
 		App.gestorDePropiedades.currentStyleProperty().set(newV);
 	}
 
-	private void onThemeChange(Toggle newV) {
-		if (newV==lightThemeRadioButton) {
-			ToDoController.styleSelectedProperty().set("light");
-		}else {
-			ToDoController.styleSelectedProperty().set("dark");
-		}
-	}
+	
 
 	private void updatePerfilFields() {
 		nombreText.setText(usuario.getNombre());

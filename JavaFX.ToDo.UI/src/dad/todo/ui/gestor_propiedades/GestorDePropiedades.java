@@ -219,9 +219,9 @@ public class GestorDePropiedades {
 
 	public  void ocupatedelCssPorMi(Parent p){
 		consumidoresDeStyle.add(p);
-		p.getStylesheets().clear();
+	
 		System.out.println(currentStyle.get().getFileName());
-		p.getStylesheets().add(this.getClass().getResource(currentStyle.get().getFileName()).toExternalForm());
+		p.getStylesheets().setAll(this.getClass().getResource(currentStyle.get().getFileName()).toExternalForm());
 	}
 
 	public ObjectProperty<TodoStyleModel> currentStyleProperty() {

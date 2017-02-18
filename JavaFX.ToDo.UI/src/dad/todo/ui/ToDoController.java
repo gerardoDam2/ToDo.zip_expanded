@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXSnackbar;
+import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 
 import dad.todo.services.ServiceException;
@@ -37,6 +39,11 @@ import javafx.stage.Stage;
 import jdk.internal.util.xml.PropertiesDefaultHandler;
 
 public class ToDoController implements Initializable {
+	
+	
+    @FXML
+    private AnchorPane rootView;
+    
 	@FXML
 	private JFXDrawer drawer;
 
@@ -56,6 +63,8 @@ public class ToDoController implements Initializable {
 	
 
 	private EventosController eventosController;
+
+	public static JFXSnackbar notificator;
 
 	@FXML
 	void onOpcionesMousePressed(MouseEvent event) {
@@ -138,6 +147,9 @@ public class ToDoController implements Initializable {
 			drawer.setSidePane(MenuView);
 			eventosController = new EventosController();
 			contenidoPane.setCenter(eventosController.getView());
+			notificator = new JFXSnackbar();
+			notificator.registerSnackbarContainer(rootView);
+			AnchorPane.getTopAnchor(notificator);
 
 		} catch (IOException e) {
 			e.printStackTrace();

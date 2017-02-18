@@ -117,7 +117,6 @@ public class CalendarioController extends BorderPane  implements Initializable{
 			mothC.getDaysLabel().forEach(r->r.getStyleClass().remove("specialDay"));
 		});
 			
-		System.out.println("entrando  ");
 			
 		for (LocalDate labelDate : specialDays) {
 			if (labelDate.getYear()==year.get()) {

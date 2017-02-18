@@ -45,3 +45,25 @@
 .jfx-tab-pane .tab-header-area .jfx-rippler{
     -fx-rippler-fill:white;
 }
+/*
+ * BARRA DE NOTIFICACIONES
+ */
+.jfx-snackbar-content {
+	-fx-background-color: -fx-base1;
+    -fx-padding: 5;
+    -fx-spacing: 5;	
+    -fx-border-radius: 20;
+    
+    
+    
+}
+
+.jfx-snackbar-toast {
+	-fx-font-size: 16;	
+	-fx-text-fill: -fx-base2;	
+	
+}
+
+.jfx-snackbar-action {
+	-fx-text-fill: -fx-base2;	
+}

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -21,7 +22,7 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="406.0">
                <children>
-                  <GridPane layoutX="50.0" layoutY="100.0" vgap="10.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="90.0">
+                  <GridPane layoutX="50.0" layoutY="100.0" vgap="10.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="80.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="NEVER" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -29,14 +30,14 @@
                     <rowConstraints>
                       <RowConstraints vgrow="NEVER" />
                       <RowConstraints vgrow="NEVER" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
                       <RowConstraints vgrow="NEVER" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
                         <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="NEVER" />
                     </rowConstraints>
                      <children>
                         <JFXTextField fx:id="usernameTextField" promptText="Username" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
                         <JFXPasswordField fx:id="passwordTextField" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <JFXButton fx:id="loginButton" alignment="BASELINE_CENTER" buttonType="RAISED" onAction="#onLoginButtonAction" ripplerFill="#ffeb3b" style="-fx-background-color: #009688;" text="Login" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                        <JFXButton fx:id="loginButton" alignment="BASELINE_CENTER" buttonType="RAISED" onAction="#onLoginButtonAction" ripplerFill="#ffeb3b" style="-fx-background-color: #009688;" text="Login" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                         <ImageView pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                            <image>
                               <Image url="@../images/key%20(1).png" />
@@ -47,13 +48,14 @@
                               <Image url="@../images/account.png" />
                            </image>
                         </ImageView>
-                        <Hyperlink fx:id="recuperarPassLink" alignment="BASELINE_CENTER" onAction="#onRecuperarPassAction" text="¿Olvidó su contraseña?" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                        <Hyperlink fx:id="recuperarPassLink" alignment="BASELINE_CENTER" onAction="#onRecuperarPassAction" text="¿Olvidó su contraseña?" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
                         <Label fx:id="loginErrorLabel" styleClass="errorText" text="Credenciales incorrectas" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                            <padding>
                               <Insets top="10.0" />
                            </padding></Label>
                      </children>
                   </GridPane>
+                  <JFXCheckBox layoutY="325.0" text="recordar usuario" />
                </children>
             </AnchorPane>
         </content>

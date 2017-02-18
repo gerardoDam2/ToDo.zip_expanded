@@ -58,7 +58,11 @@
 	-fx-border-width: 2;	
 }
 
-componenteMes{
+.emptyday:hover{
+		-fx-border-color: transparent;
+}
+
+.componenteMes{
 
 }
 

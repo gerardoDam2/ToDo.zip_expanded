@@ -53,3 +53,28 @@
 .jfx-tab-pane .tab-header-area .jfx-rippler{
     -fx-rippler-fill:white;
 }
+
+
+/*
+ * BARRA DE NOTIFICACIONES
+ */
+.jfx-snackbar-content {
+	-fx-background-color: -fx-base1;
+    -fx-padding: 2;
+    -fx-spacing: 2;	
+    -fx-border-radius: 40;
+    -fx-background-radius: 40;
+    -fx-padding: 10px;
+    -fx-border-insets: 10px;
+    -fx-background-insets: 10px;
+}
+
+.jfx-snackbar-toast {
+	
+	-fx-text-fill: -fx-base2;
+	-fx-font-size: 16;	
+}
+
+.jfx-snackbar-action {
+	-fx-text-fill: -fx-base2;	
+}

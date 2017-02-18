@@ -17,12 +17,13 @@ import java.util.stream.Collectors;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXPopup;
+import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
 
 import dad.calendario.CalendarioController;
 import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
 import dad.todo.services.items.EventoItem;
-
+import dad.todo.ui.ToDoController;
 import dad.todo.ui.model.EventosModel;
 import dad.todo.ui.report.detalleEvento;
 import javafx.beans.binding.Bindings;
@@ -213,7 +214,8 @@ public class EventosController implements Initializable {
 	}
 
 	private void onFechaChange(LocalDate newValue) {
-
+		System.out.println("intentando imprimir mensaje demigrante");
+		
 		Date fecha = Date.from(newValue.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
 		eventos.clear();
@@ -288,8 +290,7 @@ public class EventosController implements Initializable {
 		}
 		Bounds boundsInScene = eventosModel.localToScene(eventosModel.getBoundsInLocal());
 		menuPopUp.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, event.getX(), boundsInScene.getMinY()-30);
-//		menuPopUp.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, event.getX(), boundsInScene.getMinY()-20);
-//		menuPopUp.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, event.getSceneX(), event.getSceneY());
+
 	}
 	
 	public void CerrarMenu(){

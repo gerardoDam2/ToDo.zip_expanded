@@ -61,7 +61,7 @@ public class App extends Application  {
 		d.getChildren().remove(0);
 		d.getChildren().remove(0);
 		d.getChildren().remove(0);
-		Scene scene = new Scene(decorator,500,400);
+		Scene scene = new Scene(decorator,500,430);
 		primaryStage.initStyle(StageStyle.UNDECORATED);
 		primaryStage.setResizable(false);
 		
