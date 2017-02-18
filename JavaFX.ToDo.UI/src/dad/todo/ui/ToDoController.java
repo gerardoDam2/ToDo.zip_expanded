@@ -13,7 +13,10 @@ import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
 import dad.todo.ui.eventos.EventosController;
+import dad.todo.ui.gestor_propiedades.GestorDePropiedades;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -58,6 +61,11 @@ public class ToDoController implements Initializable {
 	private MenuController menuController;
 
 	public static JFXSnackbar notificator;
+	
+	private StringProperty crearChar;
+	private StringProperty editarChar;
+	private StringProperty borrarChar;
+	private StringProperty ubicacionChar;
 
 	@FXML
 	void onOpcionesMousePressed(MouseEvent event) {
@@ -116,6 +124,13 @@ public class ToDoController implements Initializable {
 
 			App.gestorDePropiedades.ocupatedelCssPorMi(scene.getRoot());
 			stage.setScene(scene);
+			
+			//atajos de teclado
+			crearChar= new SimpleStringProperty(this,"crearChar",App.gestorDePropiedades.getPropiedades().getProperty("crear"));
+			editarChar= new SimpleStringProperty(this,"editarChar",App.gestorDePropiedades.getPropiedades().getProperty("editar"));
+			borrarChar= new SimpleStringProperty(this,"borrarChar",App.gestorDePropiedades.getPropiedades().getProperty("borrar"));
+			ubicacionChar= new SimpleStringProperty(this,"ubicacionChar",App.gestorDePropiedades.getPropiedades().getProperty("ubicacion"));
+			
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -164,6 +179,8 @@ public class ToDoController implements Initializable {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("MenuView.fxml"));
 			BorderPane MenuView = loader.load();
 			menuController =(MenuController)loader.getController();
+			
+			
 			drawer.setSidePane(MenuView);
 			eventosController = new EventosController();
 			contenidoPane.setCenter(eventosController.getView());
@@ -188,8 +205,16 @@ public class ToDoController implements Initializable {
 		eventosController.load();
 		menuController.load();
 		stage.show();
+	
+
 	}
 
+	public void bind(){
+		Bindings.bindBidirectional(menuController.crearEventoKey.textProperty(), crearChar);
+		Bindings.bindBidirectional(menuController.editarEventoKey.textProperty(), editarChar);
+		Bindings.bindBidirectional(menuController.borrarEventoKey.textProperty(), borrarChar);
+		Bindings.bindBidirectional(menuController.abrirUbicacionKey.textProperty(), ubicacionChar);
+	}
 	public static SimpleStringProperty styleSelectedProperty() {
 		return styleSelected;
 	}

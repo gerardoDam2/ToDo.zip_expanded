@@ -43,6 +43,18 @@ import javafx.scene.text.Text;
 
 public class MenuController implements Initializable {
 	
+	@FXML
+     TextField crearEventoKey;
+
+    @FXML
+    TextField editarEventoKey;
+
+    @FXML
+    TextField borrarEventoKey;
+
+    @FXML
+    TextField abrirUbicacionKey;
+	
     @FXML
     private JFXColorPicker base1Picker;
 
@@ -136,11 +148,6 @@ public class MenuController implements Initializable {
         stylesComboBox.getSelectionModel().select(App.gestorDePropiedades.currentStyleProperty().get());
         stylesComboBox.getSelectionModel().selectedItemProperty().addListener((obs,oldv,newV)->onSelectedStyleChange(newV));
         
-//        base1Picker.valueProperty().addListener(b->onBase1change(b));
-//        base2Picker.valueProperty().addListener(b->onBase1change(b));
-//        text1Picker.valueProperty().addListener(b->onBase1change(b));
-//        texto2Picker.valueProperty().addListener(b->onBase1change(b));
-//        fondoPicker.valueProperty().addListener(b->onBase1change(b));
         
        
        //TODO DASDASDASDSADASDSADADAS

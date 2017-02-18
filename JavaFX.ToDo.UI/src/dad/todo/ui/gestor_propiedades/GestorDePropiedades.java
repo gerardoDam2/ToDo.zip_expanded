@@ -75,6 +75,10 @@ public class GestorDePropiedades {
 		defaultProperties.put("stageY", ""+primaryScreenBounds.getMinY());
 		defaultProperties.put("style", "light");
 		defaultProperties.put("CalendarPosition", "left");
+		defaultProperties.put("crear", "n");
+		defaultProperties.put("editar", "e");
+		defaultProperties.put("borrar", "d");
+		defaultProperties.put("ubicacion", "m");
 	
 		
 		propiedades = new Properties();

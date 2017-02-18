@@ -90,8 +90,9 @@ public class LoginController implements Initializable {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginView.fxml"));
 			loader.setController(this);
 			view = loader.load();
-	        Platform.runLater(()->chekAutoLogin());
 	        toDoController= new ToDoController();
+	        toDoController.bind();
+	        Platform.runLater(()->chekAutoLogin());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

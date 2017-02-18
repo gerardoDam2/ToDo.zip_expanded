@@ -46,6 +46,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -296,4 +297,5 @@ public class EventosController implements Initializable {
 	public void load() {
 		updateDiasConEventosList();
 		fechaEventosDatePicker.setValue(LocalDate.now());
+	}
 }
