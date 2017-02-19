@@ -1,3 +1,4 @@
+
 .root {
 	    -fx-background-color: white; 
 }
@@ -63,7 +64,7 @@
 
 .jfx-snackbar-toast {
 	
-	-fx-text-fill: -fx-color-text-headers;
+	-fx-text-fill: -fx-color-texto-headers;
 	-fx-font-size: 16;	
 }
 
@@ -200,10 +201,10 @@
 
 
  
-.milista .list-view {
+ .list-view {
 }
 
-.milista .list-view .list-cell {
+.list-view .list-cell {
     -fx-padding: 10px ;
     -fx-background-color: transparent, -fx-base1 ;
     -fx-background-insets: 0px, 3px ;
@@ -211,17 +212,17 @@
     -fx-background-radius: 20px;
 }
  
-.milista .list-view .list-cell:empty {
+.list-view .list-cell:empty {
     -fx-padding: 10px ;
     -fx-background-color: transparent ;
     -fx-background-insets: 0 ;
 }
  
-.milista .list-view .list-cell:filled:hover { 
+.list-view .list-cell:filled:hover { 
          -fx-background-color: -fx-base2, -fx-base1;
 }
 
-.milista .list-view .list-cell:filled:selected:focused, .listview .list-cell:filled:selected {
+.list-view .list-cell:filled:selected:focused, .listview .list-cell:filled:selected {
       -fx-background-color: transparent,-fx-base2; 
     -fx-text-fill:-fx-color-texto-headers; 
 }
@@ -263,7 +264,7 @@
 
 .titled-pane:focused > .title 
 {
--fx-background-color: -fx-base2r;
+-fx-background-color: -fx-base2;
 }
  
 .titled-pane > .title > .arrow-button 
@@ -319,7 +320,8 @@ linear-gradient(to bottom, derive(-fx-color,-02%), derive(-fx-color,65%) 12%,   
 }
 
  
-
+.joder {
+}
 
 
 

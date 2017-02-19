@@ -168,7 +168,6 @@ public class CalendarioController extends BorderPane  implements Initializable{
 		TranslateTransition out = new TranslateTransition(Duration.millis(500),oldYear);
 		out.setFromX(0);
 		out.setToX(x);
-		out.setFromY(anyoLabel.getLayoutY());
 		
 		FadeTransition out2 = new FadeTransition(Duration.millis(500),oldYear);
 		out2.setFromValue(1);
