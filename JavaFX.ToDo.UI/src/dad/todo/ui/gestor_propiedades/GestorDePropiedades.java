@@ -272,7 +272,7 @@ public void crearNuevoEstilo(String text)  {
 			styleT.setFondo(fondo.getValue());
 			System.out.println("cabecera del nuevo style");
 			System.out.println(styleT.toCssHeader());
-			styleT.setPath(Paths.get(directorioTodo+text));
+			styleT.setPath(Paths.get(directorioTodo+styleT.getFileName()));
 			
 			
 			Path pathBody = Paths.get(getClass().getResource("cssbody").toURI());
@@ -292,7 +292,8 @@ public void crearNuevoEstilo(String text)  {
 			});
 			bw.flush();
 			bw.close();
-			cargarHojasDeEstilo();
+//			cargarHojasDeEstilo();
+			hojasEstilo.add(styleT);
 			currentStyle.set(styleT);
 			
 		} catch (Exception   e) {
