@@ -7,6 +7,7 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -15,77 +16,86 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
-   <center>
-      <GridPane fx:id="gridContainer" alignment="CENTER" hgap="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" vgap="10.0" BorderPane.alignment="CENTER">
-      
-            <children>
-            <JFXTextField fx:id="tituloTextField" prefColumnCount="40" promptText="Título" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-            <JFXDatePicker fx:id="horaInicioDatePicker" editable="false" promptText="Hora de inicio" showTime="true" GridPane.rowIndex="2" />
-            <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.valignment="BASELINE" GridPane.vgrow="NEVER">
-               <GridPane.margin>
-                  <Insets left="20.0" />
-               </GridPane.margin>
-               <children>
-                  <JFXDatePicker fx:id="horaFinDatePicker" cache="true" editable="false" promptText="Hora de finalización" showTime="true" styleClass="datePickerError" />
-                  <Label fx:id="horaFinErrorLabel" prefHeight="31.0" prefWidth="28.0">
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/Cancel-48.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Label>
+
+<ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="pruebaScroll" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="pruebaScroll">
+         <center>
+            <GridPane fx:id="gridContainer" alignment="CENTER" hgap="5.0" minHeight="-Infinity" minWidth="-Infinity" styleClass="pruebaScroll" vgap="10.0">
+            
+                        <children>
+                  <JFXTextField fx:id="tituloTextField" prefColumnCount="40" promptText="Título" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                  <JFXDatePicker fx:id="horaInicioDatePicker" editable="false" promptText="Hora de inicio" showTime="true" GridPane.rowIndex="2" />
+                  <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.valignment="BASELINE" GridPane.vgrow="NEVER">
+                     <GridPane.margin>
+                        <Insets left="20.0" />
+                     </GridPane.margin>
+                     <children>
+                        <JFXDatePicker fx:id="horaFinDatePicker" cache="true" editable="false" promptText="Hora de finalización" showTime="true" styleClass="datePickerError" />
+                        <Label fx:id="horaFinErrorLabel" prefHeight="31.0" prefWidth="28.0">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/Cancel-48.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <JFXTextArea fx:id="descripcionTextArea" promptText="Escribe una breve descripción del evento" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+                  <HBox GridPane.columnSpan="2">
+                     <children>
+                        <JFXDatePicker fx:id="fechaDatePicker" promptText="Fecha" />
+                        <Label fx:id="fechaErrorLabel" prefHeight="31.0" prefWidth="28.0">
+                           <graphic>
+                              <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/Cancel-48.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <JFXCheckBox fx:id="realizadaCheckBox" text="Realizada" GridPane.rowIndex="4">
+                     <GridPane.margin>
+                        <Insets top="10.0" />
+                     </GridPane.margin>
+                  </JFXCheckBox>
+                  <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8">
+                     <children>
+                        <JFXButton fx:id="guardarButton" onAction="#onGuardarAction" style="-fx-background-color: #009688;" text="Guardar" textFill="WHITE" />
+                        <JFXButton fx:id="cancelarButton" buttonType="RAISED" onAction="#onCancelarAction" ripplerFill="WHITE" style="-fx-background-color: #FF5722;" text="Cancelar" textFill="WHITE" />
+                     </children>
+                     <padding>
+                        <Insets top="20.0" />
+                     </padding>
+                  </HBox>
                </children>
-            </HBox>
-            <JFXTextArea fx:id="descripcionTextArea" promptText="Escribe una breve descripción del evento" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-            <HBox GridPane.columnSpan="2">
-               <children>
-                  <JFXDatePicker fx:id="fechaDatePicker" promptText="Fecha" />
-                  <Label fx:id="fechaErrorLabel" prefHeight="31.0" prefWidth="28.0">
-                     <graphic>
-                        <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/Cancel-48.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Label>
-               </children>
-            </HBox>
-            <JFXCheckBox fx:id="realizadaCheckBox" text="Realizada" GridPane.rowIndex="4">
-               <GridPane.margin>
-                  <Insets top="10.0" />
-               </GridPane.margin></JFXCheckBox>
-            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8">
-               <children>
-                  <JFXButton fx:id="guardarButton" onAction="#onGuardarAction" style="-fx-background-color: #009688;" text="Guardar" textFill="WHITE" />
-                  <JFXButton fx:id="cancelarButton" buttonType="RAISED" onAction="#onCancelarAction" ripplerFill="WHITE" style="-fx-background-color: #FF5722;" text="Cancelar" textFill="WHITE" />
-               </children>
-               <padding>
-                  <Insets top="20.0" />
-               </padding>
-            </HBox>
-         </children>
-         <columnConstraints>
-            <ColumnConstraints hgrow="NEVER" />
-            <ColumnConstraints hgrow="ALWAYS" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints prefHeight="50.0" vgrow="ALWAYS" />
-            <RowConstraints prefHeight="50.0" vgrow="ALWAYS" />
-            <RowConstraints prefHeight="50.0" vgrow="ALWAYS" />
-            <RowConstraints prefHeight="100.0" vgrow="ALWAYS" />
-            <RowConstraints prefHeight="50.0" vgrow="ALWAYS" />
-            <RowConstraints vgrow="ALWAYS" />
-            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="400.0" vgrow="ALWAYS" />
-            <RowConstraints minHeight="-Infinity" vgrow="ALWAYS" />
-            <RowConstraints vgrow="ALWAYS" />
-         </rowConstraints>
-         <BorderPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="50.0" />
-         </BorderPane.margin>
-      </GridPane>
-   </center>
-</BorderPane>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="NEVER" />
+                  <ColumnConstraints hgrow="ALWAYS" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints prefHeight="50.0" vgrow="NEVER" />
+                  <RowConstraints prefHeight="50.0" vgrow="NEVER" />
+                  <RowConstraints prefHeight="50.0" vgrow="NEVER" />
+                  <RowConstraints prefHeight="100.0" vgrow="NEVER" />
+                  <RowConstraints prefHeight="50.0" vgrow="NEVER" />
+                  <RowConstraints vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="400.0" vgrow="NEVER" />
+                  <RowConstraints minHeight="-Infinity" vgrow="ALWAYS" />
+                  <RowConstraints vgrow="NEVER" />
+               </rowConstraints>
+               <BorderPane.margin>
+                  <Insets top="40.0" />
+               </BorderPane.margin>
+            </GridPane>
+         </center>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" />
+         </padding>
+      </BorderPane>
+   </content>
+</ScrollPane>

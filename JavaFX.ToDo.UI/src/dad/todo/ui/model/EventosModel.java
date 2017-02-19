@@ -356,7 +356,6 @@ public EventosModel() {
 		horaInicioLabel.textProperty().bind(horaInicioProperty().asString());
 		horaFinLabel.textProperty().bind(horaFinProperty().asString());
 
-		this.setStyle("-fx-background-color:green");
 		mapButton.disableProperty().bind(lugarProperty().isNull());
 
 	}

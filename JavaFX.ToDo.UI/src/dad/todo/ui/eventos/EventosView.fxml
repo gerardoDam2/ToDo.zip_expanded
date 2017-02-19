@@ -42,7 +42,7 @@
                         <JFXDatePicker fx:id="fechaEventosDatePicker" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                      </children>
                      <BorderPane.margin>
-                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                        <Insets bottom="10.0" left="5.0" right="1.0" top="5.0" />
                      </BorderPane.margin>
                   </GridPane>
                </top>
@@ -51,8 +51,14 @@
                      <children>
                         <ListView fx:id="eventosListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
+                     <BorderPane.margin>
+                        <Insets right="1.0" top="10.0" />
+                     </BorderPane.margin>
                   </AnchorPane>
                </center>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
             </BorderPane>
          </children>
       </VBox>

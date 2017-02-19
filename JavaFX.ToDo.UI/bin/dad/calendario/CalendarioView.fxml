@@ -17,13 +17,10 @@
 <!-- <?import java.util.ArrayList?> -->
 
 <fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@style.css" type="BorderPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
-	<padding>
-		<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-	</padding>
 	<center>
-      <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pruebaScroll" BorderPane.alignment="CENTER">
          <content>
-      		<GridPane fx:id="mesesPane" alignment="CENTER" hgap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="5.0">
+      		<GridPane fx:id="mesesPane" alignment="CENTER" hgap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pruebaScroll" vgap="5.0">
       			<columnConstraints>
       				<ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
       				<ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
@@ -62,19 +59,19 @@
 		</ArrayList>
 	</fx:define>
    <top>
-      <GridPane fx:id="yearGrid" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+      <GridPane fx:id="yearGrid" alignment="CENTER" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
           <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
             <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="1.7976931348623157E308" valignment="CENTER" vgrow="NEVER" />
+          <RowConstraints valignment="CENTER" vgrow="NEVER" />
         </rowConstraints>
          <children>
 				<Button fx:id="anteriorButton" alignment="BASELINE_CENTER" mnemonicParsing="false" onAction="#decrementarYear" styleClass="changeButton" text="&lt;" GridPane.halignment="RIGHT" />
-				<Label fx:id="anyoLabel" alignment="BASELINE_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="year" text="2016" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
-				<Button fx:id="siguienteButton" mnemonicParsing="false" onAction="#incrementarYear" styleClass="changeButton" text="&gt;" GridPane.columnIndex="2" GridPane.halignment="LEFT" />
+				<Label fx:id="anyoLabel" alignment="BASELINE_CENTER" maxHeight="23.0" minHeight="-Infinity" minWidth="-Infinity" styleClass="year" text="2016" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
+				<Button fx:id="siguienteButton" maxHeight="-Infinity" mnemonicParsing="false" onAction="#incrementarYear" styleClass="changeButton" text="&gt;" GridPane.columnIndex="2" GridPane.halignment="LEFT" />
          </children>
       </GridPane>
    </top>

@@ -38,9 +38,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.media.AudioClip;
@@ -82,7 +84,7 @@ public class CrearEditarEventosController implements Initializable {
 
 	private BooleanProperty horaFinValidator;
 
-	private BorderPane view;
+	private ScrollPane view;
 
 	private EventosController eventosController;
 
@@ -119,7 +121,7 @@ public class CrearEditarEventosController implements Initializable {
 		errorSound = new AudioClip(getClass().getResource("../sonidos/error.wav").toExternalForm());
 	}
 
-	public BorderPane getView() {
+	public ScrollPane getView() {
 		return view;
 	}
 

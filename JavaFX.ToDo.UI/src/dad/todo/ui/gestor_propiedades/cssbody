@@ -1,7 +1,8 @@
-
 .root {
-	    -fx-background-color: white;
+	    -fx-background-color: white; 
 }
+
+
 .green-hamburger > StackPane {
     -fx-background-color: -fx-color-texto-headers;
 }
@@ -36,7 +37,7 @@
 }
 .jfx-decorator .resize-border{
 	-fx-border-color:-fx-base1;
-	-fx-border-width: 1 1 1 1;
+	-fx-border-width: 3 3 3 3;
 }
 
 .jfx-tab-pane .tab-header-area .jfx-rippler{
@@ -46,7 +47,7 @@
     -fx-rippler-fill:white;
 }
 
-
+ 
 /*
  * BARRA DE NOTIFICACIONES
  */
@@ -76,7 +77,7 @@
 -fx-stroke: white;
 -fx-fill: white;
 -fx-background-color: transparent ;
--fx-padding: 0;	
+-fx-padding: 2 2 2 5;	
 }
 
 .myDialog{
@@ -99,4 +100,156 @@
     -fx-text-fill: -fx-color-texto;
     
 }
+
+/*
+ * CALENDAR
+ */
+ 
+ .changeButton{
+	-fx-text-fill: #009688;
+	-fx-font-weight: bold;
+	-fx-font-size:40;
+	-fx-background-color: transparent;
+	-fx-opacity: 0.6;
+	-fx-padding: 0;
+}
+
+.changeButton:hover{
+			-fx-opacity: 1;
+
+	
+}
+
+.month{
+	-fx-font-size: 13pt;
+	-fx-font-weight: bold;
+	-fx-background-color: #009688;
+		-fx-text-fill: white;
+}
+
+.year{
+	-fx-font-family: "Arial";
+	-fx-font-weight: bold;
+	-fx-font-size:22pt;
+	-fx-text-fill: #009688;
+}
+
+.weekday{
+	-fx-font-weight: bold;
+}
+
+.day{
+	-fx-font-size: 15;
+	-fx-font-style: italic ;
+	-fx-border-color: transparent;
+	-fx-border-width: 2;
+}
+
+.day:hover {
+	-fx-border-color: #009688;
+	-fx-border-style: solid ;
+		-fx-border-radius: 20;
+	
+}
+
+.emptyday{
+	-fx-border-color: transparent;
+	-fx-border-width: 2;	
+}
+
+.emptyday:hover{
+		-fx-border-color: transparent;
+}
+
+.componenteMes{
+
+}
+
+.today{
+	-fx-border-width: 2;
+	-fx-border-radius: 20;
+	-fx-font-weight: bold;
+}
+
+.sunday{
+	-fx-text-fill: red;
+}
+
+.dayWithEvent{
+			-fx-background-color:green;
+}
+
+
+.specialDay{
+	-fx-background-color: #FF5722;	
+	-fx-text-fill: white;
+	-fx-background-radius: 20;	
+}
+ 
+.pruebaScroll {
+	-fx-background-insets: 0;
+	-fx-border-insets: 0;
+	-fx-border-color: -fx-color-fondo;
+	-fx-background-insets: 0 ;
+	-fx-background-color: -fx-color-fondo;
+}
+
+
+.split-pane *.split-pane-divider {
+    -fx-background-color: -fx-base1;
+    -fx-pref-width: 4px;
+}
+
+
+/* 
+.list-cell:empty {
+    -fx-background-color: transparent;
+}
+ 
+.list-cell {
+	-fx-background-color: -fx-base1;
+	-fx-text-fill: -fx-color-text-headers;
+	-fx-padding: 2px ;
+    -fx-background-insets: 0px, 2px ;
+}
+ 
+.list-cell:empty .table-cell {
+    -fx-border-width: 0px; 
+     -fx-padding: 2px ;
+    -fx-background-color: transparent ;
+    -fx-background-insets: 0 ; 
+}
+
+
+
+
+*/
+ 
+.list-view {
+}
+
+.list-view .list-cell {
+    -fx-padding: 10px ;
+    -fx-background-color: transparent, -fx-base1 ;
+    -fx-background-insets: 0px, 3px ;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+}
+
+.list-view .list-cell:empty {
+    -fx-padding: 10px ;
+    -fx-background-color: transparent ;
+    -fx-background-insets: 0 ;
+}
+ 
+.list-view .list-cell:filled:hover { 
+         -fx-background-color: -fx-base2, -fx-base1;
+}
+
+.list-view .list-cell:filled:selected:focused, .listview .list-cell:filled:selected {
+      -fx-background-color: transparent,-fx-base2; 
+    -fx-text-fill:-fx-color-texto-headers; 
+}
+
+
 

@@ -106,7 +106,6 @@ public class CalendarioController extends BorderPane  implements Initializable{
 			
 		});
 
-		this.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
 
 	}

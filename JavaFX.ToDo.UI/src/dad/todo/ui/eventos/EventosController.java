@@ -77,10 +77,9 @@ public class EventosController implements Initializable {
 	@FXML
 	private BorderPane eventsPane;
 
-//	 @FXML
-//	 private JFXListView<EventosModel> eventosListView;
 	@FXML
 	private ListView<EventosModel> eventosListView;
+//	private JFXListView<EventosModel> eventosListView;
 
 	@FXML
 	private JFXDatePicker fechaEventosDatePicker;
@@ -137,6 +136,8 @@ public class EventosController implements Initializable {
 		editarCrearController = new CrearEditarEventosController(this);
 
 		initPopUp();
+		
+		eventosListView.setStyle("-fx-background-insets: 0 ;");
 	}
 
 	private void initPopUp() {

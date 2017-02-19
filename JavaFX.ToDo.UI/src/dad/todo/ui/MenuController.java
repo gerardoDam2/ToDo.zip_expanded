@@ -29,6 +29,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
@@ -65,7 +66,7 @@ public class MenuController implements Initializable {
     private JFXColorPicker text1Picker;
 
     @FXML
-    private JFXComboBox<TodoStyleModel> stylesComboBox;
+    private ComboBox<TodoStyleModel> stylesComboBox;
 
     @FXML
     private JFXColorPicker texto2Picker;
@@ -96,17 +97,10 @@ public class MenuController implements Initializable {
 	@FXML
 	private JFXButton cambiarPassButton;
 
-	@FXML
-	private ToggleGroup temaSelected;
 	
 	@FXML
     private JFXButton nombreText;
 
-	@FXML
-	private RadioButton darkThemeRadioButton;
-
-	@FXML
-	private RadioButton lightThemeRadioButton;
 
 	private UsuarioModel usuario;
 	 @FXML
@@ -155,19 +149,6 @@ public class MenuController implements Initializable {
         borrarEventoKey.textProperty().addListener((a,b,c)->onBorrarChartChange(c));
         abrirUbicacionKey.textProperty().addListener((a,b,c)->onUbicacionChartChange(c));
         
-       
-       //TODO DASDASDASDSADASDSADADAS
-       switch ("light") {
-	case "light":
-		lightThemeRadioButton.setSelected(true);
-
-		break;
-	case "dark":
-		darkThemeRadioButton.setSelected(true);
-		break;
-	default:
-		break;
-	}
        
 
 	}
