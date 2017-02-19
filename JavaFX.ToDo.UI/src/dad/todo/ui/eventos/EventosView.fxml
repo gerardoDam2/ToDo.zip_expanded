@@ -30,16 +30,16 @@
                       <RowConstraints maxHeight="1.7976931348623157E308" vgrow="NEVER" />
                     </rowConstraints>
                      <children>
-                        <Button fx:id="addEventoButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAddEventoButtonAction" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #009688; -fx-background-radius: 20;" textAlignment="CENTER" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                        <Button fx:id="addEventoButton" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#onAddEventoButtonAction" prefHeight="40.0" prefWidth="40.0" styleClass="circularBUtton" textAlignment="CENTER" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                            <graphic>
-                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="52.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/ic_add_circle_outline_white_36dp_2x.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </Button>
-                        <JFXDatePicker fx:id="fechaEventosDatePicker" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <JFXDatePicker fx:id="fechaEventosDatePicker" styleClass="test" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                      </children>
                      <BorderPane.margin>
                         <Insets bottom="10.0" left="5.0" right="1.0" top="5.0" />

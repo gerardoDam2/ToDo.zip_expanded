@@ -25,19 +25,17 @@
    <center>
       <VBox fx:id="boxtest" maxHeight="1.7976931348623157E308" prefWidth="400.0" BorderPane.alignment="TOP_LEFT">
          <children>
-            <StackPane maxHeight="1.7976931348623157E308" maxWidth="400.0" minHeight="-Infinity" prefWidth="400.0" VBox.vgrow="NEVER">
+            <StackPane maxHeight="1.7976931348623157E308" maxWidth="400.0" minHeight="-Infinity" prefWidth="400.0" style="-fx-background-color: -fx-base1;" VBox.vgrow="NEVER">
                <children>
-                  <ImageView pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/back.jpg" />
-                     </image>
-                  </ImageView>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/icon-avatar-default.png" />
                      </image>
+                     <StackPane.margin>
+                        <Insets bottom="40.0" top="20.0" />
+                     </StackPane.margin>
                   </ImageView>
-                  <JFXButton fx:id="nombreText" maxWidth="1.7976931348623157E308" ripplerFill="BLACK" text="Nombre" textFill="WHITE" StackPane.alignment="BOTTOM_LEFT">
+                  <JFXButton fx:id="nombreText" maxWidth="1.7976931348623157E308" ripplerFill="BLACK" styleClass="texth1" text="Nombre" textFill="WHITE" StackPane.alignment="BOTTOM_LEFT">
                      <StackPane.margin>
                         <Insets />
                      </StackPane.margin>
@@ -49,11 +47,11 @@
             </StackPane>
             <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                <children>
-                  <Accordion maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+                  <Accordion maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: -fx-base1;" VBox.vgrow="ALWAYS">
                     <panes>
-                      <TitledPane fx:id="perfilTitlePane" animated="false" maxHeight="1.7976931348623157E308" text="Perfil">
+                      <TitledPane fx:id="perfilTitlePane" maxHeight="1.7976931348623157E308" text="Perfil">
                            <content>
-                              <GridPane styleClass="pruebaScroll">
+                              <GridPane hgap="10.0" styleClass="pruebaScroll" vgap="10.0">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="NEVER" />
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -64,20 +62,20 @@
                                   <RowConstraints vgrow="NEVER" />
                                 </rowConstraints>
                                  <children>
-                                    <Label text="Nombre" GridPane.valignment="BOTTOM" />
-                                    <Label text="Email" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-                                    <TextField fx:id="nombreUserTextField" GridPane.columnIndex="1" />
-                                    <TextField fx:id="emailTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <JFXButton fx:id="guardarPerfilButton" buttonType="RAISED" onAction="#onGuardarPerfilAction" text="Guardar" GridPane.rowIndex="2" />
+                                    <Label text="Nombre" GridPane.valignment="CENTER" />
+                                    <Label text="Email" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                    <TextField fx:id="nombreUserTextField" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
+                                    <TextField fx:id="emailTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                    <JFXButton fx:id="guardarPerfilButton" buttonType="RAISED" maxWidth="1.7976931348623157E308" onAction="#onGuardarPerfilAction" text="Guardar" GridPane.columnSpan="2" GridPane.rowIndex="2" />
                                  </children>
                               </GridPane>
                            </content>
                       </TitledPane>
-                      <TitledPane animated="false" text="Seguridad">
+                      <TitledPane text="Seguridad">
                            <content>
-                              <GridPane styleClass="pruebaScroll">
+                              <GridPane hgap="10.0" styleClass="pruebaScroll" vgap="10.0">
                                 <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="NEVER" />
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                 </columnConstraints>
                                 <rowConstraints>
@@ -88,14 +86,14 @@
                                  <children>
                                     <Label text="Contraseña actual" />
                                     <Label text="Nueva contraseña" GridPane.rowIndex="1" />
-                                    <JFXButton fx:id="cambiarPassButton" onAction="#onCambiarPassAction" text="Guardar" GridPane.rowIndex="2" />
+                                    <JFXButton fx:id="cambiarPassButton" maxWidth="1.7976931348623157E308" onAction="#onCambiarPassAction" text="Guardar" GridPane.columnSpan="2" GridPane.rowIndex="2" />
                                     <PasswordField fx:id="passActualPassField" GridPane.columnIndex="1" />
                                     <PasswordField fx:id="nuevaPassPassField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                  </children>
                               </GridPane>
                            </content>
                       </TitledPane>
-                        <TitledPane alignment="TOP_LEFT" animated="false" styleClass="pruebaScroll" text="Editar Tema">
+                        <TitledPane alignment="TOP_LEFT" text="Editar Tema">
                            <content>
                               <GridPane alignment="TOP_CENTER" hgap="10.0" styleClass="pruebaScroll" vgap="10.0">
                                 <columnConstraints>
@@ -112,10 +110,10 @@
                                     <RowConstraints maxHeight="1.7976931348623157E308" vgrow="NEVER" />
                                 </rowConstraints>
                                  <children>
-                                    <JFXColorPicker fx:id="base1Picker" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <JFXColorPicker fx:id="base1Picker" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BASELINE" />
                                     <JFXColorPicker fx:id="base2Picker" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <JFXColorPicker fx:id="text1Picker" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <Label text="principal" GridPane.rowIndex="1">
+                                    <Label text="principal" GridPane.rowIndex="1" GridPane.valignment="BASELINE">
                                        <padding>
                                           <Insets left="10.0" />
                                        </padding></Label>
@@ -139,22 +137,25 @@
                                           <Insets left="10.0" />
                                        </padding>
                                     </Label>
-                                    <JFXTextField fx:id="newStyleTextField" promptText="introduce un nombre" GridPane.rowIndex="6">
+                                    <JFXTextField fx:id="newStyleTextField" promptText="introduce un nombre" GridPane.rowIndex="6" GridPane.valignment="BASELINE">
                                        <GridPane.margin>
                                           <Insets top="20.0" />
                                        </GridPane.margin>
                                     </JFXTextField>
-                                    <Button fx:id="addNewStyleButton" mnemonicParsing="false" text="+" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                    <Button fx:id="addNewStyleButton" mnemonicParsing="false" text="+" GridPane.columnIndex="1" GridPane.rowIndex="6" GridPane.valignment="BASELINE">
                                        <GridPane.margin>
                                           <Insets top="20.0" />
                                        </GridPane.margin>
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
                                     </Button>
                                     <ComboBox fx:id="stylesComboBox" maxWidth="1.7976931348623157E308" GridPane.columnSpan="2" />
                                  </children>
                               </GridPane>
                            </content>
                         </TitledPane>
-                        <TitledPane alignment="TOP_LEFT" animated="false" text="Atajos de teclado">
+                        <TitledPane alignment="TOP_LEFT" text="Atajos de teclado">
                            <content>
                               <GridPane alignment="TOP_CENTER" hgap="10.0" styleClass="pruebaScroll" vgap="10.0">
                                 <columnConstraints>

@@ -1,8 +1,7 @@
 .root {
 	    -fx-background-color: white; 
 }
-
-
+ 
 .green-hamburger > StackPane {
     -fx-background-color: -fx-color-texto-headers;
 }
@@ -64,7 +63,7 @@
 
 .jfx-snackbar-toast {
 	
-	-fx-text-fill: -fx-base2;
+	-fx-text-fill: -fx-color-text-headers;
 	-fx-font-size: 16;	
 }
 
@@ -98,7 +97,6 @@
     -fx-font-size: 18px;
     -fx-font-style: italic;
     -fx-text-fill: -fx-color-texto;
-    
 }
 
 /*
@@ -185,7 +183,7 @@
 	-fx-text-fill: white;
 	-fx-background-radius: 20;	
 }
- 
+  
 .pruebaScroll {
 	-fx-background-insets: 0;
 	-fx-border-insets: 0;
@@ -201,55 +199,131 @@
 }
 
 
-/* 
-.list-cell:empty {
-    -fx-background-color: transparent;
-}
  
-.list-cell {
-	-fx-background-color: -fx-base1;
-	-fx-text-fill: -fx-color-text-headers;
-	-fx-padding: 2px ;
-    -fx-background-insets: 0px, 2px ;
-}
- 
-.list-cell:empty .table-cell {
-    -fx-border-width: 0px; 
-     -fx-padding: 2px ;
-    -fx-background-color: transparent ;
-    -fx-background-insets: 0 ; 
+.milista .list-view {
 }
 
-
-
-
-*/
- 
-.list-view {
-}
-
-.list-view .list-cell {
+.milista .list-view .list-cell {
     -fx-padding: 10px ;
     -fx-background-color: transparent, -fx-base1 ;
     -fx-background-insets: 0px, 3px ;
     -fx-border-radius: 20px;
     -fx-background-radius: 20px;
 }
-
-.list-view .list-cell:empty {
+ 
+.milista .list-view .list-cell:empty {
     -fx-padding: 10px ;
     -fx-background-color: transparent ;
     -fx-background-insets: 0 ;
 }
  
-.list-view .list-cell:filled:hover { 
+.milista .list-view .list-cell:filled:hover { 
          -fx-background-color: -fx-base2, -fx-base1;
 }
 
-.list-view .list-cell:filled:selected:focused, .listview .list-cell:filled:selected {
+.milista .list-view .list-cell:filled:selected:focused, .listview .list-cell:filled:selected {
       -fx-background-color: transparent,-fx-base2; 
     -fx-text-fill:-fx-color-texto-headers; 
 }
+
+
+.combo-box .arrow, .combo-box .arrow-button{
+    -fx-background-color: transparent;
+    -fx-text-alignment: center;
+}
+
+
+
+ 
+
+
+.titled-pane 
+{
+-fx-text-fill: -fx-color-texto-headers;
+-fx-alignment: center;
+}
+.titled-pane:focused 
+{
+	-fx-background-color:-fx-base2;
+}
+
+.titled-pane:hover .title{
+-fx-background-color:-fx-base2;
+}
+.titled-pane > .title 
+{
+-fx-background-color: -fx-base1;
+-fx-padding: 0;
+-fx-font-weight: bold;
+-fx-font-size: 18;
+-fx-border-width:1 0 0 0;
+-fx-border-color: -fx-color-fondo;
+
+}
+
+.titled-pane:focused > .title 
+{
+-fx-background-color: -fx-base2r;
+}
+ 
+.titled-pane > .title > .arrow-button 
+{
+-fx-background-color: null;
+-fx-background-insets: 0;
+-fx-background-radius: 0;
+-fx-padding: 0.0em 0.25em 0.0em 0.0em; /* 0 3 0 0 */
+}
+
+.titled-pane > .title > .arrow-button .arrow 
+{
+-fx-shape: " ";
+}
+
+.titled-pane:collapsed > .title > .arrow-button .arrow 
+{ 
+}
+
+.titled-pane > *.content 
+{
+-fx-background-color:
+-fx-box-border,
+linear-gradient(to bottom, derive(-fx-color,-02%), derive(-fx-color,65%) 12%,      derive(-fx-color,23%) 88%, derive(-fx-color,50%) 99%, -fx-box-border);
+-fx-background-insets: 0, 0 1 1 1;
+-fx-padding: 0.167em;
+ }
+
+.texth1{
+	-fx-text-fill: -fx-color-texto-headers;
+-fx-font-size: 18;
+}
+
+.buttonOk {
+	-fx-background-color: -fx-base1;
+	-fx-text-fill: -fx-color-texto-headers;
+}
+
+.buttonCancel{
+	-fx-background-color: -fx-base2;
+	-fx-text-fill: -fx-color-texto-headers;
+}
+
+
+.circularBUtton{
+	-fx-background-color: -fx-base1;
+	-fx-background-radius: 20;
+}
+
+.circularBUtton:hover{
+		-fx-background-color: -fx-base2;
+	
+}
+
+ 
+
+
+
+
+
 
 
 
