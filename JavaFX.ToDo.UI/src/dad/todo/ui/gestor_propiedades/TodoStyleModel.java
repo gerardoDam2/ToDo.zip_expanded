@@ -1,5 +1,7 @@
 package dad.todo.ui.gestor_propiedades;
 
+import java.nio.file.Path;
+
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -15,8 +17,10 @@ public class TodoStyleModel {
 	ObjectProperty<Color> texto1;
 	ObjectProperty<Color> texto2;
 	ObjectProperty<Color> fondo;
+	Path path;
 
 	public TodoStyleModel() {
+		
 		nombre = new SimpleStringProperty(this, "nombre");
 		base1 = new SimpleObjectProperty<>(this, "base1");
 		base2 = new SimpleObjectProperty<>(this, "base2");
@@ -103,7 +107,7 @@ public class TodoStyleModel {
 	}
 	
 
-	public void setTexto2(final Color texto2) {
+	public void setTexto2(Color texto2) {
 		this.texto2Property().set(texto2);
 	}
 	
@@ -118,7 +122,7 @@ public class TodoStyleModel {
 	}
 	
 
-	public void setFondo(final Color fondo) {
+	public void setFondo(Color fondo) {
 		this.fondoProperty().set(fondo);
 	}
 	
@@ -142,7 +146,17 @@ public class TodoStyleModel {
 			return cssHeader;
 	 
  }
-	
+
+ public String toCSSinLine(){
+	 String cssHeader =
+				"-fx-base1:"+toRGBCode(getBase1())+"; "+
+				"-fx-base2:"+toRGBCode(getBase2())+"; "+
+				"-fx-color-texto:"+toRGBCode(getTexto1())+"; "+
+				"-fx-color-texto-headers:"+toRGBCode(getTexto2())+"; "+
+				"-fx-color-fondo:"+toRGBCode(getFondo())+";";
+			return cssHeader;
+	 
+ }
 	    public  String toRGBCode( Color color )
 	    {
 	        return String.format( "#%02X%02X%02X",
@@ -151,6 +165,14 @@ public class TodoStyleModel {
 	            (int)( color.getBlue() * 255 ) );
 	    }
 	    
+	    
+	public Path getPath() {
+		return path;
+	}
+	
+	public void setPath(Path path) {
+		this.path = path;
+	}
 	    
 	
 }

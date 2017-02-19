@@ -66,7 +66,7 @@
                                     <Label text="Email" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                                     <TextField fx:id="nombreUserTextField" GridPane.columnIndex="1" GridPane.valignment="CENTER" />
                                     <TextField fx:id="emailTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                                    <JFXButton fx:id="guardarPerfilButton" buttonType="RAISED" maxWidth="1.7976931348623157E308" onAction="#onGuardarPerfilAction" text="Guardar" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                                    <JFXButton fx:id="guardarPerfilButton" buttonType="RAISED" maxWidth="1.7976931348623157E308" onAction="#onGuardarPerfilAction" styleClass="buttonOk" text="Guardar" GridPane.columnSpan="2" GridPane.rowIndex="2" />
                                  </children>
                               </GridPane>
                            </content>
@@ -86,7 +86,7 @@
                                  <children>
                                     <Label text="Contraseña actual" />
                                     <Label text="Nueva contraseña" GridPane.rowIndex="1" />
-                                    <JFXButton fx:id="cambiarPassButton" maxWidth="1.7976931348623157E308" onAction="#onCambiarPassAction" text="Guardar" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                                    <JFXButton fx:id="cambiarPassButton" maxWidth="1.7976931348623157E308" onAction="#onCambiarPassAction" styleClass="buttonOk" text="Guardar" GridPane.columnSpan="2" GridPane.rowIndex="2" />
                                     <PasswordField fx:id="passActualPassField" GridPane.columnIndex="1" />
                                     <PasswordField fx:id="nuevaPassPassField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                  </children>
@@ -142,7 +142,7 @@
                                           <Insets top="20.0" />
                                        </GridPane.margin>
                                     </JFXTextField>
-                                    <Button fx:id="addNewStyleButton" mnemonicParsing="false" text="+" GridPane.columnIndex="1" GridPane.rowIndex="6" GridPane.valignment="BASELINE">
+                                    <Button fx:id="addNewStyleButton" mnemonicParsing="false" onAction="#onAddNewStyleAction" styleClass="buttonOk" text="+" GridPane.columnIndex="1" GridPane.rowIndex="6" GridPane.valignment="BASELINE">
                                        <GridPane.margin>
                                           <Insets top="20.0" />
                                        </GridPane.margin>

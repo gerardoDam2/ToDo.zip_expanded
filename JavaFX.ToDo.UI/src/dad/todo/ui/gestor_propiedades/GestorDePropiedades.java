@@ -1,12 +1,15 @@
 package dad.todo.ui.gestor_propiedades;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -14,12 +17,15 @@ import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
+import com.sun.glass.ui.GestureSupport;
 import com.sun.net.httpserver.Filter;
 
 import javafx.beans.property.ListProperty;
@@ -35,13 +41,13 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
+import net.sf.jasperreports.export.parameters.ParametersHtmlExporterOutput;
 
 public class GestorDePropiedades {
 	
 	Properties propiedades;
 	HashMap<String, String> defaultProperties;
 	private String pathFile;
-	private FileInputStream input;
 	private FileOutputStream output;
 	private  ObjectProperty<TodoStyleModel> currentStyle;
 	
@@ -56,6 +62,7 @@ public class GestorDePropiedades {
 	private ObjectProperty<Color> texto1;
 	private ObjectProperty<Color> texto2;
 	private ObjectProperty<Color> fondo;
+	private String directorioTodo;
 	
 	public GestorDePropiedades() {
 		
@@ -65,8 +72,12 @@ public class GestorDePropiedades {
 		currentStyle.addListener(e->onCurrentStyleChange());
 		
 		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-		pathFile=System.getProperty("user.home")+"/ToDoConfig.properties";
+		directorioTodo=System.getProperty("user.home")+File.separator+"ToDo"+File.separator;
 		
+		//TODO
+		System.err.println("dir todo " +directorioTodo);
+		pathFile=directorioTodo+"ToDoConfig.properties";
+		System.out.println("properti dir " +pathFile);
 		defaultProperties=new HashMap<>();
 		
 		defaultProperties.put("stageWidth", primaryScreenBounds.getWidth()+"");
@@ -85,18 +96,20 @@ public class GestorDePropiedades {
 		
 		
 			try {
-				input = new FileInputStream(pathFile);
+				FileInputStream input = new FileInputStream(pathFile);
 				propiedades.load(input); // si el fichero existe cargo sus valores
 			} catch (IOException e) {
-				defaultProperties.forEach( (k,v)-> {
-					propiedades.put(k,v);
-				}); // si no existe cargo los valores por defecto
+				propiedades.putAll(defaultProperties);
 			}
 			
+			System.out.println(propiedades.getProperty("style"));
 			
 		 cargarHojasDeEstilo();
+	
 		 hojasEstilo.stream().filter(p->p.getFileName().equals(propiedades.getProperty("style"))).forEach(p->currentStyle.set(p));
-		 
+		 System.out.println("EL ESTILO ACTUAL ES");
+		 System.out.println(currentStyle.get().getNombre());
+		 System.out.println(hojasEstilo.size());
 		 //TODO TESTEANDO
 		 
 		 base1=new SimpleObjectProperty<>(this,"base1",currentStyle.get().base1.get());
@@ -111,6 +124,7 @@ public class GestorDePropiedades {
 		 texto1.addListener((a,b,c)->onAnyColorChange(c));
 		 texto2.addListener((a,b,c)->onAnyColorChange(c));
 		 fondo.addListener((a,b,c)->onAnyColorChange(c));
+		 int i = 0;
 		 
 	}
 	
@@ -133,13 +147,17 @@ public class GestorDePropiedades {
 			texto2.set(currentStyle.get().getTexto2());
 			fondo.set(currentStyle.get().getFondo());
 			
-			
+			//TODO se puede quitar y usar setall
 			consumidoresDeStyle.forEach(a->{
 				a.getStylesheets().clear();
 			});
-			guardarCss();
+			
+			guardarCss();// es el que hace que se refresque el css
+			
+			
+			//una vez guardado les agrego el estilo
 			consumidoresDeStyle.forEach(a->{
-				a.getStylesheets().add(this.getClass().getResource(currentStyle.get().getFileName()).toExternalForm());
+				a.getStylesheets().addAll("file:///"+currentStyle.get().getPath().toString().replace("\\", "/"));
 			});
 		} catch (URISyntaxException | IOException e) {
 			// TODO Auto-generated catch block
@@ -149,38 +167,61 @@ public class GestorDePropiedades {
 	}
 
 	private void cargarHojasDeEstilo() {
-		try {
-			File f = new File(getClass().getResource(".").toURI());
-			File[] ficheros = f.listFiles();
-			for (File file : ficheros) {
-				if (file.getName().endsWith("css")) {
-					TodoStyleModel style = new TodoStyleModel();
-					style.setFileName(file.getName());
-					System.out.println("archivo >"+file.getName());
-					Scanner sc = new Scanner(file,"UTF8");
-					ArrayList<String> valores = new ArrayList<>();
-					sc.nextLine();
-					for (int i = 0; i < 6; i++) {
-						String cadena = sc.nextLine();
-						cadena=cadena.substring(cadena.indexOf(":")+1,cadena.indexOf(";"));
-						System.out.println("cadena "+cadena);
-						valores.add(cadena);
-					}
-					sc.close();
-					style.setNombre(valores.get(0));
-					style.setBase1(Color.valueOf(valores.get(1)));
-					style.setBase2(Color.valueOf(valores.get(2)));
-					style.setTexto1(Color.valueOf(valores.get(3)));
-					style.setTexto2(Color.valueOf(valores.get(4)));
-					style.setFondo(Color.valueOf(valores.get(5)));
-					System.out.println("----"+style.getBase1().hashCode());
-					hojasEstilo.add(style);
-				}
+			Stream<Path> ficheros = null;
+			try {
+				ficheros = Files.list(Paths.get(directorioTodo));
+				
+			} catch (IOException e1) {
+				e1.printStackTrace();
 			}
 			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			ficheros.filter(f->f.getFileName().toString().endsWith(".css")).forEach(f->{
+				TodoStyleModel style = new TodoStyleModel();
+				style.setFileName(f.getFileName().toString());
+				style.setPath(f);
+				
+			
+				//TODO USAR READER
+
+				System.out.println("----------------------------------------------------"+f.getFileName());
+				try {
+					List<String> hojaCss;
+					hojaCss = Files.readAllLines(f);
+				int i =0;
+				String parametro= hojaCss.get(++i);
+			
+				style.setNombre(parametro.substring(parametro.indexOf(":")+1,parametro.indexOf(";")));
+				parametro= hojaCss.get(++i);
+				
+				parametro= hojaCss.get(++i);
+				style.setBase1(Color.valueOf(parametro.substring(parametro.indexOf(":")+1,parametro.indexOf(";"))));
+				
+				style.setBase2(Color.valueOf(parametro.substring(parametro.indexOf(":")+1,parametro.indexOf(";"))));
+				
+				parametro= hojaCss.get(++i);
+				style.setTexto1(Color.valueOf(parametro.substring(parametro.indexOf(":")+1,parametro.indexOf(";"))));
+				
+				parametro= hojaCss.get(++i);
+				style.setTexto2(Color.valueOf(parametro.substring(parametro.indexOf(":")+1,parametro.indexOf(";"))));
+				
+				parametro= hojaCss.get(++i);
+				style.setFondo(Color.valueOf(parametro.substring(parametro.indexOf(":")+1,parametro.indexOf(";"))));
+				
+				
+				
+				
+				//TODO PRUEBA
+				System.err.println("comprobando que se crea bien el objecto");
+				System.out.println(style.toCssHeader());
+				
+				hojasEstilo.add(style);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			});
+			
 		}
 
 	public  Properties getPropiedades() {
@@ -202,31 +243,66 @@ public class GestorDePropiedades {
 	}
 
 	public void guardarCss() throws URISyntaxException, IOException {
-//		Task<Void> gurdarTask = new Task<Void>() {
-//			@Override
-//			protected Void call() throws Exception {
-//				return null;
-//			}
-//		};
-//		new Thread(gurdarTask).start();
-		System.out.println("guardando css");
+
 		TodoStyleModel cssObject = currentStyle.get();
 		Path pathBody = Paths.get(getClass().getResource("cssbody").toURI());
 		List<String> cssBody = Files.readAllLines(pathBody);
 		cssBody.add(0,currentStyle.get().toCssHeader());
-		Path pathDestino = Paths.get(getClass().getResource(currentStyle.get().getFileName()).toURI());
-		
-		Files.write(pathDestino,cssBody,Charset.forName("UTF-8"));
+		Files.write(currentStyle.get().getPath(),cssBody,Charset.forName("UTF-8"));
 	}
 	
 	
 
 	public  void ocupatedelCssPorMi(Parent p){
 		consumidoresDeStyle.add(p);
-	
-		System.out.println(currentStyle.get().getFileName());
-		p.getStylesheets().setAll(this.getClass().getResource(currentStyle.get().getFileName()).toExternalForm());
+		p.getStylesheets().setAll("file:///"+currentStyle.get().getPath().toString().replace("\\", "/"));
 	}
+	
+	
+public void crearNuevoEstilo(String text)  {
+		
+		try {
+			TodoStyleModel styleT = new TodoStyleModel();
+			styleT.setFileName(text + ".css");
+			styleT.setNombre(text);
+			styleT.setBase1(base1.getValue());
+			styleT.setBase2(base2.getValue());
+			styleT.setTexto1(texto1.getValue());
+			styleT.setTexto2(texto2.getValue());
+			styleT.setFondo(fondo.getValue());
+			System.out.println("cabecera del nuevo style");
+			System.out.println(styleT.toCssHeader());
+			styleT.setPath(Paths.get(directorioTodo+text));
+			
+			
+			Path pathBody = Paths.get(getClass().getResource("cssbody").toURI());
+			
+			List<String> cssBody = Files.readAllLines(pathBody);
+			cssBody.add(0, styleT.toCssHeader());
+		
+			
+			BufferedWriter bw = Files.newBufferedWriter(styleT.getPath(), Charset.forName("UTF-8"));
+			cssBody.forEach(a->{
+					try {
+						bw.write(a);
+						bw.newLine();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+			});
+			bw.flush();
+			bw.close();
+			cargarHojasDeEstilo();
+			currentStyle.set(styleT);
+			
+		} catch (Exception   e) {
+		}
+
+		
+		
+	}
+	
+	
 
 	public ObjectProperty<TodoStyleModel> currentStyleProperty() {
 		return this.currentStyle;
@@ -329,6 +405,8 @@ public class GestorDePropiedades {
 	public void setFondo(final Color fondo) {
 		this.fondoProperty().set(fondo);
 	}
+
+	
 	
 	
 	

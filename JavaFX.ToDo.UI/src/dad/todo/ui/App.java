@@ -3,7 +3,11 @@
  */
 package dad.todo.ui;
 
+import java.io.File;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 import org.scenicview.ScenicView;
@@ -58,6 +62,9 @@ public class App extends Application  {
 		JFXDecorator decorator = new JFXDecorator(primaryStage, login.getView());
 		decorator.setCustomMaximize(false);
 		App.gestorDePropiedades.ocupatedelCssPorMi(decorator);
+		
+	   
+	
 		HBox d=(HBox)decorator.getChildren().get(0);
 		d.getChildren().remove(0);
 		d.getChildren().remove(0);

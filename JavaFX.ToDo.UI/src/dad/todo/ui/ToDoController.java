@@ -13,6 +13,7 @@ import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
 import dad.todo.ui.eventos.EventosController;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -126,6 +127,11 @@ public class ToDoController implements Initializable {
 			
 			stage.getIcons().add(new Image(getClass().getResourceAsStream("./images/TodoList-64.png")));
 
+			
+			decorator.setOnCloseButtonAction( ()-> {
+				guardarConfig();
+				Platform.exit();
+			});
 			stage.setOnCloseRequest(close -> guardarConfig());
 
 			App.gestorDePropiedades.ocupatedelCssPorMi(scene.getRoot());
@@ -177,6 +183,7 @@ public class ToDoController implements Initializable {
 	}
 
 	private void guardarConfig() {
+		System.out.println("guardando el estado del stage");
 		App.gestorDePropiedades.getPropiedades().setProperty("stageX", stage.getX() + "");
 		App.gestorDePropiedades.getPropiedades().setProperty("stageY", stage.getY() + "");
 		App.gestorDePropiedades.getPropiedades().setProperty("stageWidth", stage.getWidth() + "");

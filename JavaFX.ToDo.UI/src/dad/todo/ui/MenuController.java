@@ -149,7 +149,6 @@ public class MenuController implements Initializable {
         borrarEventoKey.textProperty().addListener((a,b,c)->onBorrarChartChange(c));
         abrirUbicacionKey.textProperty().addListener((a,b,c)->onUbicacionChartChange(c));
         
-       
 
 	}
 	
@@ -236,4 +235,10 @@ public class MenuController implements Initializable {
 		usuario.updateInfo();
 		updatePerfilFields();
 	}
+	
+    @FXML
+    void onAddNewStyleAction(ActionEvent event) {
+    	App.gestorDePropiedades.crearNuevoEstilo(newStyleTextField.getText());
+//    	stylesComboBox.getSelectionModel().selectLast();
+    }
 }

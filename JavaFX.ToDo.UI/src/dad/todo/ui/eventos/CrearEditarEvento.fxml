@@ -58,9 +58,9 @@
                      </padding>
                   </HBox>
                   <JFXDatePicker fx:id="fechaDatePicker" promptText="Fecha" />
-                  <Label GridPane.columnIndex="1">
+                  <Label fx:id="fechaErrorLabel" GridPane.columnIndex="1">
                      <graphic>
-                        <ImageView fx:id="fechaErrorLabel" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/Cancel-48.png" />
                            </image>
