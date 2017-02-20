@@ -309,4 +309,7 @@ public class CrearEditarEventosController implements Initializable {
 
 	}
 
+	public EventosModel getEventoEditado() {
+		return eventoEditado;
+	}
 }

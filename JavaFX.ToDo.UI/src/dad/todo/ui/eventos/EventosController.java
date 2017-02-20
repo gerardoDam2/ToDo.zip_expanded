@@ -375,5 +375,7 @@ public class EventosController implements Initializable {
 	
 	
 
-	
+	public CrearEditarEventosController getEditarCrearController() {
+		return editarCrearController;
+	}
 }

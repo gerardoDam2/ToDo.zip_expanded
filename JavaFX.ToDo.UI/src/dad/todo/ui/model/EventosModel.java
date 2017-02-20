@@ -310,7 +310,6 @@ public EventosModel() {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.initStyle(StageStyle.UNDECORATED);
 			alert.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("../images/Cancel-48.png"))));
-			alert.initOwner(this.getScene().getWindow());
 			alert.setTitle("Eliminar evento");
 			alert.setHeaderText("¿Esta seguro de borrar este evento?");
 			alert.setContentText("Una vez borrado el evento no podrá recuperarlo "

@@ -284,9 +284,13 @@ public class ToDoController implements Initializable {
 						eventosController.onEditEventAction(eventosController.getEventosListView().getSelectionModel().selectedItemProperty().get());
 					}
 				}else if (borrarChar.get().equalsIgnoreCase(key)) {
-				eventosController.getEventosListView().getSelectionModel().selectedItemProperty().get().onEliminarButtonAction(null);
 				if (eventosController.editMode) {
+					eventosController.getEventosListView().getSelectionModel().clearSelection();
+					if(eventosController.getEditarCrearController().getEventoEditado()!=null)
+					eventosController.getEditarCrearController().getEventoEditado().onEliminarButtonAction(null);
 					eventosController.changeViewToEventsList(null);
+				}else if (eventosController.getEventosListView().getSelectionModel().selectedItemProperty().get()!=null){
+					eventosController.getEventosListView().getSelectionModel().selectedItemProperty().get().onEliminarButtonAction(null);
 				}
 
 				}else if (ubicacionChar.get().equalsIgnoreCase(key)) {
