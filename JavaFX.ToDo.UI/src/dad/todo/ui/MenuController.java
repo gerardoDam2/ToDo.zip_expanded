@@ -9,7 +9,9 @@ import org.controlsfx.validation.Validator;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXColorPicker;
+import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
 import com.jfoenix.controls.JFXTextField;
+import com.sun.org.apache.xerces.internal.util.ParserConfigurationSettings;
 
 import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
@@ -29,6 +31,9 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 
 public class MenuController implements Initializable {
+	
+    @FXML
+    private TitledPane seguridadPane;
 	
 	@FXML
      TextField crearEventoKey;
@@ -113,8 +118,7 @@ public class MenuController implements Initializable {
         validationPerfil.registerValidator(nombreUserTextField, false,Validator.createEmptyValidator("El campo no puede estar vacío"));
         guardarPerfilButton.disableProperty().bind(validationPerfil.invalidProperty());
         
-        validationPassword.registerValidator(nuevaPassPassField, false,
-        		Validator.createPredicateValidator(p->nuevaPassPassField.getText().equals(passActualPassField.getText()), "Las contraseñas deben ser iguales"));
+        validationPassword.registerValidator(nuevaPassPassField, false,Validator.createEmptyValidator("Debe introducir una contraseña"));
         validationPassword.registerValidator(passActualPassField, false,Validator.createEmptyValidator("Debe introducir una contraseña"));
         cambiarPassButton.disableProperty().bind(validationPassword.invalidProperty());
 
@@ -208,7 +212,17 @@ public class MenuController implements Initializable {
 
 	@FXML
 	void onCambiarPassAction(ActionEvent event) {
-
+		try {
+			ServiceFactory.getUsuariosService().cambiarPassword(passActualPassField.getText(), nuevaPassPassField.getText());
+			ToDoController.notificator.enqueue(new SnackbarEvent("contraseña cambiada"));
+			ToDoController.okSound.play();
+			nuevaPassPassField.clear();
+			passActualPassField.clear();
+			
+		} catch (ServiceException e) {
+			ToDoController.notificator.enqueue(new SnackbarEvent("la contraseña es incorrecta"));
+			ToDoController.okSound.play();
+		}
 	}
 
 	@FXML

@@ -9,7 +9,7 @@
 <fx:root maxWidth="1.7976931348623157E308" prefHeight="400.0" type="StackPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <BorderPane fx:id="mapContainer" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: grey;" />
-      <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefWidth="200.0" style="-fx-background-color: #009688;" StackPane.alignment="CENTER">
+      <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefWidth="200.0" style="-fx-background-color: -fx-base1;" StackPane.alignment="CENTER">
          <StackPane.margin>
             <Insets bottom="360.0" />
          </StackPane.margin>
@@ -21,7 +21,7 @@
             </TextField>
          </children>
       </HBox>
-      <HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #009688;" StackPane.alignment="BOTTOM_LEFT">
+      <HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: -fx-base1;" StackPane.alignment="BOTTOM_LEFT">
          <StackPane.margin>
             <Insets />
          </StackPane.margin>

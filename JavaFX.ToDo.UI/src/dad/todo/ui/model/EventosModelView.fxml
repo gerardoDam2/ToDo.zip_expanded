@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -59,9 +58,6 @@
             </ImageView>
          </graphic>
       </Button>
-      <CheckBox fx:id="checkBoxTerminado" mnemonicParsing="false">
-         <GridPane.margin>
-            <Insets left="15.0" />
-         </GridPane.margin></CheckBox>
+      <JFXCheckBox fx:id="checkBoxTerminado" style="-fx-checked-color: transparent; -fx-unchecked-color: -fx-color-texto-headers;" />
    </children>
 </fx:root>

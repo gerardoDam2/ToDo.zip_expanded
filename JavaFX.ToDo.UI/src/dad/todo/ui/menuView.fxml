@@ -138,7 +138,7 @@
                                           <Insets left="10.0" />
                                        </padding>
                                     </Label>
-                                    <JFXTextField fx:id="newStyleTextField" promptText="introduce un nombre" GridPane.rowIndex="7" GridPane.valignment="BASELINE">
+                                    <JFXTextField fx:id="newStyleTextField" promptText="introduce un nombre" style="-fx-focus-color: -fx-base2; -fx-unfocus-color: -fx-base1; -fx-background-color: transparent;" GridPane.rowIndex="7" GridPane.valignment="BASELINE">
                                        <GridPane.margin>
                                           <Insets top="20.0" />
                                        </GridPane.margin>

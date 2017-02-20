@@ -94,6 +94,7 @@ public class MapV2 extends StackPane implements Initializable {
 		};
 		lugarSearchTextField.setText("sin dirección");
 
+		mapContainer.setFocusTraversable(false);
 		mapContainer.setCenter(mapa);
 //		mapa.prueba(new LatLong(0,0));
 	}

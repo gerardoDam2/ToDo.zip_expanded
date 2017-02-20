@@ -23,7 +23,7 @@
             <GridPane fx:id="gridContainer" alignment="CENTER" hgap="5.0" minHeight="-Infinity" minWidth="-Infinity" styleClass="pruebaScroll" vgap="10.0">
             
                         <children>
-                  <JFXTextField fx:id="tituloTextField" prefColumnCount="40" promptText="Título" styleClass="joder" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                  <JFXTextField fx:id="tituloTextField" prefColumnCount="40" promptText="Título" style="-fx-focus-color: -fx-base2; -fx-unfocus-color: -fx-base1; -fx-background-color: transparent;" GridPane.columnSpan="2" GridPane.rowIndex="1" />
                   <JFXDatePicker fx:id="horaInicioDatePicker" editable="false" promptText="Hora de inicio" showTime="true" style="-fx-default-color: -fx-base1;" GridPane.rowIndex="2" />
                   <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.valignment="BASELINE" GridPane.vgrow="NEVER">
                      <GridPane.margin>
@@ -42,7 +42,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <JFXTextArea fx:id="descripcionTextArea" promptText="Escribe una breve descripción del evento" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+                  <JFXTextArea fx:id="descripcionTextArea" promptText="Escribe una breve descripción del evento" style="-fx-focus-color: -fx-base2; -fx-unfocus-color: -fx-base1;" GridPane.columnSpan="2" GridPane.rowIndex="3" />
                   <JFXCheckBox fx:id="realizadaCheckBox" text="Realizada" GridPane.rowIndex="4">
                      <GridPane.margin>
                         <Insets top="10.0" />
@@ -50,14 +50,14 @@
                   </JFXCheckBox>
                   <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8">
                      <children>
-                        <JFXButton fx:id="guardarButton" onAction="#onGuardarAction" styleClass="buttonOk" text="Guardar" textFill="WHITE" />
+                        <JFXButton fx:id="guardarButton" buttonType="RAISED" onAction="#onGuardarAction" ripplerFill="WHITE" styleClass="buttonCancel" text="Guardar" textFill="WHITE" />
                         <JFXButton fx:id="cancelarButton" buttonType="RAISED" onAction="#onCancelarAction" ripplerFill="WHITE" styleClass="buttonCancel" text="Cancelar" textFill="WHITE" />
                      </children>
                      <padding>
                         <Insets top="20.0" />
                      </padding>
                   </HBox>
-                  <JFXDatePicker fx:id="fechaDatePicker" promptText="Fecha" />
+                  <JFXDatePicker fx:id="fechaDatePicker" promptText="Fecha" style="-fx-default-color: -fx-base1;" />
                   <Label fx:id="fechaErrorLabel" GridPane.columnIndex="1">
                      <graphic>
                         <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">

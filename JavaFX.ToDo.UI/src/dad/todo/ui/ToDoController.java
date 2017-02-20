@@ -111,7 +111,9 @@ public class ToDoController implements Initializable {
 			d.getChildren().remove(0);
 			d.getChildren().remove(0);
 			d.getChildren().remove(0);
+			d.getChildren().get(0).setFocusTraversable(false);
 			Button LogoutButton = new Button();
+			LogoutButton.setFocusTraversable(false);
 			LogoutButton.setOnAction(oa->desloguear());
 			LogoutButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("./images/logout-24.png"))));
 			LogoutButton.getStyleClass().add("windowbutton");

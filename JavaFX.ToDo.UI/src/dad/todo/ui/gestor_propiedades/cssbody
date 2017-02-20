@@ -216,10 +216,10 @@
 }
 
 
- 
+
 /*
  * LISTVIEW
- */ 
+ */
 
 .list-view .list-cell {
     -fx-padding: 10px ;
@@ -228,12 +228,12 @@
     -fx-border-radius: 20px;
     -fx-background-radius: 20px;
 }
-  
+
 .list-view .list-cell:empty {
     -fx-padding: 10px ;
     -fx-background-color: transparent ;
     -fx-background-insets: 0 ;
-} 
+}
 
 .list-view .list-cell:filled:hover {
          -fx-background-color: -fx-base2, -fx-base1;
@@ -244,49 +244,49 @@
     -fx-text-fill:-fx-color-texto-headers;
 }
 
-   
+
 /*
  * COMBO BOX
  */
- 
-     
+
+
 .combo-box .arrow, .combo-box .arrow-button{
     -fx-background-color: transparent;
 }
 
-.combo-box 
-{ 
+.combo-box
+{
     -fx-background: -fx-base1;
     -fx-background-color: -fx-base1;
     -fx-text-fill: -fx-color-texto-headers;
     -fx-padding: 4;
-    -fx-cell-size: 1.66667em; 
+    -fx-cell-size: 1.66667em;
     -fx-background-radius:20;
     -fx-background-insets:3;
 }
 
 .combo-box:selected
-{ 
+{
 	    -fx-background-insets:0;
-	
+
     -fx-background: -fx-base2;
     -fx-background-color: -fx-base2;
     -fx-text-fill: -fx-color-texto-headers;
     -fx-padding: 4;
-    -fx-cell-size: 1.66667em; 
+    -fx-cell-size: 1.66667em;
     -fx-background-radius:20;
 }
 
 
 
-.combo-box .list-cell 
+.combo-box .list-cell
 {
 
     -fx-text-fill: -fx-color-texto-headers;
-  
+
 }
 
-.combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view .list-cell:filled:selected:hover 
+.combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view .list-cell:filled:selected:hover
 {
 -fx-background-insets:0;
 }
@@ -319,7 +319,7 @@
 {
 -fx-background-color: -fx-base2;
 }
- 
+
 .titled-pane > .title > .arrow-button
 {
 -fx-background-color: null;
@@ -360,6 +360,16 @@ linear-gradient(to bottom, derive(-fx-color,-02%), derive(-fx-color,65%) 12%,   
 	-fx-background-color: -fx-base2;
 	-fx-text-fill: -fx-color-texto-headers;
 }
+.buttonCancel:focused{
+	-fx-background-color: -fx-base1;
+	-fx-text-fill: -fx-color-texto-headers;
+}
+
+.buttonCancel:selected{
+	-fx-background-color: -fx-base1;
+	-fx-text-fill: -fx-color-texto-headers;
+}
+
 
 
 .circularBUtton{
@@ -416,7 +426,7 @@ linear-gradient(to bottom, derive(-fx-color,-02%), derive(-fx-color,65%) 12%,   
 .scroll-bar:horizontal .increment-button, .scroll-bar:horizontal .decrement-button {
  -fx-background-color:transparent;
  -fx-background-radius: 2em;
- -fx-padding: 5; 
+ -fx-padding: 5;
 }
 .scroll-bar:horizontal .increment-arrow {
  -fx-shape: " ";
@@ -427,7 +437,7 @@ linear-gradient(to bottom, derive(-fx-color,-02%), derive(-fx-color,65%) 12%,   
  -fx-shape: " ";
  -fx-padding: 0.25em;
  -fx-rotate: 0;
-} 
+}
 .scroll-bar:horizontal .decrement-arrow {
  -fx-background-color:-fx-color-fondo;
  -fx-shape: " ";
@@ -459,5 +469,7 @@ linear-gradient(to bottom, derive(-fx-color,-02%), derive(-fx-color,65%) 12%,   
 }
 
 .context-menu {
-    -fx-background-color: transparent; 
+    -fx-background-color: transparent;
 }
+
+

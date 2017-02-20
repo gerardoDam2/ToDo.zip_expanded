@@ -35,6 +35,7 @@ import java.util.Calendar;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXPopup;
 
@@ -86,7 +87,7 @@ public class EventosModel extends GridPane implements Initializable {
 	private Button eliminarButton;
 
 	@FXML
-	private CheckBox checkBoxTerminado;
+	private JFXCheckBox checkBoxTerminado;
 	private EventosController eventosController;
 	private ContextMenu popup;
 
