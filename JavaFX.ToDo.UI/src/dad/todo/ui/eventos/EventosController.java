@@ -224,7 +224,11 @@ public class EventosController implements Initializable {
 				String nombre = "";
 				nombre = ServiceFactory.getUsuariosService().getLogueado().getNombre();
 				parametros.put("nombreUsuario", nombre);
-				InputStream is = getClass().getResourceAsStream("../report/detalle.jasper");
+				InputStream is;
+				if (eventosListView.getSelectionModel().getSelectedItem().getLugar()!=null) 					
+				is = getClass().getResourceAsStream("../report/detalle.jasper");
+				else
+				is = getClass().getResourceAsStream("../report/detalleSinLugar.jasper");
 
 				List<detalleEvento> eventosReport = new ArrayList<>();
 				eventosReport.add(eventoSelect);

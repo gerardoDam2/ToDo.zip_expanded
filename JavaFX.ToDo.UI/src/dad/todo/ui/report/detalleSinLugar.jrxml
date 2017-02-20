@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-02-20T19:40:10 -->
+<!-- 2017-02-20T19:43:59 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="detalle" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="48a44ffd-0814-430f-bd81-33f0e7dbc4ad">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="483"/>
@@ -83,28 +83,6 @@
 	</pageHeader>
 	<detail>
 		<band height="594" splitType="Stretch">
-			<componentElement>
-				<reportElement x="1" y="280" width="555" height="289" uuid="baa19ad2-c384-4c80-934b-186398c6fea0"/>
-				<c:map xmlns:c="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" onErrorType="Blank">
-					<c:latitudeExpression><![CDATA[$F{latitud}]]></c:latitudeExpression>
-					<c:longitudeExpression><![CDATA[$F{longitud}]]></c:longitudeExpression>
-					<c:addressExpression><![CDATA[$F{direccion}]]></c:addressExpression>
-					<c:zoomExpression><![CDATA[12]]></c:zoomExpression>
-					<c:markerData>
-						<c:item>
-							<c:itemProperty name="latitude">
-								<valueExpression><![CDATA[$F{latitud}]]></valueExpression>
-							</c:itemProperty>
-							<c:itemProperty name="longitude">
-								<valueExpression><![CDATA[$F{longitud}]]></valueExpression>
-							</c:itemProperty>
-							<c:itemProperty name="address">
-								<valueExpression><![CDATA[$F{direccion}]]></valueExpression>
-							</c:itemProperty>
-						</c:item>
-					</c:markerData>
-				</c:map>
-			</componentElement>
 			<rectangle>
 				<reportElement x="-1" y="10" width="560" height="29" backcolor="#009688" uuid="85c6155c-76ea-49ea-9b6e-74eae56463ab"/>
 			</rectangle>
@@ -134,11 +112,6 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="245" width="556" height="19" uuid="1e576155-9546-4bae-a1c4-91a73c1888d8"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA["Dirección : "+$F{direccion}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

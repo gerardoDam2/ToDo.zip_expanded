@@ -28,12 +28,16 @@ public class detalleEvento {
 		detalleEvento detalle = new detalleEvento();
 		detalle.setTitulo(model.getTitulo());
 		detalle.setDescripcion(model.getDescripcion());
-		detalle.setDireccion(model.getLugar().getDescripccion());
+		
 		detalle.setFecha(model.getFecha());
 		detalle.setHoraFin(model.getHoraFin());
 		detalle.setHoraInicio(model.getHoraInicio());
+		
+		if(model.getLugar()!=null){
+		detalle.setDireccion(model.getLugar().getDescripccion());
 		detalle.setLatitud(model.getLugar().getLatitud());
 		detalle.setLongitud(model.getLugar().getLongitud());
+		}
 		return detalle;
 	}
 	
