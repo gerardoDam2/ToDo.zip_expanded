@@ -13,6 +13,7 @@ import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
 import dad.todo.ui.eventos.EventosController;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
@@ -20,8 +21,10 @@ import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -31,9 +34,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 public class ToDoController implements Initializable {
 	
@@ -72,6 +77,10 @@ public class ToDoController implements Initializable {
 
 	private AudioClip wellcomeSound;
 
+	private JFXDecorator decorator;
+
+	private Scene scene;
+
 	public static AudioClip okSound;
 
 	@FXML
@@ -103,9 +112,9 @@ public class ToDoController implements Initializable {
 
 			stage = new Stage();
 			stage.initStyle(StageStyle.UNDECORATED);
-			JFXDecorator decorator = new JFXDecorator(stage, view);
+			decorator = new JFXDecorator(stage, view);
 			decorator.setCustomMaximize(false);
-			Scene scene = new Scene(decorator);
+			scene = new Scene(decorator);
 			
 			HBox d=(HBox)decorator.getChildren().get(0);
 			d.getChildren().remove(0);
@@ -205,7 +214,7 @@ public class ToDoController implements Initializable {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("MenuView.fxml"));
 			BorderPane MenuView = loader.load();
 			menuController =(MenuController)loader.getController();
-			
+			menuController.setTc(this);
 			
 			drawer.setSidePane(MenuView);
 			eventosController = new EventosController();
@@ -287,4 +296,8 @@ public class ToDoController implements Initializable {
 				
 			}
 	    }
+	   
+	  public Scene getScene() {
+		return scene;
+	}
 }

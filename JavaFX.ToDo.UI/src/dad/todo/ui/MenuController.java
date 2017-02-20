@@ -12,23 +12,33 @@ import com.jfoenix.controls.JFXColorPicker;
 import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
 import com.jfoenix.controls.JFXTextField;
 import com.sun.org.apache.xerces.internal.util.ParserConfigurationSettings;
+import com.sun.xml.internal.bind.v2.TODO;
 
 import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
 import dad.todo.services.items.UsuarioItem;
+import dad.todo.ui.gestor_propiedades.GestorDePropiedades;
 import dad.todo.ui.gestor_propiedades.TodoStyleModel;
 import dad.todo.ui.model.UsuarioModel;
 import dad.todo.ui.utils.ValidatorUtil;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
+import javafx.stage.Screen;
+import javafx.stage.Window;
 
 public class MenuController implements Initializable {
 	
@@ -99,6 +109,8 @@ public class MenuController implements Initializable {
 	
     @FXML
     private TitledPane perfilTitlePane;
+    
+    ToDoController tc;
 
 	public MenuController() {
 		usuario = new UsuarioModel();
@@ -152,10 +164,10 @@ public class MenuController implements Initializable {
 		// TODO Auto-generated method stub
 		String x=c.substring(c.length()-1);
 		if ((crearEventoKey.getText()+editarEventoKey.getText()+abrirUbicacionKey.getText()).contains(x)) {
-			abrirUbicacionKey.setText(" ");
+			borrarEventoKey.setText(" ");
 		}
 		 if (c.length() > 1) {
-             abrirUbicacionKey.setText(x);
+             borrarEventoKey.setText(x);
          }
 	}
 
@@ -163,10 +175,10 @@ public class MenuController implements Initializable {
 		// TODO Auto-generated method stub
 		String x=c.substring(c.length()-1);
 		if ((crearEventoKey.getText()+abrirUbicacionKey.getText()+borrarEventoKey.getText()).contains(x)) {
-			abrirUbicacionKey.setText(" ");
+			editarEventoKey.setText(" ");
 		}
 		 if (c.length() > 1) {
-             abrirUbicacionKey.setText(x);
+            editarEventoKey.setText(x);
          }
 	}
 
@@ -174,10 +186,10 @@ public class MenuController implements Initializable {
 		// TODO Auto-generated method stub
 		String x=c.substring(c.length()-1);
 		if ((abrirUbicacionKey.getText()+editarEventoKey.getText()+borrarEventoKey.getText()).contains(x)) {
-			abrirUbicacionKey.setText(" ");
+			crearEventoKey.setText(" ");
 		}
 		 if (c.length() > 1) {
-             abrirUbicacionKey.setText(x);
+            crearEventoKey.setText(x);
          }
 	}
 
@@ -248,6 +260,53 @@ public class MenuController implements Initializable {
     @FXML
     void onAddNewStyleAction(ActionEvent event) {
     	App.gestorDePropiedades.crearNuevoEstilo(newStyleTextField.getText());
+    
 //    	stylesComboBox.getSelectionModel().selectLast();
+    	
     }
+    
+    @FXML
+    void onEliminarUsuarioAction(ActionEvent event) {
+    		try {
+    			System.out.println("dando de baja");
+				ServiceFactory.getUsuariosService().baja();
+				darDeBaja();
+				
+			} catch (ServiceException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    }
+    
+    
+    
+    public  void darDeBaja(){
+		   Label label = new Label("I Want You Back");
+		   label.setStyle("-fx-font-size:50; -fx-text-fill:white");
+		   Button cerrar = new Button("X");
+		   cerrar.setOnAction(e->Platform.exit());
+		   cerrar.setPadding(new Insets(40));
+		   cerrar.setStyle("-fx-background-color:transparent;-fx-text-fill:white;-fx-font-size:40");
+		   
+		   VBox v = new VBox(label,cerrar);
+		   v.setAlignment(Pos.CENTER);
+		   v.setStyle("-fx-background-color:black");
+		   tc.getScene().setRoot(v);
+		   Window win = tc.getScene().getWindow();
+		   
+		   Screen screen = Screen.getPrimary();
+		   Rectangle2D bounds = screen.getVisualBounds();
+
+		   win.setX(bounds.getMinX());
+		   win.setY(bounds.getMinY());
+		   win.setWidth(bounds.getWidth());
+		   win.setHeight(bounds.getHeight());
+		   
+		   new AudioClip(getClass().getResource("./sonidos/bb.wav").toExternalForm()).play();
+
+	   }
+    
+    public void setTc(ToDoController tc) {
+		this.tc = tc;
+	}
 }

@@ -20,6 +20,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dad.todo.ui.MenuController">
    <center>
@@ -71,7 +72,7 @@
                               </GridPane>
                            </content>
                       </TitledPane>
-                      <TitledPane text="Seguridad">
+                      <TitledPane fx:id="seguridadPane" text="Seguridad">
                            <content>
                               <GridPane hgap="10.0" styleClass="pruebaScroll" vgap="10.0">
                                 <columnConstraints>
@@ -185,6 +186,21 @@
                                     <Label layoutX="196.0" layoutY="280.0" text="Ctrl + " GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                  </children>
                               </GridPane>
+                           </content>
+                        </TitledPane>
+                        <TitledPane alignment="TOP_LEFT" text="Eliminar cuenta">
+                           <content>
+                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="pruebaScroll">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Al eliminar la cuenta se borrarán todos  sus datos de nuestra base " wrappingWidth="368.13671875" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="de datos ¿Esta seguro de eliminar la cuenta ?" wrappingWidth="368.13671875" />
+                                    <JFXButton fx:id="eliminarUsuarioButton" alignment="CENTER" buttonType="RAISED" onAction="#onEliminarUsuarioAction" style="-fx-background-color: -fx-base1; -fx-text-fill: -fx-color-texto-headers;" text="Eliminar cuenta" textAlignment="CENTER">
+                                       <VBox.margin>
+                                          <Insets top="20.0" />
+                                       </VBox.margin>
+                                    </JFXButton>
+                                 </children>
+                              </VBox>
                            </content>
                         </TitledPane>
                     </panes>
