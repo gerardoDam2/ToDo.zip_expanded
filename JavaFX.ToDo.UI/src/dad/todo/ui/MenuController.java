@@ -1,46 +1,32 @@
 package dad.todo.ui;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import org.controlsfx.validation.Severity;
-import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXColorPicker;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXRippler;
 import com.jfoenix.controls.JFXTextField;
 
 import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
 import dad.todo.services.items.UsuarioItem;
-import dad.todo.ui.gestor_propiedades.GestorDePropiedades;
 import dad.todo.ui.gestor_propiedades.TodoStyleModel;
 import dad.todo.ui.model.UsuarioModel;
 import dad.todo.ui.utils.ValidatorUtil;
-import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Control;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 
 public class MenuController implements Initializable {
 	
@@ -137,8 +123,10 @@ public class MenuController implements Initializable {
         text1Picker.valueProperty().bindBidirectional(App.gestorDePropiedades.texto1Property());
         texto2Picker.valueProperty().bindBidirectional(App.gestorDePropiedades.texto2Property());
         fondoPicker.valueProperty().bindBidirectional(App.gestorDePropiedades.fondoProperty());
+
         
-        stylesComboBox.itemsProperty().bindBidirectional(App.gestorDePropiedades.hojasEstiloProperty());
+//        stylesComboBox.itemsProperty().bindBidirectional(App.gestorDePropiedades.hojasEstiloProperty());
+        stylesComboBox.itemsProperty().bind(App.gestorDePropiedades.hojasEstiloProperty());
         stylesComboBox.getSelectionModel().select(App.gestorDePropiedades.currentStyleProperty().get());
         stylesComboBox.getSelectionModel().selectedItemProperty().addListener((obs,oldv,newV)->onSelectedStyleChange(newV));
         
@@ -200,7 +188,14 @@ public class MenuController implements Initializable {
 	}
 
 	private void onSelectedStyleChange(TodoStyleModel newV) {
-		App.gestorDePropiedades.currentStyleProperty().set(newV);
+		App.gestorDePropiedades.cambiarEstilo(newV);
+		base1Picker.setValue(newV.getBase1());
+		base2Picker.setValue(newV.getBase2());
+		text1Picker.setValue(newV.getTexto1());
+		texto2Picker.setValue(newV.getTexto2());
+		fondoPicker.setValue(newV.getFondo());
+		
+	
 	}
 
 	

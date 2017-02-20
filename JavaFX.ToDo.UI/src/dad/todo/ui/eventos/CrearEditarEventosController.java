@@ -293,6 +293,7 @@ public class CrearEditarEventosController implements Initializable {
 		descripcionValidator.setIcon(new ImageView(
 				new Image(getClass().getResourceAsStream("../images/Cancel-48.png"), 24, 24, false, false)));
 
+		
 	}
 
 	public boolean prueba() {

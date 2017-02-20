@@ -25,6 +25,8 @@ import java.util.Properties;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
+import org.apache.commons.collections.set.SynchronizedSet;
+
 import com.sun.glass.ui.GestureSupport;
 import com.sun.net.httpserver.Filter;
 
@@ -63,6 +65,7 @@ public class GestorDePropiedades {
 	private ObjectProperty<Color> texto2;
 	private ObjectProperty<Color> fondo;
 	private String directorioTodo;
+	private boolean flag;
 	
 	public GestorDePropiedades() {
 		
@@ -112,11 +115,11 @@ public class GestorDePropiedades {
 		 System.out.println(hojasEstilo.size());
 		 //TODO TESTEANDO
 		 
-		 base1=new SimpleObjectProperty<>(this,"base1",currentStyle.get().base1.get());
-		 base2=new SimpleObjectProperty<>(this,"base2",currentStyle.get().base2.get());
-		 texto1=new SimpleObjectProperty<>(this,"texto1",currentStyle.get().texto1.get());
-		 texto2=new SimpleObjectProperty<>(this,"texto2",currentStyle.get().texto2.get());
-		 fondo=new SimpleObjectProperty<>(this,"fondo",currentStyle.get().fondo.get());
+		 base1=new SimpleObjectProperty<>(this,"base1",currentStyle.get().base1.getValue());
+		 base2=new SimpleObjectProperty<>(this,"base2",currentStyle.get().base2.getValue());
+		 texto1=new SimpleObjectProperty<>(this,"texto1",currentStyle.get().texto1.getValue());
+		 texto2=new SimpleObjectProperty<>(this,"texto2",currentStyle.get().texto2.getValue());
+		 fondo=new SimpleObjectProperty<>(this,"fondo",currentStyle.get().fondo.getValue());
 		 
 		 
 		 base1.addListener((a,b,c)->onAnyColorChange(c));
@@ -124,28 +127,35 @@ public class GestorDePropiedades {
 		 texto1.addListener((a,b,c)->onAnyColorChange(c));
 		 texto2.addListener((a,b,c)->onAnyColorChange(c));
 		 fondo.addListener((a,b,c)->onAnyColorChange(c));
-		 int i = 0;
 		 
 	}
 	
 	private void onAnyColorChange(Color c) {
-	
-		currentStyle.get().setBase1(base1.get());
-		currentStyle.get().setBase2(base2.get());
-		currentStyle.get().setTexto1(texto1.get());
-		currentStyle.get().setTexto2(texto2.get());
-		currentStyle.get().setFondo(fondo.get());
+		System.out.println("un color ha cambiado");
+		currentStyle.get().setBase1(base1.getValue());
+		currentStyle.get().setBase2(base2.getValue());
+		currentStyle.get().setTexto1(texto1.getValue());
+		currentStyle.get().setTexto2(texto2.getValue());
+		currentStyle.get().setFondo(fondo.getValue());
 		onCurrentStyleChange();
 	}
 
 	public void onCurrentStyleChange() {
 		try {
 			
-			base1.set(currentStyle.get().getBase1());
-			base2.set(currentStyle.get().getBase2());
-			texto1.set(currentStyle.get().getTexto1());
-			texto2.set(currentStyle.get().getTexto2());
-			fondo.set(currentStyle.get().getFondo());
+//			base1.set(currentStyle.get().getBase1());
+//			base2.set(currentStyle.get().getBase2());
+//			texto1.set(currentStyle.get().getTexto1());
+//			texto2.set(currentStyle.get().getTexto2());
+//			fondo.set(currentStyle.get().getFondo());
+			
+//			base1.setValue(currentStyle.get().getBase1());
+//			base2.setValue(currentStyle.get().getBase2());
+//			texto1.setValue(currentStyle.get().getTexto1());
+//			texto2.setValue(currentStyle.get().getTexto2());
+//			fondo.setValue(currentStyle.get().getFondo());	
+			
+			
 			
 			//TODO se puede quitar y usar setall
 			consumidoresDeStyle.forEach(a->{
@@ -159,6 +169,8 @@ public class GestorDePropiedades {
 			consumidoresDeStyle.forEach(a->{
 				a.getStylesheets().addAll("file:///"+currentStyle.get().getPath().toString().replace("\\", "/"));
 			});
+			
+		
 		} catch (URISyntaxException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -188,14 +200,14 @@ public class GestorDePropiedades {
 					List<String> hojaCss;
 					hojaCss = Files.readAllLines(f);
 				int i =0;
+				
 				String parametro= hojaCss.get(++i);
-			
 				style.setNombre(parametro.substring(parametro.indexOf(":")+1,parametro.indexOf(";")));
-				parametro= hojaCss.get(++i);
 				
 				parametro= hojaCss.get(++i);
 				style.setBase1(Color.valueOf(parametro.substring(parametro.indexOf(":")+1,parametro.indexOf(";"))));
 				
+				parametro= hojaCss.get(++i);
 				style.setBase2(Color.valueOf(parametro.substring(parametro.indexOf(":")+1,parametro.indexOf(";"))));
 				
 				parametro= hojaCss.get(++i);
@@ -405,6 +417,53 @@ public void crearNuevoEstilo(String text)  {
 
 	public void setFondo(final Color fondo) {
 		this.fondoProperty().set(fondo);
+	}
+
+	public void cambiarEstilo(TodoStyleModel style) {
+		
+		List<String> hojaCss = null;
+		try {
+			hojaCss = Files.readAllLines(style.getPath());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	int i =0;
+	
+	String parametro= hojaCss.get(++i);
+	style.setNombre(parametro.substring(parametro.indexOf(":")+1,parametro.indexOf(";")));
+	
+	parametro= hojaCss.get(++i);
+	style.setBase1(Color.valueOf(parametro.substring(parametro.indexOf(":")+1,parametro.indexOf(";"))));
+	
+	parametro= hojaCss.get(++i);
+	style.setBase2(Color.valueOf(parametro.substring(parametro.indexOf(":")+1,parametro.indexOf(";"))));
+	
+	parametro= hojaCss.get(++i);
+	style.setTexto1(Color.valueOf(parametro.substring(parametro.indexOf(":")+1,parametro.indexOf(";"))));
+	
+	parametro= hojaCss.get(++i);
+	style.setTexto2(Color.valueOf(parametro.substring(parametro.indexOf(":")+1,parametro.indexOf(";"))));
+	
+	parametro= hojaCss.get(++i);
+	style.setFondo(Color.valueOf(parametro.substring(parametro.indexOf(":")+1,parametro.indexOf(";"))));
+	currentStyle.set(style);
+	
+	
+	System.out.println("cambiando al nuevo style" );
+	System.out.println(style.getPath());
+	currentStyle.set(style);
+	
+//	flag=false;
+//	
+//	base1.setValue(style.getBase1());
+//	base2.setValue(style.getBase2());
+//	texto1.setValue(style.getTexto1());
+//	texto2.setValue(style.getTexto2());
+//	fondo.setValue(style.getFondo());	
+//		
+//	flag=true;
+	
 	}
 
 	

@@ -49,7 +49,7 @@
                <center>
                   <AnchorPane maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
                      <children>
-                        <ListView fx:id="eventosListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <ListView fx:id="eventosListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pruebaScroll" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                      <BorderPane.margin>
                         <Insets right="1.0" top="10.0" />

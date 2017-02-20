@@ -113,7 +113,7 @@ public class EventosController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-
+ 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 

@@ -101,48 +101,49 @@
                                   <ColumnConstraints hgrow="NEVER" />
                                 </columnConstraints>
                                 <rowConstraints>
-                                    <RowConstraints fillHeight="false" vgrow="NEVER" />
+                                    <RowConstraints />
+                                  <RowConstraints fillHeight="false" vgrow="NEVER" />
                                   <RowConstraints vgrow="NEVER" />
                                   <RowConstraints vgrow="NEVER" />
-                                  <RowConstraints vgrow="NEVER" />
+                                    <RowConstraints vgrow="NEVER" />
                                     <RowConstraints vgrow="NEVER" />
                                     <RowConstraints vgrow="NEVER" />
                                     <RowConstraints maxHeight="1.7976931348623157E308" vgrow="NEVER" />
                                 </rowConstraints>
                                  <children>
-                                    <JFXColorPicker fx:id="base1Picker" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BASELINE" />
-                                    <JFXColorPicker fx:id="base2Picker" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <JFXColorPicker fx:id="text1Picker" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <Label text="principal" GridPane.rowIndex="1" GridPane.valignment="BASELINE">
+                                    <JFXColorPicker fx:id="base1Picker" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BASELINE" />
+                                    <JFXColorPicker fx:id="base2Picker" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <JFXColorPicker fx:id="text1Picker" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Label text="principal" GridPane.rowIndex="2" GridPane.valignment="BASELINE">
                                        <padding>
                                           <Insets left="10.0" />
                                        </padding></Label>
-                                    <Label text="contraste" GridPane.rowIndex="2">
+                                    <Label text="contraste" GridPane.rowIndex="3">
                                        <padding>
                                           <Insets left="10.0" />
                                        </padding></Label>
-                                    <Label text="texto" GridPane.rowIndex="3">
+                                    <Label text="texto" GridPane.rowIndex="4">
                                        <padding>
                                           <Insets left="10.0" />
                                        </padding></Label>
-                                    <JFXColorPicker fx:id="texto2Picker" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    <JFXColorPicker fx:id="fondoPicker" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                    <Label text="Titulos" GridPane.rowIndex="4">
+                                    <JFXColorPicker fx:id="texto2Picker" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <JFXColorPicker fx:id="fondoPicker" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    <Label text="Titulos" GridPane.rowIndex="5">
                                        <padding>
                                           <Insets left="10.0" />
                                        </padding>
                                     </Label>
-                                    <Label text="Fondo" GridPane.rowIndex="5">
+                                    <Label text="Fondo" GridPane.rowIndex="6">
                                        <padding>
                                           <Insets left="10.0" />
                                        </padding>
                                     </Label>
-                                    <JFXTextField fx:id="newStyleTextField" promptText="introduce un nombre" GridPane.rowIndex="6" GridPane.valignment="BASELINE">
+                                    <JFXTextField fx:id="newStyleTextField" promptText="introduce un nombre" GridPane.rowIndex="7" GridPane.valignment="BASELINE">
                                        <GridPane.margin>
                                           <Insets top="20.0" />
                                        </GridPane.margin>
                                     </JFXTextField>
-                                    <Button fx:id="addNewStyleButton" mnemonicParsing="false" onAction="#onAddNewStyleAction" styleClass="buttonOk" text="+" GridPane.columnIndex="1" GridPane.rowIndex="6" GridPane.valignment="BASELINE">
+                                    <Button fx:id="addNewStyleButton" mnemonicParsing="false" onAction="#onAddNewStyleAction" styleClass="buttonOk" text="+" GridPane.columnIndex="1" GridPane.rowIndex="7" GridPane.valignment="BASELINE">
                                        <GridPane.margin>
                                           <Insets top="20.0" />
                                        </GridPane.margin>
