@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefWidth="430.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="199.0" prefWidth="477.0" style="-fx-border-color: black;" styleClass="pruebaScroll" stylesheets="@../../../../../../../../../ToDo/todoStyle2.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane vgap="10.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
         <columnConstraints>
@@ -24,7 +24,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <JFXTextField fx:id="emailTextField" promptText="Introduce tu dirección de correo" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <JFXTextField fx:id="emailTextField" promptText="Introduce tu dirección de correo" style="-fx-focus-color: -fx-base2; -fx-unfocus-color: -fx-base1; -fx-background-color: transparent;" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
             <Label text="En unos minutos recibirá un Email con la nueva contraseña" GridPane.columnSpan="2" GridPane.halignment="CENTER">
                <font>
                   <Font size="14.0" />
@@ -32,8 +32,8 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <children>
-                  <JFXButton fx:id="cancelarButton" buttonType="RAISED" onAction="#onCancelarButtonAction" ripplerFill="#ffeb3b" style="-fx-background-color: #FF5722;" text="Cancelar" textFill="WHITE" />
-                  <JFXButton fx:id="enviarButton" buttonType="RAISED" onAction="#onEnviarButtonAction" ripplerFill="#ffeb3b" style="-fx-background-color: #009688;" text="Enviar" textFill="WHITE" />
+                  <JFXButton fx:id="cancelarButton" buttonType="RAISED" onAction="#onCancelarButtonAction" ripplerFill="#ffeb3b" style="-fx-background-color: -fx-base1;" text="Cancelar" textFill="WHITE" />
+                  <JFXButton fx:id="enviarButton" buttonType="RAISED" onAction="#onEnviarButtonAction" ripplerFill="#ffeb3b" style="-fx-background-color: -fx-base1;" text="Enviar" textFill="WHITE" />
                </children>
                <padding>
                   <Insets top="10.0" />

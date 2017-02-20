@@ -41,6 +41,7 @@ public class RecuperarPassController {
 	    @FXML
 	    void onCancelarButtonAction(ActionEvent event) {
 	    	((Stage)view.getScene().getWindow()).close();
+	    	
 	    }
 
 	    @FXML

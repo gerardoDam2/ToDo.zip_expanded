@@ -141,7 +141,10 @@ public class LoginController implements Initializable {
 		stage.initStyle(StageStyle.TRANSPARENT);
 		stage.initModality(Modality.APPLICATION_MODAL);
 		stage.initOwner(view.getScene().getWindow());
+		
+		((Stage) view.getScene().getWindow()).setOpacity(0.8);
 		stage.show();
+		stage.showingProperty().addListener(x->((Stage) view.getScene().getWindow()).setOpacity(1));
 	}
 
 	@FXML
@@ -157,8 +160,8 @@ public class LoginController implements Initializable {
 				ServiceFactory.getUsuariosService().alta(usuario);
 				Notificator.success("Su cuenta ha sido creada correctamente");
 				usernameTextField.setText(usernameRegisterTextField.getText());
-				clearRegisterFields();
 				view.getSelectionModel().select(0);
+				clearRegisterFields();
 				passwordTextField.requestFocus();
 			} catch (ServiceException e) {
 				e.printStackTrace();
