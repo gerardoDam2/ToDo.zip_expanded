@@ -178,4 +178,11 @@ public class MapV2 extends StackPane implements Initializable {
 		return lugarSearchTextField;
 	}
 
+	public GoogleMapsComponent getMapa() {
+		return mapa;
+	}
+	
+	public void setMapa(GoogleMapsComponent mapa) {
+		this.mapa = mapa;
+	}
 }

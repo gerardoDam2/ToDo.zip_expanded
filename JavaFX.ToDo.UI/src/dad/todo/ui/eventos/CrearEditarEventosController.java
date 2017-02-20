@@ -24,8 +24,10 @@ import dad.todo.services.items.EventoItem;
 import dad.todo.services.items.LugarItem;
 import dad.todo.ui.ToDoController;
 import dad.todo.ui.model.EventosModel;
+import dad.todo.ui.utils.GoogleMapsComponent;
 import dad.todo.ui.utils.MapV2;
 import dad.todo.ui.utils.TimeUtils;
+import javafx.application.Platform;
 import javafx.beans.binding.When;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -136,8 +138,11 @@ public class CrearEditarEventosController implements Initializable {
 		descripcionTextArea.setText(evento.getDescripcion());
 		realizadaCheckBox.setSelected(evento.isTerminada());
 		if (evento.getLugar() != null)
-			mapaDemigrante.setLugar(evento.getLugar().getDescripccion(), evento.getLugar().getLatitud(),
-					evento.getLugar().getLongitud());
+			try {
+				mapaDemigrante.setLugar(evento.getLugar().getDescripccion(), evento.getLugar().getLatitud(),evento.getLugar().getLongitud());
+			} catch (Exception e) {
+				System.out.println("mapa demigrante esta fallando  en CrearEditarEventos:initEdit ");
+			}
 
 	}
 
@@ -155,7 +160,14 @@ public class CrearEditarEventosController implements Initializable {
 		tituloTextField.clear();
 		descripcionTextArea.clear();
 		realizadaCheckBox.setSelected(false);
-		mapaDemigrante.clear();
+		
+		try {
+			mapaDemigrante.clear();
+		} catch (Exception e) {
+			System.out.println("mapa demigrante esta fallando  en CrearEditarEventos:clearForm ");
+			mapaDemigrante=new MapV2();
+			
+		}
 		horaInicioDatePicker.setPromptText("Hora de inicio");
 		horaFinDatePicker.setPromptText("Hora de fin");
 	}
@@ -244,9 +256,13 @@ public class CrearEditarEventosController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		mapaDemigrante = new MapV2();
-		gridContainer.add(mapaDemigrante, 0, 6);
-		GridPane.setColumnSpan(mapaDemigrante, 2);
+		Platform.runLater(()->{
+			mapaDemigrante = new MapV2();
+			gridContainer.add(mapaDemigrante, 0, 6);
+			GridPane.setColumnSpan(mapaDemigrante, 2);
+			
+		});
+	
 		horaInicioDatePicker.setValue(LocalDate.now());
 		horaInicioDatePicker.setTime(LocalTime.now());
 		horaFinDatePicker.setValue(LocalDate.now());

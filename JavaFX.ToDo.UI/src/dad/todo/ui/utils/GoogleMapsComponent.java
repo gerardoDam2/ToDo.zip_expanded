@@ -43,7 +43,7 @@ public abstract class GoogleMapsComponent extends GoogleMapView implements MapCo
 	    //Set the initial properties of the map.
 	    MapOptions mapOptions = new MapOptions();
 	    
-
+	    
 	    mapOptions.center(new LatLong(latitud, longitud))
 	            .mapType(MapTypeIdEnum.ROADMAP)
 	            .overviewMapControl(false)
