@@ -168,6 +168,8 @@ public class ToDoController implements Initializable {
 
 	private void desloguear() {
 		try {
+			App.gestorDePropiedades.getPropiedades().remove("user");
+			App.gestorDePropiedades.getPropiedades().remove("pass");
 			drawer.close();
 			stage.close();
 			ServiceFactory.getUsuariosService().logout();

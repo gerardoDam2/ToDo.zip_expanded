@@ -55,7 +55,7 @@
                            </padding></Label>
                      </children>
                   </GridPane>
-                  <JFXCheckBox layoutY="325.0" text="recordar usuario" />
+                  <JFXCheckBox fx:id="recordarUsuarioCheck" layoutY="325.0" text="recordar usuario" />
                </children>
             </AnchorPane>
         </content>

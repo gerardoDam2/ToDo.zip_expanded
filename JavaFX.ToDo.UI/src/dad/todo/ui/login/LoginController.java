@@ -9,6 +9,7 @@ import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
@@ -17,6 +18,7 @@ import dad.todo.services.ServiceFactory;
 import dad.todo.services.items.UsuarioItem;
 import dad.todo.ui.App;
 import dad.todo.ui.ToDoController;
+import dad.todo.ui.gestor_propiedades.GestorDePropiedades;
 import dad.todo.ui.utils.ValidatorUtil;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
@@ -39,6 +41,9 @@ import javafx.fxml.Initializable;
 public class LoginController implements Initializable {
 
 	private JFXTabPane view;
+	
+    @FXML
+    private JFXCheckBox recordarUsuarioCheck;
 	
     @FXML
     private Tab iniciarSesionTab;
@@ -109,10 +114,15 @@ public class LoginController implements Initializable {
 		}
 
 		if (validate) {
+			if (recordarUsuarioCheck.isSelected()) {
+				App.gestorDePropiedades.getPropiedades().put("user", usernameTextField.getText());
+				App.gestorDePropiedades.getPropiedades().put("pass", passwordTextField.getText());
+			}
 			usernameTextField.clear();
 			passwordTextField.clear();
 			((Stage) view.getScene().getWindow()).hide();
 			loadTodoController();
+			System.out.println("iniciando sesion");
 		} else {
 			System.err.println("LoginController: credenciales incorrectas ");
 				tr.playFromStart();
@@ -221,7 +231,10 @@ public class LoginController implements Initializable {
 			if (respuesta) {
 				((Stage) view.getScene().getWindow()).hide();
 				loadTodoController();
-				
+			}else{
+				show();
+				App.gestorDePropiedades.getPropiedades().remove("user");
+				App.gestorDePropiedades.getPropiedades().remove("pass");
 			}
 		} catch (ServiceException e) {
 			e.printStackTrace();

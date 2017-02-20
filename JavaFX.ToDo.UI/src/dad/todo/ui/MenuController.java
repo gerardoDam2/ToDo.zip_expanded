@@ -8,6 +8,7 @@ import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXColorPicker;
 import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
 import com.jfoenix.controls.JFXTextField;
@@ -41,6 +42,8 @@ import javafx.stage.Screen;
 import javafx.stage.Window;
 
 public class MenuController implements Initializable {
+	
+
 	
     @FXML
     private TitledPane seguridadPane;
@@ -152,6 +155,8 @@ public class MenuController implements Initializable {
         editarEventoKey.textProperty().addListener((a,b,c)->onEditarChartChange(c));
         borrarEventoKey.textProperty().addListener((a,b,c)->onBorrarChartChange(c));
         abrirUbicacionKey.textProperty().addListener((a,b,c)->onUbicacionChartChange(c));
+        
+       
         
 
 	}

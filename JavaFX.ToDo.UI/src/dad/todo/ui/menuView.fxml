@@ -52,7 +52,7 @@
                     <panes>
                       <TitledPane fx:id="perfilTitlePane" maxHeight="1.7976931348623157E308" text="Perfil">
                            <content>
-                              <GridPane hgap="10.0" styleClass="pruebaScroll" vgap="10.0">
+                              <GridPane fx:id="autologinChekBox" hgap="10.0" styleClass="pruebaScroll" vgap="10.0">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="NEVER" />
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
