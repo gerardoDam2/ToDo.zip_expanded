@@ -12,6 +12,7 @@ import org.controlsfx.control.textfield.TextFields;
 
 import com.lynden.gmapsfx.javascript.object.LatLong;
 
+import dad.todo.ui.ToDoController;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -29,7 +30,7 @@ import jdk.nashorn.internal.codegen.ObjectClassGenerator;
 import maps.java.Geocoding;
 
 //TODO LIMPIAR ESTA MIERDA DE CODIGO
-public class MapV2 extends StackPane implements Initializable {
+public  class MapV2 extends StackPane implements Initializable {
 
 	@FXML
 	private BorderPane mapContainer;
@@ -58,8 +59,8 @@ public class MapV2 extends StackPane implements Initializable {
 		try {
 			loader.load();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			onMapaDemigranteExeption();
+
 		}
 	}
 
@@ -84,9 +85,9 @@ public class MapV2 extends StackPane implements Initializable {
 					longitud.set(ll.getLongitude());
 
 				} catch (UnsupportedEncodingException e) {
-					e.printStackTrace();
 				} catch (MalformedURLException e) {
-					e.printStackTrace();
+				}finally {
+					onMapaDemigranteExeption();
 				}
 
 				
@@ -112,8 +113,8 @@ public class MapV2 extends StackPane implements Initializable {
 				mapa.prueba(ll);
 				direccion.set(ObjGeocod.getAddressFound());
 				mapa.renombrarMarca(direccion.get());
-			} catch (UnsupportedEncodingException | MalformedURLException e) {
-				e.printStackTrace();
+			} catch (Exception e) {
+				onMapaDemigranteExeption();
 			}
 
 		}
@@ -156,12 +157,19 @@ public class MapV2 extends StackPane implements Initializable {
 	}
 	
 	public void clear() {
-		direccion.set("sin dirección");
-		latitud.set(0);
-		longitud.set(0);
-		mapa.prueba(new LatLong(0,0));
-		lugarSearchTextField.textProperty().set(direccion.get());
-		mapa.renombrarMarca(direccion.get());
+		
+	
+		try {
+			direccion.set("sin dirección");
+			latitud.set(0);
+			longitud.set(0);
+			mapa.prueba(new LatLong(0,0));
+			lugarSearchTextField.textProperty().set(direccion.get());
+			mapa.renombrarMarca(direccion.get());
+		} catch (Exception e) {
+			onMapaDemigranteExeption();
+
+		}
 	}
 
 	public void setLugar(String descripccion, double latitud2, double longitud2) {
@@ -185,4 +193,8 @@ public class MapV2 extends StackPane implements Initializable {
 	public void setMapa(GoogleMapsComponent mapa) {
 		this.mapa = mapa;
 	}
+	
+	public  void onMapaDemigranteExeption(){
+		ToDoController.notificator.show("Ops, hemos tenido un problema al cargar el mapa \n haz clic derecho sobre el mapa para recargarlo", 5000);
+	};
 }

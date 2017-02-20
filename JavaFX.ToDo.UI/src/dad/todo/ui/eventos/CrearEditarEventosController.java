@@ -142,6 +142,7 @@ public class CrearEditarEventosController implements Initializable {
 				mapaDemigrante.setLugar(evento.getLugar().getDescripccion(), evento.getLugar().getLatitud(),evento.getLugar().getLongitud());
 			} catch (Exception e) {
 				System.out.println("mapa demigrante esta fallando  en CrearEditarEventos:initEdit ");
+				notificarFalloMapa();
 			}
 
 	}
@@ -165,7 +166,6 @@ public class CrearEditarEventosController implements Initializable {
 			mapaDemigrante.clear();
 		} catch (Exception e) {
 			System.out.println("mapa demigrante esta fallando  en CrearEditarEventos:clearForm ");
-			mapaDemigrante=new MapV2();
 			
 		}
 		horaInicioDatePicker.setPromptText("Hora de inicio");
@@ -263,13 +263,14 @@ public class CrearEditarEventosController implements Initializable {
 			
 		});
 	
+		
 		horaInicioDatePicker.setValue(LocalDate.now());
 		horaInicioDatePicker.setTime(LocalTime.now());
 		horaFinDatePicker.setValue(LocalDate.now());
 		horaFinDatePicker.setTime(LocalTime.now().plusHours(1));
 
 		// validar hora
-		horaFinErrorLabel.visibleProperty().bind(horaFinValidator);
+		horaFinErrorLabel.setVisible(false);
 		horaFinDatePicker.timeProperty().addListener(e -> onDatePickersChange());
 		horaInicioDatePicker.timeProperty().addListener(e -> onDatePickersChange());
 		horaFinErrorLabel.setTooltip(new Tooltip("La hora de finalizacion no puede ser inferior a la hora de inicio"));
@@ -299,7 +300,7 @@ public class CrearEditarEventosController implements Initializable {
 
 		RequiredFieldValidator descripcionValidator = new RequiredFieldValidator();
 		descripcionValidator.setMessage("Debe introducir un descripción");
-		descripcionTextArea.getValidators().add(descripcionValidator);
+//		descripcionTextArea.getValidators().add(descripcionValidator);
 		descripcionTextArea.focusedProperty().addListener((o, oldVal, newVal) -> {
 			if (!newVal)
 				descripcionTextArea.validate();
@@ -309,6 +310,8 @@ public class CrearEditarEventosController implements Initializable {
 		descripcionValidator.setIcon(new ImageView(
 				new Image(getClass().getResourceAsStream("../images/Cancel-48.png"), 24, 24, false, false)));
 
+		guardarButton.disableProperty().bind(tituloValidator.hasErrorsProperty().or(fechaDatePicker.valueProperty().isNull()));
+		
 		
 	}
 
@@ -327,5 +330,9 @@ public class CrearEditarEventosController implements Initializable {
 
 	public EventosModel getEventoEditado() {
 		return eventoEditado;
+	}
+
+	public void notificarFalloMapa (){
+		ToDoController.notificator.enqueue(new SnackbarEvent("Ops, hemos tenido un problema al cargar el mapa \n haz clic derecho sobre el mapa para recargarlo"));
 	}
 }
