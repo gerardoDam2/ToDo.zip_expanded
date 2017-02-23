@@ -28,6 +28,7 @@ import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
 import dad.todo.services.items.EventoItem;
 import dad.todo.services.jpa.utils.EmailUtil;
+import dad.todo.ui.App;
 import dad.todo.ui.ToDoController;
 import dad.todo.ui.model.EventosModel;
 import dad.todo.ui.report.detalleEvento;
@@ -70,7 +71,6 @@ import net.sf.jasperreports.view.JasperViewer;
 
 public class EventosController implements Initializable {
 
-    
 	@FXML
 	private VBox rightPanel;
 
@@ -79,7 +79,7 @@ public class EventosController implements Initializable {
 
 	@FXML
 	private ListView<EventosModel> eventosListView;
-//	private JFXListView<EventosModel> eventosListView;
+	// private JFXListView<EventosModel> eventosListView;
 
 	@FXML
 	private JFXDatePicker fechaEventosDatePicker;
@@ -96,9 +96,7 @@ public class EventosController implements Initializable {
 
 	private SetProperty<LocalDate> diasConEventos;
 
-	
-	public boolean editMode=false;
-
+	public boolean editMode = false;
 
 	public EventosController() {
 
@@ -113,7 +111,7 @@ public class EventosController implements Initializable {
 			e.printStackTrace();
 		}
 	}
- 
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -136,14 +134,14 @@ public class EventosController implements Initializable {
 		editarCrearController = new CrearEditarEventosController(this);
 
 		initPopUp();
-		
+
 		eventosListView.setStyle("-fx-background-insets: 0 ;");
 	}
 
 	private void initPopUp() {
-		
+
 		ContextMenu contextMenu = new ContextMenu();
-//		eventosListView.setContextMenu(contextMenu);
+		// eventosListView.setContextMenu(contextMenu);
 		MenuItem button1 = new MenuItem("Generar reporte detallado");
 		button1.setOnAction(e -> {
 			onReporteDetalladoAction();
@@ -154,42 +152,34 @@ public class EventosController implements Initializable {
 			onReportGeneralAction();
 		});
 
-	
-
 		button1.getStyleClass().add("menuButton");
 		button2.getStyleClass().add("menuButton");
-		
-		contextMenu.getItems().addAll(button1,button2);
-		
-		eventosListView.setOnContextMenuRequested(a-> {
-			
+
+		contextMenu.getItems().addAll(button1, button2);
+
+		contextMenu.setStyle(
+				".menu-item { -fx-background-color: -fx-base1; } .menu-item:hover { -fx-background-color: -fx-base2; } .menu-item:pressed { -fx-background-color: #004C65; } .context-menu { -fx-background-color: transparent; }");
+
+		eventosListView.setCellFactory(lv -> {
+
+			ListCell<EventosModel> cell = new ListCell<EventosModel>() {
+
+				@Override
+				protected void updateItem(EventosModel item, boolean empty) {
+					super.updateItem(item, empty);
+					setGraphic(null);
+					setContextMenu(null);
+					if (!empty && item != null) {
+						super.updateItem(item, empty);
+						setGraphic(item);
+						setContextMenu(contextMenu);
+					}
+				}
+			};
+			return cell;
 		});
-		
-		eventosListView.setCellFactory(lv -> {  
-			  
-            ListCell<EventosModel> cell = new ListCell<EventosModel>() {  
-  
-                @Override  
-                protected void updateItem(EventosModel item, boolean empty) {  
-                    super.updateItem(item, empty);  
-                    setGraphic(null);
-                    setContextMenu(null);  
-                    if (!empty && item != null) {  
-                    	super.updateItem(item, empty);
-                    	setGraphic(item);
-                        setContextMenu(contextMenu);  
-                    }  
-                }  
-            };  
-            return cell;  
-        });  
-		
-		
+
 	}
-	
-
-
-
 
 	private void onReportGeneralAction() {
 		Task<Void> jasperTask = new Task<Void>() {
@@ -200,6 +190,7 @@ public class EventosController implements Initializable {
 				String nombre = "";
 				nombre = ServiceFactory.getUsuariosService().getLogueado().getNombre();
 				parametros.put("nombreUsuario", nombre);
+				parametros.put("LOGO", this.getClass().getResource("../images/jasperLogo.png"));
 				InputStream is = getClass().getResourceAsStream("../report/general.jasper");
 				JasperPrint jasperPrint = JasperFillManager.fillReport(is, parametros,
 						new JRBeanCollectionDataSource(detalleEvento.getTodosLosEventos()));
@@ -224,20 +215,22 @@ public class EventosController implements Initializable {
 				String nombre = "";
 				nombre = ServiceFactory.getUsuariosService().getLogueado().getNombre();
 				parametros.put("nombreUsuario", nombre);
+				parametros.put("LOGO", this.getClass().getResource("../images/jasperLogo.png"));
+
 				InputStream is;
-				if (eventosListView.getSelectionModel().getSelectedItem().getLugar()!=null) 					
-				is = getClass().getResourceAsStream("../report/detalle.jasper");
+				if (eventosListView.getSelectionModel().getSelectedItem().getLugar() != null)
+					is = getClass().getResourceAsStream("../report/detalle.jasper");
 				else
-				is = getClass().getResourceAsStream("../report/detalleSinLugar.jasper");
+					is = getClass().getResourceAsStream("../report/detalleSinLugar.jasper");
 
 				List<detalleEvento> eventosReport = new ArrayList<>();
 				eventosReport.add(eventoSelect);
-				
+
 				JasperPrint jasperPrint = JasperFillManager.fillReport(is, parametros,
 						new JRBeanCollectionDataSource(eventosReport));
-				
-//				JasperExportManager.exportReportToHtmlFile(jasperPrint,"./informe.html");
-				
+
+				// JasperExportManager.exportReportToHtmlFile(jasperPrint,"./informe.html");
+
 				is.close();
 				JasperViewer.viewReport(jasperPrint, false);
 
@@ -255,24 +248,25 @@ public class EventosController implements Initializable {
 	}
 
 	private void onFechaChange(LocalDate newValue) {
-		
-		List<EventoItem> eventosItem=new ArrayList<>();
+
+		List<EventoItem> eventosItem = new ArrayList<>();
 		if (editMode) {
 			editarCrearController.onCancelarAction(null);
 		}
 		Task<List<EventoItem>> eventoysByFechaTask = new Task<List<EventoItem>>() {
 			@Override
-			protected List<EventoItem> call() throws ServiceException  {
-					Date fecha = Date.from(newValue.atStartOfDay(ZoneId.systemDefault()).toInstant());
-					List<EventoItem> eventosItem = ServiceFactory.getEventosService().buscarEventosPorFecha(fecha);
+			protected List<EventoItem> call() throws ServiceException {
+				Date fecha = Date.from(newValue.atStartOfDay(ZoneId.systemDefault()).toInstant());
+				List<EventoItem> eventosItem = ServiceFactory.getEventosService().buscarEventosPorFecha(fecha);
 				return eventosItem;
 			}
 		};
-		
-		Thread hilo=new Thread(eventoysByFechaTask);
+
+		Thread hilo = new Thread(eventoysByFechaTask);
 		hilo.setName("eventosByFechaTask");
-		eventoysByFechaTask.setOnSucceeded(s->{
-			eventos.setAll(eventoysByFechaTask.getValue().stream().map(e -> EventosModel.fromItem(e, this)).collect(Collectors.toList()));
+		eventoysByFechaTask.setOnSucceeded(s -> {
+			eventos.setAll(eventoysByFechaTask.getValue().stream().map(e -> EventosModel.fromItem(e, this))
+					.collect(Collectors.toList()));
 
 			System.out.println(eventos);
 		});
@@ -285,7 +279,7 @@ public class EventosController implements Initializable {
 
 	@FXML
 	public void onAddEventoButtonAction(ActionEvent event) {
-		
+
 		editarCrearController.initCreateEvent(fechaEventosDatePicker.getValue());
 		changeViewToEditEvent();
 	}
@@ -295,7 +289,7 @@ public class EventosController implements Initializable {
 	}
 
 	public void changeViewToEventsList(LocalDate f) {
-		editMode=false;
+		editMode = false;
 		if (f == null) {
 			onFechaChange(fechaEventosDatePicker.getValue());
 		} else {
@@ -309,21 +303,21 @@ public class EventosController implements Initializable {
 
 	public void onEditEventAction(EventosModel evento) {
 		if (!editMode) {
-			
-		editarCrearController.initEdit(evento);
-		changeViewToEditEvent();
+
+			editarCrearController.initEdit(evento);
+			changeViewToEditEvent();
 		}
 	}
 
 	public void changeViewToEditEvent() {
-		editMode=true;
+		editMode = true;
 		rightPanel.getChildren().remove(0);
 		rightPanel.getChildren().add(editarCrearController.getView());
 	}
 
 	private void updateDiasConEventosList() {
-		
-		Task <Void> updateDiasConEventosTask = new Task<Void>() {
+
+		Task<Void> updateDiasConEventosTask = new Task<Void>() {
 			@Override
 			protected Void call() throws Exception {
 				diasConEventos.clear();
@@ -332,7 +326,7 @@ public class EventosController implements Initializable {
 				return null;
 			}
 		};
-		Thread hilo=new Thread(updateDiasConEventosTask);
+		Thread hilo = new Thread(updateDiasConEventosTask);
 		hilo.setName("getAllDatesWithEvents");
 		hilo.start();
 	}
@@ -345,39 +339,39 @@ public class EventosController implements Initializable {
 		return fechaAux;
 	}
 
-//	public void mostrarMenu(MouseEvent event, EventosModel eventosModel) {
-//		if (menuPopUp.isVisible()) {
-//			menuPopUp.close();
-//		}
-//		Bounds boundsInScene = eventosModel.localToScene(eventosModel.getBoundsInLocal());
-//		menuPopUp.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, 400,
-//400);
-//
-//	}
+	// public void mostrarMenu(MouseEvent event, EventosModel eventosModel) {
+	// if (menuPopUp.isVisible()) {
+	// menuPopUp.close();
+	// }
+	// Bounds boundsInScene =
+	// eventosModel.localToScene(eventosModel.getBoundsInLocal());
+	// menuPopUp.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT,
+	// 400,
+	// 400);
+	//
+	// }
 
-//	public void CerrarMenu() {
-//		if (menuPopUp.isVisible()) {
-//			menuPopUp.close();
-//		}
-//	}
+	// public void CerrarMenu() {
+	// if (menuPopUp.isVisible()) {
+	// menuPopUp.close();
+	// }
+	// }
 
 	public void load() {
 		updateDiasConEventosList();
 		fechaEventosDatePicker.setValue(LocalDate.now());
 	}
-	
+
 	public ListView<EventosModel> getEventosListView() {
 		return eventosListView;
 	}
 
 	public void clear() {
 		editarCrearController.clearForm();
-		editMode=false;
+		editMode = false;
 		rightPanel.getChildren().remove(0);
 		rightPanel.getChildren().add(eventsPane);
 	}
-	
-	
 
 	public CrearEditarEventosController getEditarCrearController() {
 		return editarCrearController;
