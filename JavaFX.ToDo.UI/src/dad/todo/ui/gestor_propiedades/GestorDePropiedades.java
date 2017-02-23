@@ -454,15 +454,7 @@ public void crearNuevoEstilo(String text)  {
 	System.out.println(style.getPath());
 	currentStyle.set(style);
 	
-//	flag=false;
-//	
-//	base1.setValue(style.getBase1());
-//	base2.setValue(style.getBase2());
-//	texto1.setValue(style.getTexto1());
-//	texto2.setValue(style.getTexto2());
-//	fondo.setValue(style.getFondo());	
-//		
-//	flag=true;
+
 	
 	}
 

@@ -126,8 +126,6 @@ public class LoginController implements Initializable {
 		} else {
 			System.err.println("LoginController: credenciales incorrectas ");
 				tr.playFromStart();
-		    
-		    
 			
 		}
 

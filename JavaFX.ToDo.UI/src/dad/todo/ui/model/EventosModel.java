@@ -315,8 +315,7 @@ public EventosModel() {
 			alert.setContentText("Una vez borrado el evento no podrá recuperarlo "
 					+ "\n en su lugar usted podría marcar este evento como finalizado.");
 			
-			alert.getDialogPane().getStylesheets().add(
-					   getClass().getResource("../gestor_propiedades/"+App.gestorDePropiedades.currentStyleProperty().getValue().getFileName()).toExternalForm());
+			alert.getDialogPane().getStylesheets().add("file:///"+App.gestorDePropiedades.getCurrentStyle().getPath().toString().replace("\\", "/"));
 			alert.getDialogPane().getStyleClass().add("myDialog");
 			ToDoController.okSound.play();
 			Optional<ButtonType> result = alert.showAndWait();
@@ -334,7 +333,7 @@ public EventosModel() {
 	public void onMapButtonAction(ActionEvent event) {
 		if (getLugar() != null) {
 
-			// TODO
+			// TODO/
 			System.out.println("mostrar mapa ");
 			try {
 
@@ -392,10 +391,9 @@ public EventosModel() {
 	
 	@FXML
 	void onEventClicked(MouseEvent event) {
-		if (event.getButton() == MouseButton.SECONDARY) {
+//		if (event.getButton() == MouseButton.SECONDARY) {
 //			popup.show(this.getScene().getWindow(),event.getSceneX(),event.getScreenY());
-			System.out.println("eventoClicked");
-		} else {
-		}
+//		} else {
+//		}
 	}
 }
