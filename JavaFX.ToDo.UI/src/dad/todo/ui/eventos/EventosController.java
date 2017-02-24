@@ -117,6 +117,11 @@ public class EventosController implements Initializable {
 
 		calendarioController = new CalendarioController();
 		calendarContainer.setCenter(calendarioController);
+		calendarioController.dayClickedEventProperty().addListener(e->{
+			if (editMode) {
+				changeViewToEventsList(fechaEventosDatePicker.getValue());
+			}
+		});
 
 		calendarioController.specialDaysProperty().bind(diasConEventos);
 		fechaEventosDatePicker.valueProperty().addListener((obs, oldValue, newValue) -> onFechaChange(newValue));
@@ -157,9 +162,10 @@ public class EventosController implements Initializable {
 
 		contextMenu.getItems().addAll(button1, button2);
 
-		contextMenu.setStyle(
-				".menu-item { -fx-background-color: -fx-base1; } .menu-item:hover { -fx-background-color: -fx-base2; } .menu-item:pressed { -fx-background-color: #004C65; } .context-menu { -fx-background-color: transparent; }");
 
+//		contextMenu.setOnShown(jfoenixbug->contextMenu.setStyle(
+//				".menu-item { -fx-background-color: -fx-base1; } .menu-item:hover { -fx-background-color: -fx-base2; } .menu-item:pressed { -fx-background-color: #004C65; } .context-menu { -fx-background-color: transparent; }"));
+	
 		eventosListView.setCellFactory(lv -> {
 
 			ListCell<EventosModel> cell = new ListCell<EventosModel>() {

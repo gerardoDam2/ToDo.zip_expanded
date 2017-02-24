@@ -50,7 +50,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class CalendarioController extends BorderPane  implements Initializable{
+public  class CalendarioController extends BorderPane  implements Initializable{
 
 	private Task<Void> dateChekTask;
 	
@@ -61,6 +61,8 @@ public class CalendarioController extends BorderPane  implements Initializable{
 	private SetProperty<LocalDate> specialDays;
 	
 	private ObjectProperty<LocalDate> selectedDay;
+	
+	private IntegerProperty dayClickedEvent;
 	
 	@FXML
 	GridPane mesesPane;
@@ -76,7 +78,7 @@ public class CalendarioController extends BorderPane  implements Initializable{
 	public CalendarioController() {
 		selectedDay= new SimpleObjectProperty<>(this,"selectedDay",LocalDate.now());
 		
-		
+		dayClickedEvent= new SimpleIntegerProperty(this,"dayClickedEvent",1);
 		year = new SimpleIntegerProperty(this, "year", LocalDate.now().getYear());
 		specialDays= new SimpleSetProperty<>(this,"specialDays",FXCollections.observableSet());
 		specialDays.addListener((obs,oldV,newV)->onSpecialDaysChange());
@@ -143,9 +145,11 @@ public class CalendarioController extends BorderPane  implements Initializable{
 
 	private void onDayClickedAction(LocalDate newV) {
 		if (newV!=null) {
+			dayClickedEvent.set(getDayClickedEvent()*-1);
 			selectedDay.set(newV);
 		}
 	}
+
 
 	public synchronized void incrementarYear() {
 		
@@ -279,6 +283,21 @@ public class CalendarioController extends BorderPane  implements Initializable{
 	public void setSelectedDay(final LocalDate selectedDay) {
 		this.selectedDayProperty().set(selectedDay);
 	}
+
+	public IntegerProperty dayClickedEventProperty() {
+		return this.dayClickedEvent;
+	}
+	
+
+	public int getDayClickedEvent() {
+		return this.dayClickedEventProperty().get();
+	}
+	
+
+	public void setDayClickedEvent(final int dayClickedEvent) {
+		this.dayClickedEventProperty().set(dayClickedEvent);
+	}
+	
 	
 	
 
