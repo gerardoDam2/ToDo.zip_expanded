@@ -39,7 +39,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <JFXDatePicker fx:id="fechaEventosDatePicker" styleClass="test" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <JFXDatePicker fx:id="fechaEventosDatePicker" editable="false" style="-fx-default-color: -fx-base1;" styleClass="test" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                      </children>
                      <BorderPane.margin>
                         <Insets bottom="10.0" left="5.0" right="1.0" top="5.0" />

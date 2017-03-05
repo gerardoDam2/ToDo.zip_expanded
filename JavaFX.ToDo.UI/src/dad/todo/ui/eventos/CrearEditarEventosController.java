@@ -15,6 +15,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
 import com.jfoenix.validation.RequiredFieldValidator;
 import com.jfoenix.validation.base.ValidatorBase;
 
@@ -39,6 +40,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
@@ -83,6 +85,9 @@ public class CrearEditarEventosController implements Initializable {
 
 	@FXML
 	private GridPane gridContainer;
+	
+    @FXML
+    private JFXToggleButton locToggleButton;
 
 	private BooleanProperty horaFinValidator;
 
@@ -105,12 +110,16 @@ public class CrearEditarEventosController implements Initializable {
 	private AudioClip okSound;
 
 	private AudioClip errorSound;
+	
+	private BooleanProperty cargando;
 
 	public CrearEditarEventosController(EventosController eventosController) {
 		this.horaFinValidator = new SimpleBooleanProperty(this, "horaFinValidator");
 		this.fechaValidator = new SimpleBooleanProperty(this, "fechaValidator");
 		this.eventosController = eventosController;
 		listaDirecciones = new SimpleSetProperty<>(this, "listaDirecciones", FXCollections.observableSet());
+		cargando= new SimpleBooleanProperty(this,"cargando");
+		
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("CrearEditarEvento.fxml"));
 			loader.setController(this);
@@ -203,6 +212,7 @@ public class CrearEditarEventosController implements Initializable {
 				@Override
 				protected Void call() {
 					try {
+						cargando.set(true);
 						ServiceFactory.getEventosService().actualizarEvento(eventoItem);
 						ToDoController.notificator.enqueue(new SnackbarEvent("Evento Guardado "));
 						okSound.play();
@@ -218,6 +228,10 @@ public class CrearEditarEventosController implements Initializable {
 				}
 			};
 
+			guardarTask.setOnSucceeded(f->{
+				cargando.set(false);
+				onCancelarAction(null);
+				});
 			new Thread(guardarTask).start();
 			onCancelarAction(null);
 
@@ -227,6 +241,8 @@ public class CrearEditarEventosController implements Initializable {
 				@Override
 				protected Void call() {
 					try {
+						cargando.set(true);
+
 						ServiceFactory.getEventosService().crearEvento(eventoItem);
 						ToDoController.notificator.enqueue(new SnackbarEvent("Evento Creado"));
 						okSound.play();
@@ -240,7 +256,11 @@ public class CrearEditarEventosController implements Initializable {
 					return null;
 				}
 			};
-			crearTask.setOnSucceeded(f->onCancelarAction(null));
+			crearTask.setOnSucceeded(f->{
+				onCancelarAction(null);
+				cargando.set(false);
+
+			});
 			new Thread(crearTask).start();
 
 		}
@@ -261,15 +281,17 @@ public class CrearEditarEventosController implements Initializable {
 			gridContainer.add(mapaDemigrante, 0, 6);
 			GridPane.setColumnSpan(mapaDemigrante, 2);
 			
+			view.getScene().cursorProperty().bind(new When(cargando).then(Cursor.DEFAULT).otherwise(Cursor.WAIT));
 		});
 	
+
 		
 		horaInicioDatePicker.setValue(LocalDate.now());
 		horaInicioDatePicker.setTime(LocalTime.now());
 		horaFinDatePicker.setValue(LocalDate.now());
 		horaFinDatePicker.setTime(LocalTime.now().plusHours(1));
 
-		// validar hora
+		// validar horay
 		horaFinErrorLabel.setVisible(false);
 		horaFinDatePicker.timeProperty().addListener(e -> onDatePickersChange());
 		horaInicioDatePicker.timeProperty().addListener(e -> onDatePickersChange());

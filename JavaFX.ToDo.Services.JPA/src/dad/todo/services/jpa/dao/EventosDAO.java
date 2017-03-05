@@ -25,7 +25,6 @@ public class EventosDAO {
 		EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
-				//TODO comprobar sin con hacer un fromItem es suficiente
 				Usuario usuarioEntiy = em.find(Usuario.class, usuario.getUsername());
 				evento.setUsuario(usuarioEntiy);
 				usuarioEntiy.getEventos().add(evento);

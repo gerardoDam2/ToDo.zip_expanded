@@ -59,7 +59,6 @@ public  class MapV2 extends StackPane implements Initializable {
 		try {
 			loader.load();
 		} catch (IOException e) {
-			onMapaDemigranteExeption();
 
 		}
 	}
@@ -87,7 +86,6 @@ public  class MapV2 extends StackPane implements Initializable {
 				} catch (UnsupportedEncodingException e) {
 				} catch (MalformedURLException e) {
 				}finally {
-					onMapaDemigranteExeption();
 				}
 
 				
@@ -114,7 +112,6 @@ public  class MapV2 extends StackPane implements Initializable {
 				direccion.set(ObjGeocod.getAddressFound());
 				mapa.renombrarMarca(direccion.get());
 			} catch (Exception e) {
-				onMapaDemigranteExeption();
 			}
 
 		}
@@ -167,7 +164,6 @@ public  class MapV2 extends StackPane implements Initializable {
 			lugarSearchTextField.textProperty().set(direccion.get());
 			mapa.renombrarMarca(direccion.get());
 		} catch (Exception e) {
-			onMapaDemigranteExeption();
 
 		}
 	}
@@ -194,7 +190,5 @@ public  class MapV2 extends StackPane implements Initializable {
 		this.mapa = mapa;
 	}
 	
-	public  void onMapaDemigranteExeption(){
-		ToDoController.notificator.show("Ops, hemos tenido un problema al cargar el mapa \n haz clic derecho sobre el mapa para recargarlo", 5000);
-	};
+	
 }

@@ -8,17 +8,13 @@ import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXColorPicker;
 import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
 import com.jfoenix.controls.JFXTextField;
-import com.sun.org.apache.xerces.internal.util.ParserConfigurationSettings;
-import com.sun.xml.internal.bind.v2.TODO;
 
 import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
 import dad.todo.services.items.UsuarioItem;
-import dad.todo.ui.gestor_propiedades.GestorDePropiedades;
 import dad.todo.ui.gestor_propiedades.TodoStyleModel;
 import dad.todo.ui.model.UsuarioModel;
 import dad.todo.ui.utils.ValidatorUtil;

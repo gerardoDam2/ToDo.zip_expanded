@@ -3,38 +3,17 @@
  */
 package dad.todo.ui;
 
-import java.io.File;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ResourceBundle;
 
-import org.scenicview.ScenicView;
-import org.scenicview.view.ScenegraphTreeView;
 
 import com.jfoenix.controls.JFXDecorator;
 
-import dad.calendario.CalendarioController;
-import dad.todo.services.ServiceFactory;
-import dad.todo.services.items.UsuarioItem;
 import dad.todo.services.jpa.utils.JPAUtil;
 import dad.todo.ui.gestor_propiedades.GestorDePropiedades;
 import dad.todo.ui.login.LoginController;
-import dad.todo.ui.model.UsuarioModel;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
