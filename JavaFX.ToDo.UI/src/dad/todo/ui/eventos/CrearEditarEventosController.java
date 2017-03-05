@@ -146,14 +146,16 @@ public class CrearEditarEventosController implements Initializable {
 		horaFinDatePicker.setTime(evento.getHoraFin());
 		descripcionTextArea.setText(evento.getDescripcion());
 		realizadaCheckBox.setSelected(evento.isTerminada());
-		if (evento.getLugar() != null)
+		if (evento.getLugar() != null){
 			try {
+				locToggleButton.setSelected(true);
 				mapaDemigrante.setLugar(evento.getLugar().getDescripccion(), evento.getLugar().getLatitud(),evento.getLugar().getLongitud());
 			} catch (Exception e) {
-				System.out.println("mapa demigrante esta fallando  en CrearEditarEventos:initEdit ");
 				notificarFalloMapa();
 			}
-
+		}else{
+			locToggleButton.setSelected(false);
+		}
 	}
 
 	// TODO
@@ -192,7 +194,7 @@ public class CrearEditarEventosController implements Initializable {
 		eventoItem.setFecha(TimeUtils.localDateToDate(fechaDatePicker.getValue(), horaInicioDatePicker.getTime()));
 
 		if (mapaDemigrante.getLugarSearchTextField().getText().trim().length() != 0
-				&& !mapaDemigrante.getDireccion().equals("sin dirección")) {
+				&& locToggleButton.isSelected() && !mapaDemigrante.getDireccion().equals("No data")) {
 			LugarItem lugar = new LugarItem();
 			lugar.setDescripcion(mapaDemigrante.getDireccion());
 			lugar.setLatitud(mapaDemigrante.getLatitud());
@@ -271,6 +273,7 @@ public class CrearEditarEventosController implements Initializable {
 		fechaDatePicker.setValue(localDate);
 		horaInicioDatePicker.setTime(LocalTime.now());
 		horaFinDatePicker.setTime(LocalTime.now().plusHours(1));
+		locToggleButton.setSelected(false);
 
 	}
 
@@ -278,11 +281,14 @@ public class CrearEditarEventosController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		Platform.runLater(()->{
 			mapaDemigrante = new MapV2();
-			gridContainer.add(mapaDemigrante, 0, 6);
+			gridContainer.add(mapaDemigrante, 0, 7);
 			GridPane.setColumnSpan(mapaDemigrante, 2);
-			
-			view.getScene().cursorProperty().bind(new When(cargando).then(Cursor.DEFAULT).otherwise(Cursor.WAIT));
+			mapaDemigrante.disableProperty().bind(locToggleButton.selectedProperty().not());
+			mapaDemigrante.opacityProperty().bind(new When(mapaDemigrante.disabledProperty()).then(0.3).otherwise(1));
+		//	view.getScene().cursorProperty().bind(new When(cargando).then(Cursor.DEFAULT).otherwise(Cursor.WAIT));
 		});
+		
+		
 	
 
 		
