@@ -1,20 +1,17 @@
 *{
-/*:Amarillo;*/
--fx-base1:#009688;
+/*:test;*/
+-fx-base1:#00BCD4;
 -fx-base2:#FF6F00;
--fx-color-texto:#FAFAFA;
+-fx-color-texto:#212121;
 -fx-color-texto-headers:#FAFAFA;
 -fx-color-fondo:#FFF9C4;
 }
 
 
 
-
-
 .root {
 	    -fx-background-color: white;
 }
-
 .green-hamburger > StackPane {
     -fx-background-color: -fx-color-texto-headers;
 }
@@ -51,20 +48,14 @@
 	-fx-border-color:-fx-base1;
 	-fx-border-width: 3 3 3 3;
 }
-
 .jfx-tab-pane .tab-header-area .jfx-rippler{
     -fx-rippler-fill:-fx-base2;
 }
 .jfx-tab-pane .tab-header-area .jfx-rippler{
     -fx-rippler-fill:-fx-color-texto-headers;
 }
-
-
-/*
- * BARRA DE NOTIFICACIONES
- */
 .jfx-snackbar-content {
-		-fx-background-color: transparent,-fx-base2 ,-fx-base1;
+	-fx-background-color: transparent,-fx-base2 ,-fx-base1;
     -fx-padding: 2;
     -fx-spacing: 2;
     -fx-border-radius: 40;
@@ -73,30 +64,23 @@
     -fx-border-insets: 10px;
     -fx-background-insets: 0px,3px,6px;
 }
-
 .jfx-snackbar-toast {
-
 	-fx-text-fill: -fx-color-texto-headers;
 	-fx-font-size: 16;
 }
-
 .jfx-snackbar-action {
 	-fx-text-fill: -fx-base2;
 }
-
-
 .windowbutton{
 -fx-stroke: white;
 -fx-fill: white;
 -fx-background-color: transparent ;
 -fx-padding: 2 2 2 5;
 }
-
-/*
- * DIALOGO
- */
 .myDialog{
     -fx-background-color: -fx-color-fondo;
+    -fx-border-color: -fx-base2;
+    -fx-border-width: 2px;
 }
 .myDialog > *.button-bar > *.container{
     -fx-background-color: -fx-color-fondo;
@@ -114,23 +98,16 @@
     -fx-font-style: italic;
     -fx-text-fill: -fx-color-texto;
 }
-
 .dialog-pane .button{
    -fx-background-color:-fx-base1;
    -fx-text-fill:-fx-color-texto-headers;
    -fx-wrap-text: true;
  }
-
  .dialog-pane .button{
    -fx-background-color:-fx-base2;
    -fx-text-fill:-fx-color-texto-headers;
    -fx-wrap-text: true;
  }
-
-/*
- * CALENDAR
- */
-
  .changeButton{
 	-fx-text-fill: -fx-base1;
 	-fx-font-weight: bold;
@@ -139,80 +116,57 @@
 	-fx-opacity: 0.6;
 	-fx-padding: 0;
 }
-
 .changeButton:hover{
 			-fx-opacity: 1;
-
-
 }
-
 .month{
 	-fx-font-size: 13pt;
 	-fx-font-weight: bold;
 	-fx-background-color: -fx-base1;
 		-fx-text-fill: -fx-color-texto-headers;
 }
-
 .year{
 	-fx-font-family: "Arial";
 	-fx-font-weight: bold;
 	-fx-font-size:22pt;
 	-fx-text-fill: -fx-base1;
 }
-
 .weekday{
 	-fx-font-weight: bold;
 }
-
 .day{
 	-fx-font-size: 15;
 	-fx-font-style: italic ;
 	-fx-border-color: transparent;
 	-fx-border-width: 2;
 }
-
 .day:hover {
 	-fx-border-color: -fx-base1;
 	-fx-border-style: solid ;
 		-fx-border-radius: 20;
-
 }
-
 .emptyday{
 	-fx-border-color: transparent;
 	-fx-border-width: 2;
 }
-
 .emptyday:hover{
 		-fx-border-color: transparent;
 }
-
 .componenteMes{
-
 }
-
 .today{
 	-fx-text-fill:-fx-base1;
 	-fx-border-width: 2;
 	-fx-border-radius: 20;
 	-fx-font-weight: bold;
 }
-
 .sunday{
 	-fx-text-fill: red;
 }
-
-
-
 .specialDay{
 	-fx-background-color: -fx-base2;
 	-fx-background-radius: 20;
 }
-
-/*
- * PANELES
- */
-
 .pruebaScroll {
 	-fx-background-insets: 0;
 	-fx-border-insets: 0;
@@ -220,19 +174,10 @@
 	-fx-background-insets: 0 ;
 	-fx-background-color: -fx-color-fondo;
 }
-
-
 .split-pane *.split-pane-divider {
     -fx-background-color: -fx-base1;
     -fx-pref-width: 4px;
 }
-
-
-
-/*
- * LISTVIEW
- */
-
 .list-view .list-cell {
     -fx-padding: 10px ;
     -fx-background-color: transparent, -fx-base1 ;
@@ -240,32 +185,21 @@
     -fx-border-radius: 20px;
     -fx-background-radius: 20px;
 }
-
 .list-view .list-cell:empty {
     -fx-padding: 10px ;
     -fx-background-color: transparent ;
     -fx-background-insets: 0 ;
 }
-
 .list-view .list-cell:filled:hover {
          -fx-background-color: -fx-base2, -fx-base1;
 }
-
 .list-view .list-cell:filled:selected:focused, .listview .list-cell:filled:selected {
       -fx-background-color: transparent,-fx-base2;
     -fx-text-fill:-fx-color-texto-headers;
 }
-
-
-/*
- * COMBO BOX
- */
-
-
 .combo-box .arrow, .combo-box .arrow-button{
     -fx-background-color: transparent;
 }
-
 .combo-box
 {
     -fx-background: -fx-base1;
@@ -276,11 +210,9 @@
     -fx-background-radius:20;
     -fx-background-insets:3;
 }
-
 .combo-box:selected
 {
 	    -fx-background-insets:0;
-
     -fx-background: -fx-base2;
     -fx-background-color: -fx-base2;
     -fx-text-fill: -fx-color-texto-headers;
@@ -288,21 +220,14 @@
     -fx-cell-size: 1.66667em;
     -fx-background-radius:20;
 }
-
-
-
 .combo-box .list-cell
 {
-
     -fx-text-fill: -fx-color-texto-headers;
-
 }
-
 .combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view .list-cell:filled:selected:hover
 {
 -fx-background-insets:0;
 }
-
 .titled-pane
 {
 -fx-text-fill: -fx-color-texto-headers;
@@ -312,7 +237,6 @@
 {
 	-fx-background-color:-fx-base2;
 }
-
 .titled-pane:hover .title{
 -fx-background-color:-fx-base2;
 }
@@ -324,14 +248,11 @@
 -fx-font-size: 18;
 -fx-border-width:1 0 0 0;
 -fx-border-color: -fx-color-fondo;
-
 }
-
 .titled-pane:focused > .title
 {
 -fx-background-color: -fx-base2;
 }
-
 .titled-pane > .title > .arrow-button
 {
 -fx-background-color: null;
@@ -339,35 +260,28 @@
 -fx-background-radius: 0;
 -fx-padding: 0.0em 0.25em 0.0em 0.0em; /* 0 3 0 0 */
 }
-
 .titled-pane > .title > .arrow-button .arrow
 {
 -fx-shape: " ";
 }
-
 .titled-pane:collapsed > .title > .arrow-button .arrow
 {
 }
-
-.titled-pane > *.content
-{
+.titled-pane > *.content{
 -fx-background-color:
 -fx-box-border,
 linear-gradient(to bottom, derive(-fx-color,-02%), derive(-fx-color,65%) 12%,      derive(-fx-color,23%) 88%, derive(-fx-color,50%) 99%, -fx-box-border);
 -fx-background-insets: 0, 0 1 1 1;
 -fx-padding: 0.167em;
  }
-
 .texth1{
 	-fx-text-fill: -fx-color-texto-headers;
 -fx-font-size: 18;
 }
-
 .buttonOk {
 	-fx-background-color: -fx-base1;
 	-fx-text-fill: -fx-color-texto-headers;
 }
-
 .buttonCancel{
 	-fx-background-color: -fx-base2;
 	-fx-text-fill: -fx-color-texto-headers;
@@ -376,26 +290,17 @@ linear-gradient(to bottom, derive(-fx-color,-02%), derive(-fx-color,65%) 12%,   
 	-fx-background-color: -fx-base1;
 	-fx-text-fill: -fx-color-texto-headers;
 }
-
 .buttonCancel:selected{
 	-fx-background-color: -fx-base1;
 	-fx-text-fill: -fx-color-texto-headers;
 }
-
-
-
 .circularBUtton{
 	-fx-background-color: -fx-base1;
 	-fx-background-radius: 20;
 }
-
 .circularBUtton:hover{
 		-fx-background-color: -fx-base2;
-
 }
-
-
-
 .scroll-bar{
  -fx-background-color: -fx-base1;
  -fx-background-radius: 20px;
@@ -466,20 +371,15 @@ linear-gradient(to bottom, derive(-fx-color,-02%), derive(-fx-color,65%) 12%,   
 .scroll-bar:horizontal:focused {
  -fx-background-color: -fx-color-fondo;
 }
-
-
 .menu-item {
      -fx-background-color: -fx-base1;
 }
-
 .menu-item:hover {
     -fx-background-color: -fx-base2;
 }
-
 .menu-item:pressed {
     -fx-background-color: #004C65;
 }
-
 .context-menu {
     -fx-background-color: transparent;
 }

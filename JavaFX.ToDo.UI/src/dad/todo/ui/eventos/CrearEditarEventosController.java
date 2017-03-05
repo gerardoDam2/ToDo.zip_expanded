@@ -194,7 +194,7 @@ public class CrearEditarEventosController implements Initializable {
 		eventoItem.setFecha(TimeUtils.localDateToDate(fechaDatePicker.getValue(), horaInicioDatePicker.getTime()));
 
 		if (mapaDemigrante.getLugarSearchTextField().getText().trim().length() != 0
-				&& locToggleButton.isSelected() && !mapaDemigrante.getDireccion().equals("No data")) {
+				&& locToggleButton.isSelected() && !mapaDemigrante.getDireccion().equals("No data") && !mapaDemigrante.getLugarSearchTextField().getText().equals("sin dirección")) {
 			LugarItem lugar = new LugarItem();
 			lugar.setDescripcion(mapaDemigrante.getDireccion());
 			lugar.setLatitud(mapaDemigrante.getLatitud());

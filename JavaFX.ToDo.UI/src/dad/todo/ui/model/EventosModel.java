@@ -312,8 +312,8 @@ public EventosModel() {
 			alert.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("../images/Cancel-48.png"))));
 			alert.setTitle("Eliminar evento");
 			alert.setHeaderText("¿Esta seguro de borrar este evento?");
-			alert.setContentText("Una vez borrado el evento no podrá recuperarlo "
-					+ "\n en su lugar usted podría marcar este evento como finalizado.");
+			alert.setContentText("Una vez borrado el evento no podrá recuperarlo,"
+					+ "\nen su lugar usted podría marcar este evento como finalizado.");
 			
 			alert.getDialogPane().getStylesheets().add("file:///"+App.gestorDePropiedades.getCurrentStyle().getPath().toString().replace("\\", "/"));
 			alert.getDialogPane().getStyleClass().add("myDialog");
