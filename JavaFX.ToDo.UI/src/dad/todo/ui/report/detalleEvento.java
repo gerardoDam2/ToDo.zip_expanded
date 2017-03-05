@@ -4,14 +4,12 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
 import dad.todo.services.items.EventoItem;
 import dad.todo.ui.model.EventosModel;
-import dad.todo.ui.utils.TimeUtils;
 
 public class detalleEvento {
 	

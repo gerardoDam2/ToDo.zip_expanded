@@ -3,51 +3,36 @@ package dad.calendario;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Set;
-import java.util.concurrent.Semaphore;
 
-import javax.print.attribute.standard.DialogTypeSelection;
 
 import dad.calendario.MonthCalendar;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
-import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SetProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleSetProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public  class CalendarioController extends BorderPane  implements Initializable{
@@ -98,18 +83,17 @@ public  class CalendarioController extends BorderPane  implements Initializable{
 
 		anyoLabel.textProperty().bind(year.asString());
 		
-		selectedDay.addListener((obs,oldV,newV)-> {
-			if (newV.getYear()>year.get())
-				while(newV.getYear()!=year.get())
-				incrementarYear();
-			else
-				while(newV.getYear()!=year.get())
-				decrementarYear();
-			
+		Platform.runLater(()->{
+			selectedDay.addListener((obs,oldV,newV)-> {
+				if (newV.getYear()>year.get())
+					while(newV.getYear()!=year.get())
+					incrementarYear();
+				else
+					while(newV.getYear()!=year.get())
+					decrementarYear();
+			});
 		});
-
-
-
+		
 	}
 	
 	private void onSpecialDaysChange() {
@@ -140,7 +124,6 @@ public  class CalendarioController extends BorderPane  implements Initializable{
 
 		}
 		
-		
 	}
 
 	private void onDayClickedAction(LocalDate newV) {
@@ -151,7 +134,7 @@ public  class CalendarioController extends BorderPane  implements Initializable{
 	}
 
 
-	public synchronized void incrementarYear() {
+	public  void incrementarYear() {
 		
 		
 		
@@ -196,7 +179,7 @@ public  class CalendarioController extends BorderPane  implements Initializable{
 	}
 
 	
-	public synchronized void decrementarYear() {
+	public  void decrementarYear() {
 		double x=300;
 		SnapshotParameters sp = new SnapshotParameters();
 		sp.setFill(Color.TRANSPARENT);
@@ -300,12 +283,6 @@ public  class CalendarioController extends BorderPane  implements Initializable{
 	
 	
 	
-
-	
-	
-	
-	
-
 
 
 }

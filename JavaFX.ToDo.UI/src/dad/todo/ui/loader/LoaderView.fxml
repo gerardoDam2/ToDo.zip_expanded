@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<Pane fx:id="view" prefHeight="271.0" prefWidth="436.0" style="-fx-background-color: #424242;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text fill="WHITE" layoutX="73.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T" textAlignment="CENTER">
+         <font>
+            <Font name="Leelawadee UI" size="96.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="214.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="D" textAlignment="CENTER">
+         <font>
+            <Font name="Leelawadee UI" size="96.0" />
+         </font>
+      </Text>
+      <AnchorPane fx:id="oPane" layoutX="113.0" layoutY="32.0" prefHeight="200.0" prefWidth="258.0">
+         <children>
+            <Text fill="#ff5722" layoutX="20.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="O" textAlignment="CENTER">
+               <font>
+                  <Font name="Leelawadee UI" size="96.0" />
+               </font>
+            </Text>
+            <Text fill="#ff5722" layoutX="179.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="O" textAlignment="CENTER">
+               <font>
+                  <Font name="Leelawadee UI" size="96.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <Text fill="WHITE" layoutX="7.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Desarrolado por Gerardo Mederos">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="3.0" layoutY="10.0" strokeType="OUTSIDE" strokeWidth="0.0" text="cargando...">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+   </children>
+</Pane>

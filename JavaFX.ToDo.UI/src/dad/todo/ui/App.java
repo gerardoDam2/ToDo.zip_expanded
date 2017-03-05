@@ -9,9 +9,11 @@ import com.jfoenix.controls.JFXDecorator;
 
 import dad.todo.services.jpa.utils.JPAUtil;
 import dad.todo.ui.gestor_propiedades.GestorDePropiedades;
+import dad.todo.ui.loader.LoaderController;
 import dad.todo.ui.login.LoginController;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -24,38 +26,45 @@ import javafx.stage.StageStyle;
 public class App extends Application  {
 
 
-	private ToDoController todoController;
 	static LoginController login;
 	public static GestorDePropiedades gestorDePropiedades;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		JPAUtil.initEntityManagerFactory("todo");
+		LoaderController l = new LoaderController(primaryStage);
 		
-        Thread.setDefaultUncaughtExceptionHandler(App::showError);
+		Thread.setDefaultUncaughtExceptionHandler(App::showError);
 		
-		gestorDePropiedades= new GestorDePropiedades();
-		 login= new LoginController();
 		
-		JFXDecorator decorator = new JFXDecorator(primaryStage, login.getView());
-		decorator.setCustomMaximize(false);
-		App.gestorDePropiedades.ocupatedelCssPorMi(decorator);
+		Task<Void> initTask = new Task<Void>() {
+			@Override
+			protected Void call() throws Exception {
+				// TODO Auto-generated method stub
+				JPAUtil.initEntityManagerFactory("todo");
+				gestorDePropiedades= new GestorDePropiedades();
+				return null;
+			}
+		};
 		
-	   
-	
-		HBox d=(HBox)decorator.getChildren().get(0);
-		d.getChildren().remove(0);
-		d.getChildren().remove(0);
-		d.getChildren().remove(0);
-		Scene scene = new Scene(decorator,500,430);
-		primaryStage.initStyle(StageStyle.UNDECORATED);
-		primaryStage.setResizable(false);
+		initTask.setOnSucceeded(s->{
+			login= new LoginController();
+			JFXDecorator decorator = new JFXDecorator(primaryStage, login.getView());
+			App.gestorDePropiedades.ocupatedelCssPorMi(decorator);
+			decorator.setCustomMaximize(false);
 		
-//		ScenicView.show(scene);
-		primaryStage.setScene(scene);
-
-	
+			HBox d=(HBox)decorator.getChildren().get(0);
+			d.getChildren().remove(0);
+			d.getChildren().remove(0);
+			d.getChildren().remove(0);
+			Scene scene = new Scene(decorator,500,430);
+			primaryStage.initStyle(StageStyle.UNDECORATED);
+			primaryStage.setResizable(false);
+			primaryStage.setScene(scene);
+			l.close();
+		});
+		
+		new Thread(initTask).start();
 
 	}
 
@@ -70,7 +79,7 @@ public class App extends Application  {
 
 	public static void main(String[] args) {
 		launch(args);
-	
+		// LauncherImpl.launchApplication(App.class, LoaderController.class, args);
 	}
 	
 	@Override

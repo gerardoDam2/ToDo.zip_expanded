@@ -15,7 +15,6 @@ import dad.todo.services.ServiceException;
 import dad.todo.services.items.EventoItem;
 import dad.todo.services.items.UsuarioItem;
 import dad.todo.services.jpa.entities.Evento;
-import dad.todo.services.jpa.entities.Lugar;
 import dad.todo.services.jpa.entities.Usuario;
 import dad.todo.services.jpa.utils.JPAUtil;
 
@@ -120,7 +119,8 @@ public class EventosDAO {
 		try {
 			 Query query = em.createQuery("FROM Evento  where usuario_username= :username");
 			 query.setParameter("username", usuario.getUsername());
-			   List<Evento> entityList = (List<Evento>)query.getResultList();
+			   @SuppressWarnings("unchecked")
+			List<Evento> entityList = (List<Evento>)query.getResultList();
 			   
 			   ListaItems = entityList.stream().map(evento->evento.toItem()).collect(Collectors.toList());
 		} catch (Exception e) {

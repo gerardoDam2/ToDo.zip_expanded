@@ -1,18 +1,15 @@
 package dad.todo.ui.utils;
 
 import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Double;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import org.controlsfx.control.textfield.TextFields;
 
 import com.lynden.gmapsfx.javascript.object.LatLong;
 
-import dad.todo.ui.ToDoController;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -22,11 +19,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-import jdk.nashorn.internal.codegen.ObjectClassGenerator;
 import maps.java.Geocoding;
 
 //TODO LIMPIAR ESTA MIERDA DE CODIGO

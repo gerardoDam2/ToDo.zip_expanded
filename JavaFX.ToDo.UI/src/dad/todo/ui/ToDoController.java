@@ -13,7 +13,6 @@ import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import dad.todo.services.ServiceException;
 import dad.todo.services.ServiceFactory;
 import dad.todo.ui.eventos.EventosController;
-import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
@@ -21,10 +20,8 @@ import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -34,11 +31,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Duration;
 
 public class ToDoController implements Initializable {
 	
@@ -205,7 +200,6 @@ public class ToDoController implements Initializable {
 		App.gestorDePropiedades.getPropiedades().setProperty("editar", editarChar.get());
 		App.gestorDePropiedades.getPropiedades().setProperty("borrar", borrarChar.get());
 		App.gestorDePropiedades.getPropiedades().setProperty("ubicacion", ubicacionChar.get());
-		
 	}
 
 	@Override

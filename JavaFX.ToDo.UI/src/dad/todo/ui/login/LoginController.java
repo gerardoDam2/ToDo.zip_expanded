@@ -18,7 +18,6 @@ import dad.todo.services.ServiceFactory;
 import dad.todo.services.items.UsuarioItem;
 import dad.todo.ui.App;
 import dad.todo.ui.ToDoController;
-import dad.todo.ui.gestor_propiedades.GestorDePropiedades;
 import dad.todo.ui.utils.ValidatorUtil;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
@@ -156,7 +155,6 @@ public class LoginController implements Initializable {
 			usuario.setEmail(emailRegisterTextField.getText());
 			try {
 				ServiceFactory.getUsuariosService().alta(usuario);
-				Notificator.success("Su cuenta ha sido creada correctamente");
 				usernameTextField.setText(usernameRegisterTextField.getText());
 				view.getSelectionModel().select(0);
 				clearRegisterFields();
@@ -221,27 +219,29 @@ public class LoginController implements Initializable {
 	}
 
 	private void chekAutoLogin() {
-	String userLogin=	App.gestorDePropiedades.getPropiedades().getProperty("user","no user");
-	if (userLogin.equals("no user")) {
-		show();
-	}else{
-		String pass=App.gestorDePropiedades.getPropiedades().getProperty("pass");
-		
-		try {
-			boolean respuesta = ServiceFactory.getUsuariosService().login(userLogin, pass);
-			if (respuesta) {
-				((Stage) view.getScene().getWindow()).hide();
-				loadTodoController();
-			}else{
+			String userLogin=	App.gestorDePropiedades.getPropiedades().getProperty("user","no user");
+			if (userLogin.equals("no user")) {
 				show();
-				App.gestorDePropiedades.getPropiedades().remove("user");
-				App.gestorDePropiedades.getPropiedades().remove("pass");
+
+			}else{
+				String pass=App.gestorDePropiedades.getPropiedades().getProperty("pass");
+				try {
+					boolean respuesta = ServiceFactory.getUsuariosService().login(userLogin, pass);
+					if (respuesta) {
+						((Stage) view.getScene().getWindow()).hide();
+						loadTodoController();
+
+					}else{
+						show();
+						App.gestorDePropiedades.getPropiedades().remove("user");
+						App.gestorDePropiedades.getPropiedades().remove("pass");
+					}
+				} catch (ServiceException e) {
+					e.printStackTrace();
+				}
 			}
-		} catch (ServiceException e) {
-			e.printStackTrace();
-		}
-	}
-		
+				
+	
 	}
 	
 	public void show() {

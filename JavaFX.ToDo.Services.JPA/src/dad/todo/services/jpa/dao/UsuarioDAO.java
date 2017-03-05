@@ -3,12 +3,10 @@ package dad.todo.services.jpa.dao;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import dad.todo.services.ServiceException;
 import dad.todo.services.items.UsuarioItem;
-import dad.todo.services.jpa.entities.Evento;
 import dad.todo.services.jpa.entities.Perfil;
 import dad.todo.services.jpa.entities.Usuario;
 import dad.todo.services.jpa.utils.JPAUtil;

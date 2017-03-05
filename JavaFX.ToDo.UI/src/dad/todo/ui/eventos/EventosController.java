@@ -1,11 +1,9 @@
 package dad.todo.ui.eventos;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -115,7 +113,7 @@ public class EventosController implements Initializable {
 		BorderPane borderpane = new BorderPane();
 		ImageView imagev = new ImageView(new Image(getClass().getResource("sinEventos.gif").toExternalForm()));
 		borderpane.setBottom(imagev);
-		borderpane.setAlignment(imagev, Pos.CENTER);
+		BorderPane.setAlignment(imagev, Pos.CENTER);
 		eventosListView.setPlaceholder(borderpane);
 
 		editarCrearController = new CrearEditarEventosController(this);
